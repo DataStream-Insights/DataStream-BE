@@ -24,30 +24,30 @@ public class Campaign {
     private Long id;
 
     @Column(name = "campaign_id")
-    private String campaignId;
+    private String campaign_id;
 
     private String category1;
     private String category2;
 
     @Column(name = "campaign_name")
-    private String campaignName;
+    private String campaign_name;
 
     private String status;
 
     @Column(name = "start_date")
-    private LocalDate startDate;
+    private LocalDate start_date;
 
     @Column(name = "end_date")
-    private LocalDate endDate;
+    private LocalDate end_date;
 
     @Column(name = "is_public")
-    private String isPublic;
+    private String is_public;
 
     private String department;
     private String author;
 
     @Column(name = "created_date")
-    private LocalDate createdDate;
+    private LocalDate created_date;
 
 //    @ElementCollection
 //    private List<String> tags;
