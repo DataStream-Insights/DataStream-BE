@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wnsud9771.entity.Campaign;
+import com.wnsud9771.dto.CampaignDTO;
 import com.wnsud9771.service.CampaignService;
 
 @RestController
@@ -18,7 +18,7 @@ public class CampaignController {
 	 private CampaignService campaignService;
 
 	    @GetMapping
-	    public List<Campaign> getAllCampaigns() {
+	    public List<CampaignDTO> getAllCampaigns() {
 	        return campaignService.getAllCampaigns();
 	    }
 	    
