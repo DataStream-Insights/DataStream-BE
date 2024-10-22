@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CampaignDTO {
-	private String no;
+	private Long no;
 	private String campaignId;
 	private String campaignClassification1;
     private String campaignClassification2;

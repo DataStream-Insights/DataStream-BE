@@ -32,6 +32,7 @@ public class CampaignService {
 
     private CampaignDTO convertToDTO(Campaign campaign) {
         CampaignDTO dto = new CampaignDTO();
+        dto.setNo(campaign.getId());
         dto.setCampaignId(campaign.getCampaign_id());
         Category1 category1 = campaign.getCategory2().getCategory1();
         dto.setCampaignClassification1(category1.getCategory1());
