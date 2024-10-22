@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class CampaignDTO {
-	private String campaign_id;
+	private String campaignId;
     private String category1;
     private String category2;
-    private String campaign_name;
+    private String campaignName;
     private String status;
-    private String start_date;
-    private String end_date;
-    private String is_public;
+    private String startDate;
+    private String endDate;
+    private String isPublic;
     private String department;
     private String author;
-    private String created_date;
+    private String createdDate;
 }
