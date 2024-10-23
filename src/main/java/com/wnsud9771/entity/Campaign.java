@@ -42,6 +42,8 @@ public class Campaign {
     private String campaign_name; // 캠페인 명
 
     private String status; // 상태
+    
+    private String customerType; //고객군 유형
 
     @Column(name = "start_date")
     private LocalDate start_date; //시작일자
