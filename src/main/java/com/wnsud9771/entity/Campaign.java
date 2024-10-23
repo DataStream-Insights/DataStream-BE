@@ -1,6 +1,7 @@
 package com.wnsud9771.entity;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -24,7 +27,7 @@ public class Campaign {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "campaign_id")
+	@Column(name = "campaign_id", unique = true, nullable = false, updatable = false)
     private String campaign_id; //캠페인 id
 
 //    @ManyToOne
@@ -69,8 +72,6 @@ public class Campaign {
     @Column(name = "tag")
     private String tag;
     
-    
-
-//    @ElementCollection
-//    private List<String> tags;
+  
 }
+
