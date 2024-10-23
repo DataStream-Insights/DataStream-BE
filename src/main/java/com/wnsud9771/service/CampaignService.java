@@ -87,6 +87,7 @@ public class CampaignService {
         Category1 category1 = category1Repository.findByCategory1(dto.getCampaignClassification1())
             .orElseThrow(() -> new RuntimeException("Category1 not found: " + dto.getCampaignClassification1()));
         campaign.setCategory1(category1);
+         
         
         // Category2 설정
         Category2 category2 = category2Repository.findByCategory2(dto.getCampaignClassification2())
