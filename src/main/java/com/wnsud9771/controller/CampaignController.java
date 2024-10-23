@@ -35,7 +35,7 @@ public class CampaignController {
 			// campaignDTO.setNo(null);
 			log.info("Received DTO: {}", campaignDTO);
 			CampaignDTO created = campaignService.createCampaign(campaignDTO);
-			return new RedirectView("/campaigns");
+			return new RedirectView("/");
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
 			return new RedirectView("/add");
