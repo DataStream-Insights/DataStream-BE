@@ -72,9 +72,11 @@ public class CampaignService {
         campaign.setCampaign_id(dto.getCampaignId());
         campaign.setCampaign_name(dto.getCampaignName());
         campaign.setStatus(dto.getStatus());
-        campaign.setIs_public(dto.getIsPublic());
-        campaign.setDepartment(dto.getDepartment());
-        campaign.setAuthor(dto.getAuthor());
+        campaign.setIs_public(dto.getVisibility());
+        Department department = new Department();
+        department.setDepartment(dto.getDepartment());
+        Author author = new Author();
+        author.setAuthor(dto.getAuthor());
         
         // 날짜 변환
         campaign.setStart_date(LocalDate.parse(dto.getStartDate()));
@@ -82,13 +84,13 @@ public class CampaignService {
         campaign.setWrite_date(LocalDate.parse(dto.getCreatedDate()));
         
         // Category1 설정
-        Category1 category1 = category1Repository.findByCategory1(dto.getCategory1())
-            .orElseThrow(() -> new RuntimeException("Category1 not found: " + dto.getCategory1()));
+        Category1 category1 = category1Repository.findByCategory1(dto.getCampaignClassification1())
+            .orElseThrow(() -> new RuntimeException("Category1 not found: " + dto.getCampaignClassification1()));
         campaign.setCategory1(category1);
         
         // Category2 설정
-        Category2 category2 = category2Repository.findByCategory2(dto.getCategory2())
-            .orElseThrow(() -> new RuntimeException("Category2 not found: " + dto.getCategory2()));
+        Category2 category2 = category2Repository.findByCategory2(dto.getCampaignClassification2())
+            .orElseThrow(() -> new RuntimeException("Category2 not found: " + dto.getCampaignClassification2()));
         campaign.setCategory2(category2);
         
         return campaign;

@@ -10,5 +10,5 @@ import com.wnsud9771.entity.Category2;
 
 
 public interface Category2Repository extends JpaRepository<Category2, Long>{
-	List<Category2> findByCategory1(Category1 category1);
+	 Optional<Category2> findByCategory2(String category2);
 }
