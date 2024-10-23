@@ -77,11 +77,15 @@ public class CampaignService {
 		campaign.setCampaign_name(dto.getCampaignName());
 		campaign.setStatus(dto.getStatus());
 		campaign.setIs_public(dto.getVisibility());
+		campaign.setTag(dto.getTags());
+		campaign.setCampaign_description(dto.getCampaignDescription());
+		campaign.setEnd_date_after(dto.getEndAfter());
+		campaign.setCustomerType(dto.getCustomerType());
 //        Department department = new Department();
 //        department.setDepartment(dto.getDepartment());
 //        Author author = new Author();
 //        author.setAuthor(dto.getAuthor());
-
+ 
 		// 날짜 변환
 		campaign.setStart_date(LocalDate.parse(dto.getStartDate()));
 		campaign.setEnd_date(LocalDate.parse(dto.getEndDate()));
