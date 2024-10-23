@@ -1,15 +1,17 @@
 package com.wnsud9771.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.wnsud9771.dto.CampaignDTO;
 import com.wnsud9771.service.CampaignService;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/campaigns")
 @Slf4j
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CampaignController {
 
 	@Autowired
@@ -29,16 +32,30 @@ public class CampaignController {
 		return campaignService.getAllCampaigns();
 	}
 
+//	@PostMapping("/add")
+//	public RedirectView createCampaign(@RequestBody CampaignDTO campaignDTO) {
+//		try {
+//			// campaignDTO.setNo(null);
+//			CampaignDTO created = campaignService.createCampaign(campaignDTO);
+//			return new RedirectView("/");
+//		} catch (Exception e) {
+//			return new RedirectView("/add");
+//		}
+//	}
+
 	@PostMapping("/add")
-	public RedirectView createCampaign(@RequestBody CampaignDTO campaignDTO) {
+	public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {
 		try {
-			// campaignDTO.setNo(null);
 			log.info("Received DTO: {}", campaignDTO);
 			CampaignDTO created = campaignService.createCampaign(campaignDTO);
-			return new RedirectView("/");
+			Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("data", created);
+            response.put("message", "Campaign created successfully");
+			return ResponseEntity.ok(created);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
-			return new RedirectView("/add");
+			throw e;
 		}
 	}
 	    
