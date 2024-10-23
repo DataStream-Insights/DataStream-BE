@@ -30,9 +30,9 @@ public class Campaign {
 	@Column(name = "campaign_id", unique = true, nullable = false, updatable = false)
 	private String campaign_id; // 캠페인 id
 
-	@ManyToOne
-	@JoinColumn(name = "category1_id")
-	private Category1 category1;
+//	@ManyToOne(optional=false)
+//	@JoinColumn(name = "category1_id")
+//	private Category1 category1;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category2_id")
