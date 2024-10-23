@@ -39,7 +39,8 @@ public class CampaignService {
         Category2 category2 = campaign.getCategory2();
         dto.setCampaignClassification2(category2.getCategory2());
         dto.setCampaignName(campaign.getCampaign_name());
-        dto.setCustomerType(campaign.getStatus());
+        dto.setStatus(campaign.getStatus());
+        dto.setCustomerType(campaign.getCustomerType());
         dto.setStartDate(campaign.getStart_date().toString());
         dto.setEndDate(campaign.getEnd_date().toString());
         dto.setVisibility(campaign.getIs_public());
