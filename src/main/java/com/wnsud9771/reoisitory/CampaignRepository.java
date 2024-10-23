@@ -7,5 +7,5 @@ import com.wnsud9771.entity.Campaign;
 
 @Repository
 public interface CampaignRepository extends JpaRepository<Campaign, Long> {
-
+	 //boolean existsByCampaign_id(String campaignId);
 }

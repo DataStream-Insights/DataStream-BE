@@ -10,6 +10,7 @@ public class CampaignDTO {
     private String campaignClassification2;
     private String campaignName;
     private String customerType;
+    private String status;
     private String startDate;
     private String endDate;
     private String visibility;
