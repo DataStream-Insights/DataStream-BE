@@ -25,6 +25,8 @@ public class CampaignController {
 	    public List<CampaignDTO> getAllCampaigns() {
 	        return campaignService.getAllCampaigns();
 	    }
+
+	    
 	    
 	    @PostMapping
 	    public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {

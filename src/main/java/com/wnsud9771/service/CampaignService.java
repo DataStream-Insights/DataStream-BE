@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.CampaignDTO;
+import com.wnsud9771.entity.Author;
 import com.wnsud9771.entity.Campaign;
 import com.wnsud9771.entity.Category1;
 import com.wnsud9771.entity.Category2;
+import com.wnsud9771.entity.Department;
 import com.wnsud9771.reoisitory.CampaignRepository;
 import com.wnsud9771.reoisitory.Category1Repository;
 import com.wnsud9771.reoisitory.Category2Repository;
@@ -32,22 +34,25 @@ public class CampaignService {
 
     private CampaignDTO convertToDTO(Campaign campaign) {
         CampaignDTO dto = new CampaignDTO();
+        dto.setNo(campaign.getId());
         dto.setCampaignId(campaign.getCampaign_id());
-        Category1 category1 = campaign.getCategory1();
-        dto.setCategory1(category1.getCategory1());
+        Category1 category1 = campaign.getCategory2().getCategory1();
+        dto.setCampaignClassification1(category1.getCategory1());
         Category2 category2 = campaign.getCategory2();
-        dto.setCategory2(category2.getCategory2());
+        dto.setCampaignClassification2(category2.getCategory2());
         dto.setCampaignName(campaign.getCampaign_name());
         dto.setStatus(campaign.getStatus());
+        dto.setCustomerType(campaign.getCustomerType());
         dto.setStartDate(campaign.getStart_date().toString());
         dto.setEndDate(campaign.getEnd_date().toString());
-        dto.setIsPublic(campaign.getIs_public());
-        dto.setDepartment(campaign.getDepartment());
-        dto.setAuthor(campaign.getAuthor());
+        dto.setVisibility(campaign.getIs_public());
+        Department department = campaign.getDepartment();
+        dto.setDepartment(department.getDepartment());
+        Author author = campaign.getAuthor();
+        dto.setAuthor(author.getAuthor());
         dto.setCreatedDate(campaign.getWrite_date().toString());
         return dto;
     }
-
     // 새로 추가하는 메서드들
     public CampaignDTO createCampaign(CampaignDTO dto) {
         // DTO를 엔티티로 변환
