@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.Category1DTO;
 import com.wnsud9771.dto.Category2DTO;
-import com.wnsud9771.entity.Category1;
-import com.wnsud9771.entity.Category2;
+import com.wnsud9771.entity.Campaignentity.Category1;
+import com.wnsud9771.entity.Campaignentity.Category2;
 import com.wnsud9771.reoisitory.Category1Repository;
 import com.wnsud9771.reoisitory.Category2Repository;
 

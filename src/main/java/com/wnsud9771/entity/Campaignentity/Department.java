@@ -1,4 +1,4 @@
-package com.wnsud9771.entity;
+package com.wnsud9771.entity.Campaignentity;
 
 import java.util.List;
 
@@ -16,13 +16,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Component
-public class Author {
+public class Department {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	private String author;
+	private String department; // 기안부서
 	
-	@OneToMany(mappedBy = "author")
+	@OneToMany(mappedBy = "department")
     private List<Campaign> campaigns;
 }

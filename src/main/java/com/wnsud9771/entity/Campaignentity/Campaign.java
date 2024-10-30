@@ -1,9 +1,11 @@
-package com.wnsud9771.entity;
+package com.wnsud9771.entity.Campaignentity;
 
 import java.time.LocalDate;
 import java.util.Random;
 
 import org.springframework.stereotype.Component;
+
+import com.wnsud9771.entity.Authorentity.Author;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
