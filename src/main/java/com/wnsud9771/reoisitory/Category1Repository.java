@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.wnsud9771.entity.Category1;
+import com.wnsud9771.entity.Campaignentity.Category1;
 
 @Repository
 public interface Category1Repository extends JpaRepository<Category1, Long> {

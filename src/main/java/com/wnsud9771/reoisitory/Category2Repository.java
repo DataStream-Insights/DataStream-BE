@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.wnsud9771.entity.Category1;
-import com.wnsud9771.entity.Category2;
+import com.wnsud9771.entity.Campaignentity.Category1;
+import com.wnsud9771.entity.Campaignentity.Category2;
 
 
 public interface Category2Repository extends JpaRepository<Category2, Long>{

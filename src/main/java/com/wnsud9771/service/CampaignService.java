@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.CampaignDTO;
-import com.wnsud9771.entity.Author;
-import com.wnsud9771.entity.Campaign;
-import com.wnsud9771.entity.Category1;
-import com.wnsud9771.entity.Category2;
-import com.wnsud9771.entity.Department;
+import com.wnsud9771.entity.Authorentity.Author;
+import com.wnsud9771.entity.Campaignentity.Campaign;
+import com.wnsud9771.entity.Campaignentity.Category1;
+import com.wnsud9771.entity.Campaignentity.Category2;
+import com.wnsud9771.entity.Campaignentity.Department;
 import com.wnsud9771.reoisitory.AuthorRepository;
 import com.wnsud9771.reoisitory.CampaignRepository;
 import com.wnsud9771.reoisitory.Category1Repository;
