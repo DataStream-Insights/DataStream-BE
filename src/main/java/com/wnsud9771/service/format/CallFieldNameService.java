@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.wnsud9771.dto.format.LogItemDTO;
 import com.wnsud9771.dto.format.TitleDTO;
 import com.wnsud9771.entity.Formatentity.FieldName;
 import com.wnsud9771.reoisitory.format.FieldNameRepository;
@@ -38,17 +39,17 @@ public class CallFieldNameService {
 	//------------------------------------------------------
 	
 	//--------------------log title 받아와서 검색후 밸류들 logitem에저장---------------------
-//	public List<LogItemDTO> findLogData(TitleDTO titleDTO) {
-//        // 1. title로 데이터 조회
-//        List<FieldName> fieldNames = fieldNameRepository.findByTitle(titleDTO.getTitle());
-//        
-//        // 2. LogItemDTO 리스트로 변환해서 반환
-//        return fieldNames.stream()
-//            .map(fieldName -> LogItemDTO.builder()
-//                .name(fieldName.getField_name())
-//                .value(fieldName.getItem_contents_ex())
-//                .build())
-//            .collect(Collectors.toList());
-//    }
+	public List<LogItemDTO> findLogData(TitleDTO titleDTO) {
+        // 1. title로 데이터 조회
+        List<FieldName> fieldNames = fieldNameRepository.findByTitle(titleDTO.getTitle());
+        
+        // 2. LogItemDTO 리스트로 변환해서 반환
+        return fieldNames.stream()
+            .map(fieldName -> LogItemDTO.builder()
+                .name(fieldName.getField_name())
+                .value(fieldName.getItem_contents_ex())
+                .build())
+            .collect(Collectors.toList());
+    }
 	
 }
