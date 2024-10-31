@@ -13,5 +13,5 @@ public interface FieldNameRepository extends JpaRepository<FieldName, Long>{
 //	List<FieldName> findByTitle(String title);
 //    @Query("SELECT DISTINCT l.title FROM FieldName l")
 //    List<String> findDistinctTitle();
-	
+	List<FieldName> findByTitle(String title);
 }
