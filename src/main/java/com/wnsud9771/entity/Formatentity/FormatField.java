@@ -6,9 +6,11 @@ import com.wnsud9771.entity.FIlterentity.FilterItem;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -32,11 +34,10 @@ public class FormatField { // 필드 설정 정보
 	private String file_format; // 파일 형식
 	
 	@OneToMany(mappedBy = "formatField", cascade = CascadeType.ALL)
-    private List<Format> formats;
+    private List<FormatManagement> formats;
 	
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "filterItem_id")
 	private FilterItem filterItem;
-	//private FilterItem filterItem;
-	//private FilterItem filterItem;
-	//private FilterItem filterItem;
+	
 }

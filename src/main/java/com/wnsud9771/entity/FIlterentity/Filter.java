@@ -26,6 +26,7 @@ public class Filter {  //필터링-> 행동정의 설정
     private Long id; 
 	
 	private String filteritem_list;
+	private String operation;
 	private String filteritem_type;
 	
 	@OneToMany(mappedBy = "filter", cascade = CascadeType.ALL)

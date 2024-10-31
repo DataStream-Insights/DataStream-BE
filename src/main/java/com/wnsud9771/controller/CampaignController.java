@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wnsud9771.dto.CampaignDTO;
-import com.wnsud9771.service.CampaignService;
+import com.wnsud9771.dto.campaign.CampaignDTO;
+import com.wnsud9771.service.Campaign.CampaignService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -13,13 +13,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Format { //format board
+public class FormatManagement { //format board
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	private String formatname;
-	private String formatID;
+	private String formatname; //format명
+	private String formatID; //formatID
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "formatField_id")
