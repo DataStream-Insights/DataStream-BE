@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wnsud9771.dto.Category1DTO;
-import com.wnsud9771.dto.Category2DTO;
-import com.wnsud9771.service.CategoryService;
+import com.wnsud9771.dto.campaign.Category1DTO;
+import com.wnsud9771.dto.campaign.Category2DTO;
+import com.wnsud9771.service.Campaign.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,8 +27,7 @@ public class CategoryController {
 	    }
 
 	    @GetMapping("/category2/{category1Id}")
-	    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(
-	            @PathVariable Long category1Id) {
+	    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(@PathVariable Long category1Id) {
 	        List<Category2DTO> categories = categoryService.getCategory2ByCategory1Id(category1Id);
 	        return ResponseEntity.ok(categories);
 	    }

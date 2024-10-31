@@ -1,4 +1,4 @@
-package com.wnsud9771.service;
+package com.wnsud9771.service.Campaign;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -6,17 +6,17 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.wnsud9771.dto.CampaignDTO;
+import com.wnsud9771.dto.campaign.CampaignDTO;
 import com.wnsud9771.entity.Authorentity.Author;
 import com.wnsud9771.entity.Campaignentity.Campaign;
 import com.wnsud9771.entity.Campaignentity.Category1;
 import com.wnsud9771.entity.Campaignentity.Category2;
 import com.wnsud9771.entity.Campaignentity.Department;
-import com.wnsud9771.reoisitory.AuthorRepository;
-import com.wnsud9771.reoisitory.CampaignRepository;
-import com.wnsud9771.reoisitory.Category1Repository;
-import com.wnsud9771.reoisitory.Category2Repository;
 import com.wnsud9771.reoisitory.DepartmentRepository;
+import com.wnsud9771.reoisitory.author.AuthorRepository;
+import com.wnsud9771.reoisitory.campaign.CampaignRepository;
+import com.wnsud9771.reoisitory.campaign.Category1Repository;
+import com.wnsud9771.reoisitory.campaign.Category2Repository;
 
 import lombok.RequiredArgsConstructor;
 

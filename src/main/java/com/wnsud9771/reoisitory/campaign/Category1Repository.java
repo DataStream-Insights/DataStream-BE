@@ -1,4 +1,4 @@
-package com.wnsud9771.reoisitory;
+package com.wnsud9771.reoisitory.campaign;
 
 import java.util.Optional;
 
