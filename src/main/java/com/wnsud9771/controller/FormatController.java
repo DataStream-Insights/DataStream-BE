@@ -39,13 +39,13 @@ public class FormatController {
 //        return ResponseEntity.ok(logParsingService.parseLog(start, end));
 //    }
 	
-//	@PostMapping("/posttitle") // log 제목 받기
-//	public ResponseEntity<List<LogItemDTO>>  findLogData(@RequestBody TitleDTO titleDTO) {
-//		log.info("받은 title: {}", titleDTO.getTitle());
-//		List<LogItemDTO> result = callFieldNameService.findLogData(titleDTO);
-//		log.info("조회된 field 정보: {}", result);
-//		return ResponseEntity.ok(result);
-//	}
+	@PostMapping("/posttitle") // log 제목 받기
+	public ResponseEntity<List<LogItemDTO>>  findLogData(@RequestBody TitleDTO titleDTO) {
+		log.info("받은 title: {}", titleDTO.getTitle());
+		List<LogItemDTO> result = callFieldNameService.findLogData(titleDTO);
+		log.info("조회된 field 정보: {}", result);
+		return ResponseEntity.ok(result);
+	}
 	
 //	@PostMapping("/psttitle2")
 //	public ResposeEntity<List<LogItemDTO>> findandparseLogData(@RequestBody TitleDTO titleDTO) {

@@ -24,12 +24,13 @@ public class FieldName {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "logTitle_id")
-	private LogTitle logtitle;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "logTitle_id")
+//	private LogTitle logtitle;
+	private String title;
 	
-	private String field_name; // format field의 필드명
-	private String item_contents_ex; //아이템 컨텐츠 예시 == formatfiled의 아이템 컨텐츠 예시
+	private String fieldname; // format field의 필드명
+	private String itemcontentsex; //아이템 컨텐츠 예시 == formatfiled의 아이템 컨텐츠 예시
 	
 	@OneToMany(mappedBy = "fieldName", cascade = CascadeType.ALL)
     private List<FilterItem> filterItems;
