@@ -12,11 +12,11 @@ import com.wnsud9771.entity.Campaignentity.Campaign;
 import com.wnsud9771.entity.Campaignentity.Category1;
 import com.wnsud9771.entity.Campaignentity.Category2;
 import com.wnsud9771.entity.Campaignentity.Department;
-import com.wnsud9771.reoisitory.DepartmentRepository;
 import com.wnsud9771.reoisitory.author.AuthorRepository;
 import com.wnsud9771.reoisitory.campaign.CampaignRepository;
 import com.wnsud9771.reoisitory.campaign.Category1Repository;
 import com.wnsud9771.reoisitory.campaign.Category2Repository;
+import com.wnsud9771.reoisitory.department.DepartmentRepository;
 
 import lombok.RequiredArgsConstructor;
 

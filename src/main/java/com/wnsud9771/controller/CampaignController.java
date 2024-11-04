@@ -32,17 +32,6 @@ public class CampaignController {
 		return campaignService.getAllCampaigns();
 	}
 
-//	@PostMapping("/add")
-//	public RedirectView createCampaign(@RequestBody CampaignDTO campaignDTO) {
-//		try {
-//			// campaignDTO.setNo(null);
-//			CampaignDTO created = campaignService.createCampaign(campaignDTO);
-//			return new RedirectView("/");
-//		} catch (Exception e) {
-//			return new RedirectView("/add");
-//		}
-//	}
-
 	@PostMapping("/add")
 	public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {
 		try {
@@ -59,10 +48,6 @@ public class CampaignController {
 		}
 	}
 	    
-	    
-//	    @PostMapping
-//	    public Campaign createCampaign(@RequestBody Campaign campaign) {
-//	        return campaignService.saveCampaign(campaign);
-//	    }
+
 
 }
