@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class FieldNameService {
 			"{\"title\":\"사용자 E의 상품 클릭 로그\",\"contents\":{\"timestamp\":\"2024-10-31T14:32:48+09:00\",\"visitor_id\":\"6ghh8e56i11j503f\",\"url\":\"https://example.com/products/category/sports\",\"event_action\":\"Click\",\"user_id\":\"user_123460\"}}" };
 
 	private final FieldNameRepository fieldNameRepository;
-
+	
 	@PostConstruct //임시로 로그데이터 바로 넣어버리기
 	public List<FieldNameDTO> processLogData() {
 		if (!fieldNameRepository.findAll().isEmpty()) { //임시로 위에 로그 데이터 있으면 db에 또 안들어가게 막기
@@ -84,7 +85,7 @@ public class FieldNameService {
 //		return dto;
 //	}
 
-	// 제목 목록만 가져오기
+//	// 제목 목록+ 서브 스트링 가져오기
 //	public List<String> getAllLogTitles() {
 //		return fieldNameRepository.findDistinctTitle(); // 또는 적절한 쿼리 메서드
 //	}

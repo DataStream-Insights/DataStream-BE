@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.format.LogItemDTO;
@@ -32,13 +33,26 @@ public class FormatController {
         
     }
 	
-	@PostMapping("/posttitle") // log 제목 받기
-	public ResponseEntity<List<LogItemDTO>>  findLogData(@RequestBody TitleDTO titleDTO) {
-		log.info("받은 title: {}", titleDTO.getTitle());
-		List<LogItemDTO> result = callFieldNameService.findLogData(titleDTO);
-		log.info("조회된 field 정보: {}", result);
-		return ResponseEntity.ok(result);
-	}
+//	//서브 스트링 정보 받기
+//	@PostMapping("/substring")
+//    public ResponseEntity<String> parseLog(@RequestParam int start, @RequestParam int end) {
+//        return ResponseEntity.ok(logParsingService.parseLog(start, end));
+//    }
+	
+//	@PostMapping("/posttitle") // log 제목 받기
+//	public ResponseEntity<List<LogItemDTO>>  findLogData(@RequestBody TitleDTO titleDTO) {
+//		log.info("받은 title: {}", titleDTO.getTitle());
+//		List<LogItemDTO> result = callFieldNameService.findLogData(titleDTO);
+//		log.info("조회된 field 정보: {}", result);
+//		return ResponseEntity.ok(result);
+//	}
+	
+//	@PostMapping("/psttitle2")
+//	public ResposeEntity<List<LogItemDTO>> findandparseLogData(@RequestBody TitleDTO titleDTO) {
+//		
+//	}
+	
+	
 	
 //	@GetMapping("/getfield/{field}") //log 데이터 보내기
 //    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(@PathVariable String field) {
