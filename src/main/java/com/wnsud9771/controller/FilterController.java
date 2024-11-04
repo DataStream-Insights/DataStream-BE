@@ -1,5 +1,15 @@
 package com.wnsud9771.controller;
 
-public class FilterController {
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/filter")
+@Slf4j
+public class FilterController {
+	
 }

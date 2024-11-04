@@ -85,7 +85,7 @@ public class CampaignService {
 //        department.setDepartment(dto.getDepartment());
 //        Author author = new Author();
 //        author.setAuthor(dto.getAuthor());
- 
+
 		// 날짜 변환
 		campaign.setStart_date(LocalDate.parse(dto.getStartDate()));
 		campaign.setEnd_date(LocalDate.parse(dto.getEndDate()));
