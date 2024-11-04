@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.format.LogItemDTO;
 import com.wnsud9771.dto.format.TitleDTO;
-import com.wnsud9771.service.format.CallFieldNameService;
+import com.wnsud9771.service.format.CallTitleService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,38 +22,38 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/format")
 @Slf4j
 public class FormatController {
-	
-	private final CallFieldNameService callFieldNameService;
-	
+
+	private final CallTitleService callTitleService;
+
+	private final
+
 	@GetMapping("/gettitle") // log 제목 꺼내기
-    public ResponseEntity<List<TitleDTO>> getAllTitle() {
-        List<TitleDTO> titles = callFieldNameService.getAllTitle();
-        //log.info("Titles found: {}", titles);
-        return ResponseEntity.ok(titles);
-        
-    }
-	
+	public ResponseEntity<List<TitleDTO>> getAllTitle() {
+		List<TitleDTO> titles = callTitleService.getAllLogTitle();
+		// log.info("Titles found: {}", titles);
+		return ResponseEntity.ok(titles);
+
+	}
+
 //	//서브 스트링 정보 받기
 //	@PostMapping("/substring")
 //    public ResponseEntity<String> parseLog(@RequestParam int start, @RequestParam int end) {
 //        return ResponseEntity.ok(logParsingService.parseLog(start, end));
 //    }
-	
+
 	@PostMapping("/posttitle") // log 제목 받기
-	public ResponseEntity<List<LogItemDTO>>  findLogData(@RequestBody TitleDTO titleDTO) {
+	public ResponseEntity<List<LogItemDTO>> findLogData(@RequestBody TitleDTO titleDTO) {
 		log.info("받은 title: {}", titleDTO.getTitle());
-		List<LogItemDTO> result = callFieldNameService.findLogData(titleDTO);
+		List<LogItemDTO> result = callTitleService.findLogData(titleDTO);
 		log.info("조회된 field 정보: {}", result);
 		return ResponseEntity.ok(result);
 	}
-	
+
 //	@PostMapping("/psttitle2")
 //	public ResposeEntity<List<LogItemDTO>> findandparseLogData(@RequestBody TitleDTO titleDTO) {
 //		
 //	}
-	
-	
-	
+
 //	@GetMapping("/getfield/{field}") //log 데이터 보내기
 //    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(@PathVariable String field) {
 //        List<Category2DTO> categories = categoryService.getCategory2ByCategory1Id(category1Id);
