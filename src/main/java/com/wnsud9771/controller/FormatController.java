@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.format.LogItemDTO;
+import com.wnsud9771.dto.format.SubStringDTO;
 import com.wnsud9771.dto.format.TitleDTO;
 import com.wnsud9771.service.format.CallTitleService;
+import com.wnsud9771.service.format.LogParsingService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FormatController {
 
 	private final CallTitleService callTitleService;
+	private final LogParsingService logParsingService;
 
-	private final
 
 	@GetMapping("/gettitle") // log 제목 꺼내기
 	public ResponseEntity<List<TitleDTO>> getAllTitle() {
@@ -42,9 +43,9 @@ public class FormatController {
 //    }
 
 	@PostMapping("/posttitle") // log 제목 받기
-	public ResponseEntity<List<LogItemDTO>> findLogData(@RequestBody TitleDTO titleDTO) {
-		log.info("받은 title: {}", titleDTO.getTitle());
-		List<LogItemDTO> result = callTitleService.findLogData(titleDTO);
+	public ResponseEntity<List<LogItemDTO>> findLogData(@RequestBody SubStringDTO subStringDTO) {
+		log.info("받은 title: {}", subStringDTO.getTitle());
+		List<LogItemDTO> result = logParsingService.findLogData(titleDTO);
 		log.info("조회된 field 정보: {}", result);
 		return ResponseEntity.ok(result);
 	}
