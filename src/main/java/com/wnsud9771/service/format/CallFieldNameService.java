@@ -46,8 +46,8 @@ public class CallFieldNameService {
         // 2. LogItemDTO 리스트로 변환해서 반환
         return fieldNames.stream()
             .map(fieldName -> LogItemDTO.builder()
-                .name(fieldName.getField_name())
-                .value(fieldName.getItem_contents_ex())
+                .name(fieldName.getFieldname())
+                .value(fieldName.getItemcontentsex())
                 .build())
             .collect(Collectors.toList());
     }
