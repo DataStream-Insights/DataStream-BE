@@ -26,7 +26,7 @@ public class FilterController {
     @GetMapping("/log-items")
     @Operation(summary = "아이템 목록 조회", description = "전체 아이템 목록을 조회합니다.")
     public ResponseEntity<List<FilterItemDTO>> getItems() {
-    	log.info("####################log-items 보내는것:    {}",itemService.getAllItems());
+    	log.info("#####################log-items 보내는것:    {}",itemService.getAllItems());
         return ResponseEntity.ok(itemService.getAllItems());
     }
 }
