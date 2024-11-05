@@ -3,7 +3,7 @@ package com.wnsud9771.dto.format;
 import lombok.Data;
 
 @Data
-public class FormatFieldDTO {
+public class FormatItemDTO { //format_item entity -> dto
 	
 	private String substring; // 서브스트링
 	private String substring_start; // 서브스트링 시작

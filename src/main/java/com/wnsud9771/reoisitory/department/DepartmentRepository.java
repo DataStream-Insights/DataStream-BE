@@ -1,4 +1,4 @@
-package com.wnsud9771.reoisitory;
+package com.wnsud9771.reoisitory.department;
 
 import java.util.Optional;
 

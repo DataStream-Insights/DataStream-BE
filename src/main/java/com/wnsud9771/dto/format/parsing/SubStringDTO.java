@@ -1,4 +1,4 @@
-package com.wnsud9771.dto.format;
+package com.wnsud9771.dto.format.parsing;
 
 import lombok.Data;
 
