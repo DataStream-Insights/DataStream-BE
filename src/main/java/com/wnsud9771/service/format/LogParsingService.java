@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LogParsingService { // jackson 라이브러리 사용
 
 	private final TitleAndLogRepository titleAndLogRepository;
+	 private final ObjectMapper mapper = new ObjectMapper();
 
 	// 초기 substring 파싱 title, startdepth, enddepth 받아서 로그 파싱
 	public List<LogItemDTO> processLogData(LogParseDTO logParseDTO) {
@@ -29,13 +30,12 @@ public class LogParsingService { // jackson 라이브러리 사용
 		log.info("DTO.title {}", logParseDTO.getStartdepth());
 		log.info("DTO.title {}", logParseDTO.getEnddepth());
 
-		String logEntry = logParseDTO.getLog();
 
 		List<LogItemDTO> result = new ArrayList<>();
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			JsonNode rootNode = mapper.readTree(logEntry);
+			JsonNode rootNode = mapper.readTree(logParseDTO.getLog());
 			processNodeWithDepth(rootNode, "", 0, logParseDTO.getStartdepth(), logParseDTO.getEnddepth(), result);
 		} catch (Exception e) {
 			throw new RuntimeException("로그 데이터 처리 중 오류가 발생했습니다.", e);
@@ -71,7 +71,7 @@ public class LogParsingService { // jackson 라이브러리 사용
 				String newPath = currentPath.isEmpty() ? field.getKey() : currentPath + "." + field.getKey();
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
 
-				result.add(LogItemDTO.builder().key(field.getKey()).value(field.getValue().toString()).path(newPath)
+				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
 						.hasChild(hasChild).build());
 			}
 		}
@@ -93,7 +93,7 @@ public class LogParsingService { // jackson 라이브러리 사용
 			if (currentDepth >= startDepth && currentDepth <= endDepth) {
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
 
-				result.add(LogItemDTO.builder().key(field.getKey()).value(field.getValue().toString()).path(newPath)
+				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
 						.hasChild(hasChild).build());
 			}
 
@@ -115,5 +115,29 @@ public class LogParsingService { // jackson 라이브러리 사용
 		}
 		return current;
 	}
+	
+//	public String parseLogByMultiplePaths(String logEntry, List<String> paths) {
+//        try {
+//            JsonNode rootNode = mapper.readTree(logEntry);
+//            ObjectNode resultNode = mapper.createObjectNode();
+//
+//            for (String path : paths) {
+//                JsonNode targetNode = findNodeByPath(rootNode, path);
+//                if (targetNode != null) {
+//                    // path를 점(.) 기준으로 분리하여 마지막 키 이름 가져오기
+//                    String[] pathParts = path.split("\\.");
+//                    String lastKey = pathParts[pathParts.length - 1];
+//                    
+//                    // 결과 JSON에 추가
+//                    addNodeToResult(resultNode, path, targetNode);
+//                }
+//            }
+//
+//            // 결과를 JSON 문자열로 변환
+//            return mapper.writeValueAsString(resultNode);
+//        } catch (Exception e) {
+//            throw new RuntimeException("다중 경로 로그 파싱 중 오류가 발생했습니다.", e);
+//        }
+//    }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wnsud9771.dto.campaign.CampaignDTO;
 import com.wnsud9771.service.Campaign.CampaignService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -27,11 +28,13 @@ public class CampaignController {
 	@Autowired
 	private CampaignService campaignService;
 
+	 @Operation(summary = "캠페인 관리화면 전체 조회", description = "전체 아이템 목록을 조회합니다.")
 	@GetMapping
 	public List<CampaignDTO> getAllCampaigns() {
 		return campaignService.getAllCampaigns();
 	}
-
+	
+	 @Operation(summary = "캠페인 관리화면 추가", description = ".")
 	@PostMapping("/add")
 	public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {
 		try {
