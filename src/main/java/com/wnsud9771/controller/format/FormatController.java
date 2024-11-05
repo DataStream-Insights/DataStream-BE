@@ -1,22 +1,26 @@
 package com.wnsud9771.controller.format;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wnsud9771.dto.campaign.CampaignDTO;
 import com.wnsud9771.dto.format.TitleDTO;
+import com.wnsud9771.dto.format.management.FormatManagementResponseDTO;
 import com.wnsud9771.dto.format.parsing.LogFindByTitleDTO;
 import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
 import com.wnsud9771.dto.format.parsing.SearchNodeDTO;
 import com.wnsud9771.dto.format.parsing.SubStringDTO;
 import com.wnsud9771.service.format.CallTitleService;
+import com.wnsud9771.service.format.FormatManagementService;
 import com.wnsud9771.service.format.LogParsingService;
 import com.wnsud9771.service.log.ChangeToLogPlusSubStringService;
 import com.wnsud9771.service.log.FindLogService;
@@ -35,7 +39,7 @@ public class FormatController {
 	private final LogParsingService logParsingService;
 	private final FindLogService findLogService;
 	private final ChangeToLogPlusSubStringService changeToLogPlusSubStringService;
-//	private final FormatManagementService formatManagementService;
+	private final FormatManagementService formatManagementService;
 
 	@Operation(summary = "로그파일 제목 가져오기", description = "전체 아이템 목록을 조회합니다.")
 	@GetMapping("/gettitle") // log 제목 꺼내기
@@ -74,8 +78,25 @@ public class FormatController {
 		log.info("검색된 node 정보: {}", result);
 		return ResponseEntity.ok(result); // key, value, path, haschild 반환은 똑같음
 	}
+	
+	@Operation(summary = "포맷 필드 받아서 저장하는 api", description = "add formatfield")
+	@PostMapping("/addformatfields") // 필드 설정 정보 저장하는 api
+	public ResponseEntity<FormatManagementResponseDTO> createFormatManagement(@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
+		try {
+			FormatManagementResponseDTO created = formatManagementService.createFormatManagement(formatManagementResponseDTO);
+			Map<String, Object> response = new HashMap<>();
+			response.put("status", "success");
+			response.put("data", created);
+			response.put("message", "Format created successfully");
+			return ResponseEntity.ok(created);
+		} catch (Exception e) {
+			log.info("error message", e.getMessage());
+			throw e;
+		}
+		
+	}
+	
 
-//	@PostMapping("/formatfields") // 필드 설정 정보 저장하는 api
 
 //	@GetMapping("/management") // formatmanagement list 불러오기
 //	public ResponseEntity<List<FormatManagementResponse>> getFormatManagement(@PathVariable Long id){

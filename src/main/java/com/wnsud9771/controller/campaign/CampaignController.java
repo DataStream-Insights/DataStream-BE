@@ -28,29 +28,27 @@ public class CampaignController {
 	@Autowired
 	private CampaignService campaignService;
 
-	 @Operation(summary = "캠페인 관리화면 전체 조회", description = "전체 아이템 목록을 조회합니다.")
+	@Operation(summary = "캠페인 관리화면 전체 조회", description = "전체 아이템 목록을 조회합니다.")
 	@GetMapping
 	public List<CampaignDTO> getAllCampaigns() {
 		return campaignService.getAllCampaigns();
 	}
-	
-	 @Operation(summary = "캠페인 관리화면 추가", description = ".")
+
+	@Operation(summary = "캠페인 관리화면 추가", description = ".")
 	@PostMapping("/add")
 	public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {
 		try {
 			log.info("Received DTO: {}", campaignDTO);
 			CampaignDTO created = campaignService.createCampaign(campaignDTO);
 			Map<String, Object> response = new HashMap<>();
-            response.put("status", "success");
-            response.put("data", created);
-            response.put("message", "Campaign created successfully");
+			response.put("status", "success");
+			response.put("data", created);
+			response.put("message", "Campaign created successfully");
 			return ResponseEntity.ok(created);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
 			throw e;
 		}
 	}
-	    
-
 
 }

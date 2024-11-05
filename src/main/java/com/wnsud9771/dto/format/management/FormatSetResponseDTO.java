@@ -4,6 +4,5 @@ import lombok.Data;
 
 @Data
 public class FormatSetResponseDTO {
-	private Long id;
     private FormatItemResponseDTO formatItemResponse;
 }

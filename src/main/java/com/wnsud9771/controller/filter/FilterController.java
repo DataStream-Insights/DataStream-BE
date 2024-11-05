@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RequestMapping("/api/filter")
 @Slf4j
-@Tag(name = "Items", description = "아이템 관리 API")
 public class FilterController {
 	private final ItemService itemService;
 
