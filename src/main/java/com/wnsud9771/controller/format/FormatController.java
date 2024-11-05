@@ -20,6 +20,7 @@ import com.wnsud9771.service.format.LogParsingService;
 import com.wnsud9771.service.log.ChangeToLogPlusSubStringService;
 import com.wnsud9771.service.log.FindLogService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @RequestMapping("/api/format")
 @Slf4j
+@Tag(name = "Format", description = "Format API")
 public class FormatController {
 
 	private final CallTitleService callTitleService;
