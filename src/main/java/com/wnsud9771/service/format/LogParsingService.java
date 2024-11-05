@@ -30,13 +30,12 @@ public class LogParsingService { // jackson 라이브러리 사용
 		log.info("DTO.title {}", logParseDTO.getStartdepth());
 		log.info("DTO.title {}", logParseDTO.getEnddepth());
 
-		String logEntry = logParseDTO.getLog();
 
 		List<LogItemDTO> result = new ArrayList<>();
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
-			JsonNode rootNode = mapper.readTree(logEntry);
+			JsonNode rootNode = mapper.readTree(logParseDTO.getLog());
 			processNodeWithDepth(rootNode, "", 0, logParseDTO.getStartdepth(), logParseDTO.getEnddepth(), result);
 		} catch (Exception e) {
 			throw new RuntimeException("로그 데이터 처리 중 오류가 발생했습니다.", e);
@@ -72,7 +71,7 @@ public class LogParsingService { // jackson 라이브러리 사용
 				String newPath = currentPath.isEmpty() ? field.getKey() : currentPath + "." + field.getKey();
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
 
-				result.add(LogItemDTO.builder().key(field.getKey()).value(field.getValue().toString()).path(newPath)
+				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
 						.hasChild(hasChild).build());
 			}
 		}
@@ -94,7 +93,7 @@ public class LogParsingService { // jackson 라이브러리 사용
 			if (currentDepth >= startDepth && currentDepth <= endDepth) {
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
 
-				result.add(LogItemDTO.builder().key(field.getKey()).value(field.getValue().toString()).path(newPath)
+				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
 						.hasChild(hasChild).build());
 			}
 
