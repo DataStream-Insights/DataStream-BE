@@ -29,6 +29,7 @@ public class FormatItem { // 파싱 후 item db
 	private String itemExplain; // 아이템 설명
 	private String itemType; // TYPE
 	private String itemContent; // 아이템 컨텐츠 예시
+	private String path; //field의 path
 	
 	
 	
