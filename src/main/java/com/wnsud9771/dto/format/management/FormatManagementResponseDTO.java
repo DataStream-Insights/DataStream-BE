@@ -6,12 +6,11 @@ import lombok.Data;
 
 @Data
 public class FormatManagementResponseDTO {
-	private Long id;
-    private int start;
-    private int end;
-    private String formatname;
-    private String formatID;
-    private String formatexplain;
-    private String filetype;
-    private List<FormatSetResponseDTO> formatSets;
+	
+    private int start; //서브스트링 시작
+    private int end; //서브스트링 끝 
+    private String formatname; //포맷 이름
+    private String formatID; //포맷 아이디 
+    private String formatexplain;// 포맷 설명
+    private List<FormatSetResponseDTO> formatSets; //포맷 필드 dto
 }
