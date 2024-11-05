@@ -6,14 +6,15 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wnsud9771.dto.campaign.CampaignDTO;
 import com.wnsud9771.dto.format.TitleDTO;
 import com.wnsud9771.dto.format.management.FormatManagementResponseDTO;
+import com.wnsud9771.dto.format.management.ListFormatManagementDTO;
 import com.wnsud9771.dto.format.parsing.LogFindByTitleDTO;
 import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
@@ -96,17 +97,18 @@ public class FormatController {
 		
 	}
 	
-
-
-//	@GetMapping("/management") // formatmanagement list 불러오기
-//	public ResponseEntity<List<FormatManagementResponse>> getFormatManagement(@PathVariable Long id){
-//		
-//		List<FormatManagementResponse> result = formatManagementService.findlistManagement(id);
-//		
-//		return ResponseEntity.ok(result);
-//	}
-//	
-//	@GetMapping("/management/{id}")// formatmanagement 에서 클릭하면 필드 설정 정보 화면의 데이터들 띄워주기
-//	
-//	
+	@Operation(summary = "포맷 관리화면 리스트 뿌리는 api", description = "전체 검색")
+	@GetMapping("/management")
+	public List<ListFormatManagementDTO> getFormatManagement(){
+	
+		return formatManagementService.findAllManagement();
+	}
+	
+	@Operation(summary = "포맷 관리화면에서 선택한 포맷 필드 검색하는 api", description = "id받아서 검색")
+	@GetMapping("/management/{id}")
+	public ResponseEntity<FormatManagementResponseDTO> getFormatManagement(@PathVariable Long id){
+		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(id);
+		return ResponseEntity.ok(idbymanagement);
+	}
+	
 }
