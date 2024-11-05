@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.wnsud9771.dto.format.management.FormatItemResponseDTO;
 import com.wnsud9771.dto.format.management.FormatManagementResponseDTO;
 import com.wnsud9771.dto.format.management.FormatSetResponseDTO;
+import com.wnsud9771.dto.format.management.ListFormatManagementDTO;
 import com.wnsud9771.entity.Formatentity.FormatManagement;
 import com.wnsud9771.entity.Formatentity.FormatSet;
 import com.wnsud9771.entity.item.FormatItem;
@@ -21,27 +22,27 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FormatManagementService {
 	private final FormatManagementRepository formatManagementRepository;
-    private final FormatItemRepository formatItemRepository;
-    private final FormatSetRepository formatSetRepository;
-	
-	//컨트롤러 호출 (포맷 생성 ) 
+	private final FormatItemRepository formatItemRepository;
+	private final FormatSetRepository formatSetRepository;
+
+	// 컨트롤러 호출 (포맷 생성 )
 	public FormatManagementResponseDTO createFormatManagement(FormatManagementResponseDTO dto) {
-        
+
 		// 받아온 dto를 entity로 변환
-        FormatManagement formatManagement = convertToEntity(dto);
-        
-        // FormatItem들을 먼저 레포에 저장
-        formatManagement.getFormatSets().forEach(formatSet -> {
-            if (formatSet.getFormatItem() != null) {
-                formatItemRepository.save(formatSet.getFormatItem());
-            }
-        });
-        
-        // FormatManagement와 FormatSet 저장
-        FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
-        
-        return convertToDTO(savedFormatManagement);
-    }
+		FormatManagement formatManagement = convertToEntity(dto);
+
+		// FormatItem들을 먼저 레포에 저장
+		formatManagement.getFormatSets().forEach(formatSet -> {
+			if (formatSet.getFormatItem() != null) {
+				formatItemRepository.save(formatSet.getFormatItem());
+			}
+		});
+
+		// FormatManagement와 FormatSet 저장
+		FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
+
+		return convertToDTO(savedFormatManagement);
+	}
 
 	// 받아온 포맷 필드+ 포맷관리화면 dto-> entity로 전환하는 함수
 	private FormatManagement convertToEntity(FormatManagementResponseDTO dto) {
@@ -83,45 +84,65 @@ public class FormatManagementService {
 		formatManagement.setFormatexplain(dto.getFormatexplain());
 		return formatManagement;
 	}
-	
+
 	private FormatManagementResponseDTO convertToDTO(FormatManagement entity) {
-	    FormatManagementResponseDTO dto = new FormatManagementResponseDTO();
-	    
-	    // 기본 정보 설정
-	    dto.setStart(entity.getStart());
-	    dto.setEnd(entity.getEnd());
-	    dto.setFormatname(entity.getFormatname());
-	    dto.setFormatID(entity.getFormatID());
-	    dto.setFormatexplain(entity.getFormatexplain());
-	    
-	    // FormatSet과 FormatItem 변환
-	    if (entity.getFormatSets() != null) {
-	        List<FormatSetResponseDTO> formatSetDTOs = entity.getFormatSets().stream()
-	            .map(formatSet -> {
-	                FormatSetResponseDTO formatSetDTO = new FormatSetResponseDTO();
-	                
-	                // FormatItem 정보 변환
-	                if (formatSet.getFormatItem() != null) {
-	                    FormatItemResponseDTO formatItemDTO = new FormatItemResponseDTO();
-	                    FormatItem item = formatSet.getFormatItem();
-	                    
-	                    formatItemDTO.setFieldName(item.getFieldName());
-	                    formatItemDTO.setItemAlias(item.getItemAlias());
-	                    formatItemDTO.setItemExplain(item.getItemExplain());
-	                    formatItemDTO.setItemType(item.getItemType());
-	                    formatItemDTO.setItemContent(item.getItemContent());
-	                    formatItemDTO.setPath(item.getPath());
-	                    formatSetDTO.setFormatItemResponse(formatItemDTO);
-	                }
-	                
-	                return formatSetDTO;
-	            })
-	            .collect(Collectors.toList());
-	        
-	        dto.setFormatSets(formatSetDTOs);
-	    }
-	    
-	    return dto;
+		FormatManagementResponseDTO dto = new FormatManagementResponseDTO();
+
+		// 기본 정보 설정
+		dto.setStart(entity.getStart());
+		dto.setEnd(entity.getEnd());
+		dto.setFormatname(entity.getFormatname());
+		dto.setFormatID(entity.getFormatID());
+		dto.setFormatexplain(entity.getFormatexplain());
+
+		// FormatSet과 FormatItem 변환
+		if (entity.getFormatSets() != null) {
+			List<FormatSetResponseDTO> formatSetDTOs = entity.getFormatSets().stream().map(formatSet -> {
+				FormatSetResponseDTO formatSetDTO = new FormatSetResponseDTO();
+
+				// FormatItem 정보 변환
+				if (formatSet.getFormatItem() != null) {
+					FormatItemResponseDTO formatItemDTO = new FormatItemResponseDTO();
+					FormatItem item = formatSet.getFormatItem();
+
+					formatItemDTO.setFieldName(item.getFieldName());
+					formatItemDTO.setItemAlias(item.getItemAlias());
+					formatItemDTO.setItemExplain(item.getItemExplain());
+					formatItemDTO.setItemType(item.getItemType());
+					formatItemDTO.setItemContent(item.getItemContent());
+					formatItemDTO.setPath(item.getPath());
+					formatSetDTO.setFormatItemResponse(formatItemDTO);
+				}
+
+				return formatSetDTO;
+			}).collect(Collectors.toList());
+
+			dto.setFormatSets(formatSetDTOs);
+		}
+
+		return dto;
 	}
 
+	// 전부 검색
+	public List<ListFormatManagementDTO> findAllManagement() {
+		return formatManagementRepository.findAll().stream().map(this::managementconvertToDTO)
+				.collect(Collectors.toList());
+	}
+
+	// dto형식으로 매핑
+	private ListFormatManagementDTO managementconvertToDTO(FormatManagement entity) {
+		ListFormatManagementDTO dto = new ListFormatManagementDTO();
+		dto.setId(entity.getId());
+		dto.setFormatName(entity.getFormatname());
+		dto.setFormatId(entity.getFormatID());
+		return dto;
+	}
+
+	// management id 검색
+	public FormatManagementResponseDTO findById(Long id) {
+		FormatManagement formatManagement = formatManagementRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Format Management not found with id: " + id));
+
+		return convertToDTO(formatManagement);
+	}
 }
