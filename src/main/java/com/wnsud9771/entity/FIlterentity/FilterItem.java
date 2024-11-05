@@ -1,4 +1,21 @@
-//package com.wnsud9771.entity.FIlterentity;
+package com.wnsud9771.entity.FIlterentity;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name = "filter_items")
+@Getter @Setter
+@NoArgsConstructor
+public class FilterItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;
+    private String type;
+}
 //
 //import java.util.List;
 //
