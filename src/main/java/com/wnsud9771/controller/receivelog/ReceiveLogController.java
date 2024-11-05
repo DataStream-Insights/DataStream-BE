@@ -1,4 +1,4 @@
-package com.wnsud9771.controller;
+package com.wnsud9771.controller.receivelog;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

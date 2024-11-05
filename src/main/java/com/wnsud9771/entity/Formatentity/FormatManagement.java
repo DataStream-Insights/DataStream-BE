@@ -3,8 +3,6 @@ package com.wnsud9771.entity.Formatentity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.wnsud9771.entity.item.FormatItem;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,10 +29,11 @@ public class FormatManagement { //format board
 	private String formatexplain; //포맷 설명
 	private String filetype; //파일 형식
 	
-	
-	
-	//Formatitem
+	//format item
 	@OneToMany(mappedBy = "formatManagement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FormatItem> formatItems = new ArrayList<>();
+    private List<FormatSet> formatSets = new ArrayList<>();
+	
+	
+	
 
 }
