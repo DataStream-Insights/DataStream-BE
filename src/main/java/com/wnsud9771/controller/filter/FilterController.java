@@ -1,4 +1,4 @@
-package com.wnsud9771.controller;
+package com.wnsud9771.controller.filter;
 
 import java.util.List;
 
@@ -17,15 +17,16 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/filter/log-items")
+@RequestMapping("/api/filter")
 @Slf4j
 @Tag(name = "Items", description = "아이템 관리 API")
 public class FilterController {
 	private final ItemService itemService;
 
-    @GetMapping
+    @GetMapping("/log-items")
     @Operation(summary = "아이템 목록 조회", description = "전체 아이템 목록을 조회합니다.")
     public ResponseEntity<List<FilterItemDTO>> getItems() {
+    	log.info("#####################log-items 보내는것:    {}",itemService.getAllItems());
         return ResponseEntity.ok(itemService.getAllItems());
     }
 }

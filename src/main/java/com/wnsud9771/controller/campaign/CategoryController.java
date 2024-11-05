@@ -1,4 +1,4 @@
-package com.wnsud9771.controller;
+package com.wnsud9771.controller.campaign;
 
 import java.util.List;
 

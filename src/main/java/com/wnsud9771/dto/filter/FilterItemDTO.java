@@ -1,13 +1,12 @@
 package com.wnsud9771.dto.filter;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter @Setter
+@Data
 public class FilterItemDTO {
-    private Long id;
-    private String name;
-    private String type;
+    private String name; //아이템 명
+    private String namealias; // 아이템 별명
+    private String type; //아이템 type
 }
 
 //import lombok.Data;

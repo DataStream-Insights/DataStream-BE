@@ -1,10 +1,5 @@
 package com.wnsud9771.service.format;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,7 +25,7 @@ public class ReceiveLogAndParseTitleService { //컨슈밍으로 받아온 로그
 //			"{\"title\":\"사용자 E의 상품 클릭 로그\",\"contents\":{\"timestamp\":\"2024-10-31T14:32:48+09:00\",\"visitor_id\":\"6ghh8e56i11j503f\",\"url\":\"https://example.com/products/category/sports\",\"event_action\":\"Click\",\"user_id\":\"user_123460\"}}" };
 //	private List<String> logData = new ArrayList<>();
 
-	private final FormatItemRepository formatItemRepository;
+	//private final FormatItemRepository formatItemRepository;
 	private final TitleAndLogRepository titleAndLogRepository;
 
 	public LogDTO receiveLogData(LogDTO logDTO) {
@@ -54,7 +49,7 @@ public class ReceiveLogAndParseTitleService { //컨슈밍으로 받아온 로그
 			String title = rootNode.get("title").asText();
 
 			// title과 field_name이 동일한 데이터가 이미 존재하는지 확인
-			if (formatItemRepository.existsByTitleAndLogData(title, logdata)) {
+			if (titleAndLogRepository.existsByTitleAndLogData(title, logdata)) {
 				log.info("Duplicate entry found - Title: {}, Field: {}, Value: {}", title, logdata);
 				return true;
 			}
@@ -78,7 +73,7 @@ public class ReceiveLogAndParseTitleService { //컨슈밍으로 받아온 로그
 	private TitleAndLog convertToEntity(TitleAndLogDTO dto) {
 		TitleAndLog entity = new TitleAndLog();
 		entity.setTitle(dto.getTitle());
-		entity.setLogdata(dto.getLogdata());
+		entity.setLogData(dto.getLogdata());
 		
 		return entity;
 	}

@@ -16,6 +16,6 @@ public class TitleAndLog { // 맨처음 들어온 로그를 타이틀부분 빼�
 	private Long id;
 
 	private String title; // log 데이터의 제목
-	private String logdata; // 컨슈밍으로 들어온 로그
+	private String logData; // 컨슈밍으로 들어온 로그
 
 }

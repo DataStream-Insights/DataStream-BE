@@ -20,7 +20,7 @@ public class FindLogService {
 	        String logs = titleAndLogRepository.findByTitle(title)
 	        		.stream()
 	        		.findFirst()
-	        		.map(TitleAndLog::getLogdata)
+	        		.map(TitleAndLog::getLogData)
 	        		.orElse("로그를 찾을 수 없습니다.");
 	        
 	        dto.setLog(logs);

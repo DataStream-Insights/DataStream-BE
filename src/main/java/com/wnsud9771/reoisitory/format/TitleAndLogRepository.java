@@ -8,4 +8,5 @@ import com.wnsud9771.entity.Formatentity.TitleAndLog;
 
 public interface TitleAndLogRepository extends JpaRepository<TitleAndLog, Long>{
 	Optional<TitleAndLog> findByTitle(String title);
+	boolean existsByTitleAndLogData(String title, String logdata);
 }

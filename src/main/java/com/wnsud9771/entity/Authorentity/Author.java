@@ -29,7 +29,7 @@ public class Author {
 	@OneToMany(mappedBy = "author")
     private List<Campaign> campaigns;
 	
-	@OneToMany(mappedBy = "author")
-	private List<FilterManagement> filterManagements;
+//	@OneToMany(mappedBy = "author")
+//	private List<FilterManagement> filterManagements;
 
 }
