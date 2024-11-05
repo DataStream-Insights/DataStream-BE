@@ -1,17 +1,17 @@
-package com.wnsud9771.controller;
-
-import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.wnsud9771.dto.format.LogItemDTO;
-import com.wnsud9771.dto.format.SubStringDTO;
-import com.wnsud9771.dto.format.TitleDTO;
+//package com.wnsud9771.controller;
+//
+//import java.util.List;
+//
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//import com.wnsud9771.dto.format.LogItemDTO;
+//import com.wnsud9771.dto.format.SubStringDTO;
+//import com.wnsud9771.dto.format.TitleDTO;
 import com.wnsud9771.service.format.CallTitleService;
 import com.wnsud9771.service.format.LogParsingService;
 
@@ -36,11 +36,11 @@ public class FormatController {
 
 	}
 
-//	//서브 스트링 정보 받기
-//	@PostMapping("/substring")
-//    public ResponseEntity<String> parseLog(@RequestParam int start, @RequestParam int end) {
-//        return ResponseEntity.ok(logParsingService.parseLog(start, end));
-//    }
+	//서브 스트링 정보 받기
+	@PostMapping("/substring")
+    public ResponseEntity<String> parseLog(@RequestParam int start, @RequestParam int end) {
+        return ResponseEntity.ok(logParsingService.parseLog(start, end));
+    }
 
 	@PostMapping("/posttitle") // log 제목 받기
 	public ResponseEntity<List<LogItemDTO>> findLogData(@RequestBody SubStringDTO subStringDTO) {
@@ -50,14 +50,14 @@ public class FormatController {
 		return ResponseEntity.ok(result);
 	}
 
-//	@PostMapping("/psttitle2")
-//	public ResposeEntity<List<LogItemDTO>> findandparseLogData(@RequestBody TitleDTO titleDTO) {
-//		
-//	}
+	@PostMapping("/psttitle2")
+	public ResposeEntity<List<LogItemDTO>> findandparseLogData(@RequestBody TitleDTO titleDTO) {
+		
+	}
 
-//	@GetMapping("/getfield/{field}") //log 데이터 보내기
-//    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(@PathVariable String field) {
-//        List<Category2DTO> categories = categoryService.getCategory2ByCategory1Id(category1Id);
-//        return ResponseEntity.ok(categories);
-//    }
+	@GetMapping("/getfield/{field}") //log 데이터 보내기
+    public ResponseEntity<List<Category2DTO>> getCategory2ByCategory1Id(@PathVariable String field) {
+        List<Category2DTO> categories = categoryService.getCategory2ByCategory1Id(category1Id);
+        return ResponseEntity.ok(categories);
+    }
 }

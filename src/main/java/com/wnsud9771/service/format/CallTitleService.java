@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CallTitleService {
 	private final TitleAndLogRepository titleAndLogRepository;
 	
-	// -----------------log title 꺼내기-----------------
+//	// -----------------log title 꺼내기-----------------
 		public List<TitleDTO> getAllLogTitle() {
 	        return titleAndLogRepository.findAll().stream()
 	                .map(this::convertToTitleDTO)
