@@ -25,6 +25,7 @@ import com.wnsud9771.service.format.FormatManagementService;
 import com.wnsud9771.service.format.LogParsingService;
 import com.wnsud9771.service.log.ChangeToLogPlusSubStringService;
 import com.wnsud9771.service.log.FindLogService;
+import com.wnsud9771.service.sendkafka.FormatingSendService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class FormatController {
 	private final FindLogService findLogService;
 	private final ChangeToLogPlusSubStringService changeToLogPlusSubStringService;
 	private final FormatManagementService formatManagementService;
+	private final FormatingSendService formatingSendService;
 
 	@Operation(summary = "로그파일 제목 가져오기", description = "전체 아이템 목록을 조회합니다.")
 	@GetMapping("/gettitle") // log 제목 꺼내기
@@ -90,8 +92,8 @@ public class FormatController {
 			response.put("status", "success");
 			response.put("data", created);
 			response.put("message", "Format created successfully");
-			//포맷 필드로 파싱 하는거 추가
-			//파싱한 포맷팅 로그 다시 spring-kafka( "/formating")으로 전송
+//			formatManagementResponseDTO.get
+//			formatingSendService.sendLogData();
 			return ResponseEntity.ok(created);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
@@ -113,5 +115,5 @@ public class FormatController {
 		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(id);
 		return ResponseEntity.ok(idbymanagement);
 	}
-	
+
 }
