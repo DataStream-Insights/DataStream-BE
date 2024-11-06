@@ -1,7 +1,9 @@
 package com.wnsud9771.entity.Formatentity;
 
+
 import com.wnsud9771.entity.item.FormatItem;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +26,7 @@ public class FormatSet {
 	@JoinColumn(name = "formatManagement_id")
 	private FormatManagement formatManagement;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "formatitem_id")
 	private FormatItem formatItem;
 }

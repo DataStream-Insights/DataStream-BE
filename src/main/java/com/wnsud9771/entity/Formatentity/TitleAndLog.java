@@ -1,5 +1,6 @@
 package com.wnsud9771.entity.Formatentity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,8 @@ public class TitleAndLog { // 맨처음 들어온 로그를 타이틀부분 빼�
 	private Long id;
 
 	private String title; // log 데이터의 제목
+	
+	@Column(name = "log_data", columnDefinition = "LONGTEXT")
 	private String logData; // 컨슈밍으로 들어온 로그
 
 }

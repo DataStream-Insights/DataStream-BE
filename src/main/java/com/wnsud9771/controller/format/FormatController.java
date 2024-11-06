@@ -76,7 +76,7 @@ public class FormatController {
 		LogFindByTitleDTO logFindByTitle = findLogService.findLogByTitle(searchNodeDTO.getTitle());
 
 		List<LogItemDTO> result = logParsingService.parseLog(logFindByTitle.getLog(), searchNodeDTO.getPath());
-		log.info("검색된 node 정보: {}", result);
+		//log.info("검색된 node 정보: {}", result);
 		return ResponseEntity.ok(result); // key, value, path, haschild 반환은 똑같음
 	}
 	
@@ -84,11 +84,14 @@ public class FormatController {
 	@PostMapping("/addformatfields") // 필드 설정 정보 저장하는 api
 	public ResponseEntity<FormatManagementResponseDTO> createFormatManagement(@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
 		try {
+			log.info(" *******포맷 저장 받아온 데이터::: {}", formatManagementResponseDTO);
 			FormatManagementResponseDTO created = formatManagementService.createFormatManagement(formatManagementResponseDTO);
 			Map<String, Object> response = new HashMap<>();
 			response.put("status", "success");
 			response.put("data", created);
 			response.put("message", "Format created successfully");
+			//포맷 필드로 파싱 하는거 추가
+			//파싱한 포맷팅 로그 다시 spring-kafka( "/formating")으로 전송
 			return ResponseEntity.ok(created);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
