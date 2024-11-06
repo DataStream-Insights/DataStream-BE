@@ -135,6 +135,7 @@ public class FormatManagementService {
 		dto.setId(entity.getId());
 		dto.setFormatName(entity.getFormatname());
 		dto.setFormatId(entity.getFormatID());
+		dto.setFormatexplain(entity.getFormatexplain());
 		return dto;
 	}
 
