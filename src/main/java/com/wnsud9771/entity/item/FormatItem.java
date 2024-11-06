@@ -7,6 +7,7 @@ import com.wnsud9771.entity.FIlterentity.FilterSet;
 import com.wnsud9771.entity.Formatentity.FormatSet;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,18 +27,20 @@ public class FormatItem { // 파싱 후 item db
 
 	private String fieldName;
 	private String itemAlias; // 아이템 별명
+	
+	@Column(columnDefinition = "LONGTEXT")
 	private String itemExplain; // 아이템 설명
 	private String itemType; // TYPE
+
+	@Column(columnDefinition = "LONGTEXT")
 	private String itemContent; // 아이템 컨텐츠 예시
-	private String path; //field의 path
-	
-	
-	
+	private String path; // field의 path
+
 	// format set
 	@OneToMany(mappedBy = "formatItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FormatSet> formatSets = new ArrayList<>();
-	
-	//filter set으로 가야함
+	private List<FormatSet> formatSets = new ArrayList<>();
+
+	// filter set으로 가야함
 	@OneToMany(mappedBy = "formatItem", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FilterSet> filterSets = new ArrayList<>();
+	private List<FilterSet> filterSets = new ArrayList<>();
 }
