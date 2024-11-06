@@ -66,43 +66,6 @@ public class FormatManagementService {
 		return convertToDTO(savedFormatManagement);
 	}
 
-	// 받아온 포맷 필드+ 포맷관리화면 dto-> entity로 전환하는 함수
-	private FormatManagement convertToEntity(FormatManagementResponseDTO dto) {
-		FormatManagement formatManagement = new FormatManagement();
-		formatManagement.setStart(dto.getStart());
-		formatManagement.setEnd(dto.getEnd());
-		formatManagement.setFormatname(dto.getFormatname());
-		formatManagement.setFormatID(dto.getFormatID());
-		formatManagement.setFormatexplain(dto.getFormatexplain());
-
-		if (dto.getFormatSets() != null) {
-			dto.getFormatSets().forEach(formatSetDTO -> {
-				FormatSet formatSet = new FormatSet();
-
-				// FormatItem 처리
-				if (formatSetDTO.getFormatItemResponse() != null) {
-					FormatItem formatItem = new FormatItem();
-					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse();
-
-					// FormatItem 정보 설정
-					formatItem.setFieldName(itemDTO.getFieldName());
-					formatItem.setItemAlias(itemDTO.getItemAlias());
-					formatItem.setItemExplain(itemDTO.getItemExplain());
-					formatItem.setItemType(itemDTO.getItemType());
-					formatItem.setItemContent(itemDTO.getItemContent());
-					formatItem.setPath(itemDTO.getPath());
-
-					formatSet.setFormatItem(formatItem);
-				}
-
-				// addFormatSet 메서드를 통해 양방향 연관관계 설정
-				formatManagement.addFormatSet(formatSet);
-			});
-		}
-
-		return formatManagement;
-	}
-
 	private FormatManagementResponseDTO convertToDTO(FormatManagement entity) {
 		FormatManagementResponseDTO dto = new FormatManagementResponseDTO();
 
@@ -139,6 +102,43 @@ public class FormatManagementService {
 		}
 
 		return dto;
+	}
+
+	// 받아온 포맷 필드+ 포맷관리화면 dto-> entity로 전환하는 함수
+	private FormatManagement convertToEntity(FormatManagementResponseDTO dto) {
+		FormatManagement formatManagement = new FormatManagement();
+		formatManagement.setStart(dto.getStart());
+		formatManagement.setEnd(dto.getEnd());
+		formatManagement.setFormatname(dto.getFormatname());
+		formatManagement.setFormatID(dto.getFormatID());
+		formatManagement.setFormatexplain(dto.getFormatexplain());
+
+		if (dto.getFormatSets() != null) {
+			dto.getFormatSets().forEach(formatSetDTO -> {
+				FormatSet formatSet = new FormatSet();
+
+				// FormatItem 처리
+				if (formatSetDTO.getFormatItemResponse() != null) {
+					FormatItem formatItem = new FormatItem();
+					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse();
+
+					// FormatItem 정보 설정
+					formatItem.setFieldName(itemDTO.getFieldName());
+					formatItem.setItemAlias(itemDTO.getItemAlias());
+					formatItem.setItemExplain(itemDTO.getItemExplain());
+					formatItem.setItemType(itemDTO.getItemType());
+					formatItem.setItemContent(itemDTO.getItemContent());
+					formatItem.setPath(itemDTO.getPath());
+
+					formatSet.setFormatItem(formatItem);
+				}
+
+				// addFormatSet 메서드를 통해 양방향 연관관계 설정
+				formatManagement.addFormatSet(formatSet);
+			});
+		}
+
+		return formatManagement;
 	}
 
 	// 전부 검색
