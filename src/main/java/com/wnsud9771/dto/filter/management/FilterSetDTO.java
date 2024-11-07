@@ -12,5 +12,5 @@ public class FilterSetDTO {
 	
 	private FiltervalueDTO filtervalue;
 	private OperationDTO operation;
-	private FormatItemDTO formatItem;
+	private Long responseItemid;
 }

@@ -1,17 +1,12 @@
 package com.wnsud9771.entity.FIlterentity;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -35,8 +30,8 @@ public class FilterManagement {
 //	@JoinColumn(name = "author_id")
 //	private Author author;// 기안자
 	
-	@OneToMany(mappedBy = "filterManagement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FilterSetList> filterSetLists = new ArrayList<>();
+	@OneToOne(mappedBy = "filterManagement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private FilterSetList filterSetList;
 	
 	
 }

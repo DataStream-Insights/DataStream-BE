@@ -41,8 +41,8 @@ public class FormatManagementService {
 		if (dto.getFormatSets() != null) {
 			dto.getFormatSets().forEach(formatSetDTO -> {
 				if (formatSetDTO.getFormatItemResponse() != null) {
-					FormatItem formatItem = new FormatItem();
-					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse();
+					FormatItem formatItem = new FormatItem(); //entity
+					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse(); //받아온 dto
 
 					formatItem.setFieldName(itemDTO.getFieldName());
 					formatItem.setItemAlias(itemDTO.getItemAlias());
