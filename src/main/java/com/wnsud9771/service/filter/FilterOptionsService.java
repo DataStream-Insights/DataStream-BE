@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.wnsud9771.dto.filter.FilterOptionDTO;
+import com.wnsud9771.dto.filter.filtering.FilterOptionDTO;
 import com.wnsud9771.entity.FIlterentity.Operation;
 import com.wnsud9771.entity.item.FormatItem;
 import com.wnsud9771.reoisitory.filter.OperationRepository;

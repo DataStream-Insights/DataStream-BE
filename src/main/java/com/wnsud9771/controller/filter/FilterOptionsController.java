@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wnsud9771.dto.filter.FilterOptionDTO;
+import com.wnsud9771.dto.filter.filtering.FilterOptionDTO;
 import com.wnsud9771.service.filter.FilterOptionsService;
 
 import lombok.RequiredArgsConstructor;
