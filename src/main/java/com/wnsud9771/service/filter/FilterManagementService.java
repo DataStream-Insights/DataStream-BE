@@ -11,6 +11,7 @@ import com.wnsud9771.dto.filter.OperationDTO;
 import com.wnsud9771.dto.filter.management.FilterManagementDTO;
 import com.wnsud9771.dto.filter.management.FilterSetDTO;
 import com.wnsud9771.dto.filter.management.FilterSetListDTO;
+import com.wnsud9771.dto.filter.management.FindManagementByIdDTO;
 import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
 import com.wnsud9771.entity.FIlterentity.FilterManagement;
 import com.wnsud9771.entity.FIlterentity.FilterSet;
@@ -19,6 +20,7 @@ import com.wnsud9771.entity.FIlterentity.Filtervalue;
 import com.wnsud9771.entity.FIlterentity.Operation;
 import com.wnsud9771.entity.item.FormatItem;
 import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
+import com.wnsud9771.reoisitory.filter.FilterSetListRepository;
 import com.wnsud9771.reoisitory.filter.OperationRepository;
 import com.wnsud9771.reoisitory.item.FormatItemRepository;
 
@@ -30,7 +32,7 @@ public class FilterManagementService {
 	private final FilterManagementRepository filterManagementRepository;
 	private final FormatItemRepository formatItemRepository;
 	private final OperationRepository operationRepository;
-
+	private final FilterSetListRepository filterSetListRepository;
 	// 필터 관리 생성
 	public ResponseFilterManagementDTO createFilterManagement(ResponseFilterManagementDTO dto) {
         FilterManagement filterManagement = new FilterManagement();
@@ -111,8 +113,44 @@ public class FilterManagementService {
 		dto.setFilterManageId(entity.getFilter_manage_id());
 		return dto;
 	}
-
 	
+	//필터 관리 상세조회 id로 검색
+		public FindManagementByIdDTO findById(Long id) {
+			FindManagementByIdDTO responseDto = new FindManagementByIdDTO();
+			
+			FilterSetList filterSetList = filterSetListRepository.findByFilterManagementId(id)
+	                .orElseThrow(() -> new RuntimeException("###management에서 filterSetList id 잘못 조회"));
+			
+	        FilterSetListDTO responsefilterSetListDTO = new FilterSetListDTO();
+	        
+	        responsefilterSetListDTO.setFilterSets(
+	                filterSetList.getFilterSets().stream().map(filterSet -> {
+	                	
+	                        FilterSetDTO dto = new FilterSetDTO();
+	                        dto.setAndor(filterSet.getAndor());
+	                        dto.setResponseItemid(filterSet.getFormatItem().getId());
+	                        
+	                        
+	                        OperationDTO operationDTO = new OperationDTO();
+	                        operationDTO.setOperation(filterSet.getOperation().getOperation());
+	                        dto.setOperation(operationDTO);
+	                        
+	                        FiltervalueDTO filtervalueDTO = new FiltervalueDTO();
+	                        filtervalueDTO.setValue(filterSet.getFiltervalue().getValue());
+	                        dto.setFiltervalue(filtervalueDTO);
+	                        
+	                        return dto;
+	                    })
+	                    .collect(Collectors.toList())
+	            );
+	        
+	        
+	        responseDto.setFilterSetList(responsefilterSetListDTO);
+	        
+	        return responseDto;
+		}
+
+	// entity 다시 응답 dto로 변환 
 	private ResponseFilterManagementDTO convertToResponseDTO(FilterManagement filterManagement) {
         ResponseFilterManagementDTO responseDTO = new ResponseFilterManagementDTO();
         
