@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.filter.FilterItemDTO;
 import com.wnsud9771.dto.filter.management.FilterManagementDTO;
-import com.wnsud9771.dto.filter.management.FindManagementByIdDTO;
 import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
+import com.wnsud9771.dto.filter.management.search.FindManagementByIdDTO;
 import com.wnsud9771.service.filter.FilterManagementService;
 import com.wnsud9771.service.filter.ItemService;
 
