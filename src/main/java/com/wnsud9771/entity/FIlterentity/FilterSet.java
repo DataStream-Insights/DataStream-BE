@@ -2,6 +2,7 @@ package com.wnsud9771.entity.FIlterentity;
 
 import com.wnsud9771.entity.item.FormatItem;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class FilterSet {
 	@JoinColumn(name = "operation_id")
 	private Operation operation;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "filtervalue_id")
 	private Filtervalue filtervalue;
 }
