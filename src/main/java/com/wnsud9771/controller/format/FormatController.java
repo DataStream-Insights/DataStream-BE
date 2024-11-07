@@ -114,5 +114,5 @@ public class FormatController {
 		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(id);
 		return ResponseEntity.ok(idbymanagement);
 	}
-
+	
 }

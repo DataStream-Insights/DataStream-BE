@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
+import com.wnsud9771.dto.format.parsing.LogValueDTO;
 import com.wnsud9771.reoisitory.format.TitleAndLogRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -115,6 +116,36 @@ public class LogParsingService { // jackson 라이브러리 사용
 		}
 		return current;
 	}
+	
+	
+	//로그와 path들을 넣어서 해당로그의 value와 path들만 뽑는 함수
+	public List<LogValueDTO> extractValuesByPaths(String logEntry, List<String> paths) {
+	    List<LogValueDTO> results = new ArrayList<>();
+	    
+	    try {
+	        JsonNode rootNode = mapper.readTree(logEntry);
+	        
+	        for (String path : paths) {
+	            JsonNode targetNode = findNodeByPath(rootNode, path);
+	            if (targetNode != null) {
+	                String value = targetNode.isObject() || targetNode.isArray() 
+	                    ? targetNode.toString() 
+	                    : targetNode.asText();
+	                    
+	                results.add(LogValueDTO.builder()
+	                        .path(path)
+	                        .value(value)
+	                        .build());
+	            }
+	        }
+	        
+	    } catch (Exception e) {
+	        throw new RuntimeException("다중 경로에 대한 값 추출 중 오류가 발생했습니다.", e);
+	    }
+	    
+	    return results;
+	}
+	
 	
 //	public String parseLogByMultiplePaths(String logEntry, List<String> paths) {
 //        try {
