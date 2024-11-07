@@ -19,6 +19,7 @@ import com.wnsud9771.entity.FIlterentity.Filtervalue;
 import com.wnsud9771.entity.FIlterentity.Operation;
 import com.wnsud9771.entity.item.FormatItem;
 import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
+import com.wnsud9771.reoisitory.filter.OperationRepository;
 import com.wnsud9771.reoisitory.item.FormatItemRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class FilterManagementService {
 	private final FilterManagementRepository filterManagementRepository;
 	private final FormatItemRepository formatItemRepository;
+	private final OperationRepository operationRepository;
 
 	// 필터 관리 생성
 	public ResponseFilterManagementDTO createFilterManagement(ResponseFilterManagementDTO dto) {
@@ -38,12 +40,15 @@ public class FilterManagementService {
 
         if (dto.getFilterSetList() != null) {
             FilterSetList filterSetList = new FilterSetList();
+            filterSetList.setFilterManagement(filterManagement);  // 양방향 관계 설정
+            filterManagement.setFilterSetList(filterSetList);
 
             if (!dto.getFilterSetList().getFilterSets().isEmpty()) {
                 List<FilterSet> filterSets = new ArrayList<>();
 
                 dto.getFilterSetList().getFilterSets().forEach(filterSetDTO -> {
                     FilterSet filterSet = new FilterSet();
+                    filterSet.setFilterSetList(filterSetList);  // 양방향 관계 설정
 
                     // filterset의 andor 설정
                     filterSet.setAndor(filterSetDTO.getAndor());
@@ -53,14 +58,23 @@ public class FilterManagementService {
                         Filtervalue filtervalue = new Filtervalue();
                         filtervalue.setValue(filterSetDTO.getFiltervalue().getValue());
                         filterSet.setFiltervalue(filtervalue);
+                        filtervalue.getFilterSets().add(filterSet);  // 양방향 관계 설정
                     }
 
                     // Operation entity에 dto 넣어서 통으로 set
+//                    if (filterSetDTO.getOperation() != null) {
+//                        Operation operation = new Operation();
+//                        operation.setOperation(filterSetDTO.getOperation().getOperation());
+//                        filterSet.setOperation(operation);
+//                    }
                     if (filterSetDTO.getOperation() != null) {
-                        Operation operation = new Operation();
-                        operation.setOperation(filterSetDTO.getOperation().getOperation());
+                        Operation operation = operationRepository
+                            .findByOperation(filterSetDTO.getOperation().getOperation())
+                            .orElseThrow(() -> new RuntimeException("Operation not found: " + 
+                                filterSetDTO.getOperation().getOperation()));
                         filterSet.setOperation(operation);
                     }
+
 
                     // formatitem entity에 dto 넣어서 통으로 set
                     if (filterSetDTO.getResponseItemid() != null) {
