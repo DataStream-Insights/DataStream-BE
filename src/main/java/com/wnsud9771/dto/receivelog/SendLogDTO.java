@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SendLogDTO {
-	private String topicName;
-	private String log_data;
+	private String title;
+	private String contents;
 }
