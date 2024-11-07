@@ -36,7 +36,7 @@ public class FormatingSendService {
 	
 	//프로젝트 실행순서때문에 임시적으로 비동기 처리로 보내는
 	private final RestTemplate restTemplate;
-    private static final String RECEIVE_LOG_URL = "http://localhost:8080/logs/formating";
+    private static final String RECEIVE_LOG_URL = "http://localhost:8084/logs/formating";
     
     // 재시도 대기 큐
     private final BlockingQueue<SendLogDTO> pendingMessages = new LinkedBlockingQueue<>();
@@ -76,7 +76,7 @@ public class FormatingSendService {
 
     private SendLogDTO attemptSend(SendLogDTO sendLogDTO) {
         try {
-            log.info("Attempting to send dto data: {}", sendLogDTO.getLog_data());
+            log.info("Attempting to send dto data: {}", sendLogDTO.getContents());
             return restTemplate.postForObject(RECEIVE_LOG_URL, sendLogDTO, SendLogDTO.class);
         } catch (Exception e) {
             throw new RuntimeException("Failed to send message", e);
@@ -101,6 +101,6 @@ public class FormatingSendService {
                     }
                 }
             }
-        }, 0, 5, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.MINUTES);
     }
 }

@@ -39,8 +39,8 @@ public class FormatingLogService {
 	public void sendFormating(FormatingDTO formatingDTO) {
 
 		SendLogDTO dto = new SendLogDTO();
-		dto.setTopicName(formatingDTO.getTopicname());
-		dto.setLog_data(dto.getLog_data());
+		dto.setTitle(formatingDTO.getTopicname());
+		dto.setContents(formatingDTO.getFormatingLog());
 		
 		//api로 보내기 일단 막아둠
 		formatingSendService.sendLogData(dto);
