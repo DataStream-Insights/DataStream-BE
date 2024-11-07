@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/sendkafka")
 @RequiredArgsConstructor
 @Slf4j
-public class SendKafkaController { //포맷팅 된 로그가 들어오는 필터링
+public class SendKafkaController {
 	private final FormatingSendService formatingSendService;
 
 	@Operation(summary = "포맷 필드 파싱 후 springkafka로 전송", description = "포맷 필드로 파싱 하는거 추가 원래의 로그 제목 말고, 포맷제목 앞에 붙여서 json으로 파싱 파싱한 포맷팅 로그 다시 spring-kafka( \"/formating\")으로 전송")
