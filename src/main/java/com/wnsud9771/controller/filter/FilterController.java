@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.filter.FilterItemDTO;
 import com.wnsud9771.dto.filter.management.FilterManagementDTO;
+import com.wnsud9771.dto.filter.management.FindManagementByIdDTO;
 import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
 import com.wnsud9771.service.filter.FilterManagementService;
 import com.wnsud9771.service.filter.ItemService;
@@ -46,6 +48,13 @@ public class FilterController {
     public ResponseEntity<List<FilterManagementDTO>> findAllFilterManagements(){
     	
     	return ResponseEntity.ok(filterManagementService.findManagements()); 
+    }
+    
+    @GetMapping("/filtermanagement/{id}")
+    @Operation(summary = "필터 관리화면 목록 상세 조회", description = "선택한 아이템 목록을 조회합니다.")
+    public ResponseEntity<FindManagementByIdDTO> findmanagementbyid(@PathVariable Long id){
+    	FindManagementByIdDTO findManagementById = filterManagementService.findById(id);
+    	return ResponseEntity.ok(findManagementById);
     }
     
 }
