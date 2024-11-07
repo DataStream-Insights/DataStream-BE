@@ -35,14 +35,14 @@ public class FilterController {
     }
     
     @PostMapping("/savefilter")
-    @Operation(summary = "필터링의 행동 정의 설정부분 데이터 저장하는 api", description = "필터링의 행동 정의 설정부분 데이터 저장하는 api")
+    @Operation(summary = "(모든필드 비어있으면 안됨) 필터링의 행동 정의 설정부분 데이터 저장하는 api", description = "필터링의 행동 정의 설정부분 데이터 저장하는 api")
     public ResponseEntity<ResponseFilterManagementDTO> savefilters(@RequestBody ResponseFilterManagementDTO responseFilterManagementDTO){
    
     	return ResponseEntity.ok(filterManagementService.createFilterManagement(responseFilterManagementDTO));
     }
     
     @GetMapping("/filtermanagement")
-    @Operation(summary = "아이템 목록 조회", description = "전체 아이템 목록을 조회합니다.")
+    @Operation(summary = "필터 관리화면 목록 조회", description = "전체 아이템 목록을 조회합니다.")
     public ResponseEntity<List<FilterManagementDTO>> findAllFilterManagements(){
     	
     	return ResponseEntity.ok(filterManagementService.findManagements()); 
