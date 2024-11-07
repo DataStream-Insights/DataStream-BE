@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -18,25 +17,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class FilterManagement {
+public class Filtervalue { //필터링 행동정의에서 젤 오른쪽 input창 값 저장하는 entity
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; 
 	
-	private String filter_manage_id; //필터링 ID
-	private String filter_name;
+	private String value;
 	
-//	@Column(name = "created_date")
-//	private LocalDate writedate; 
-	
-	
-//	//author
-//	@ManyToOne
-//	@JoinColumn(name = "author_id")
-//	private Author author;// 기안자
-	
-	@OneToMany(mappedBy = "filterManagement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FilterSetList> filterSetLists = new ArrayList<>();
-	
-	
+	@OneToMany(mappedBy = "filtervalue", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<FilterSet> filterSets = new ArrayList<>();
 }

@@ -1,4 +1,4 @@
-package com.wnsud9771.dto.filter;
+package com.wnsud9771.dto.filter.management;
 
 import lombok.Data;
 
