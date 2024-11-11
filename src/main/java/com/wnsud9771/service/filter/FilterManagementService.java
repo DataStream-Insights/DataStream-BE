@@ -20,12 +20,17 @@ import com.wnsud9771.entity.FIlterentity.FilterSet;
 import com.wnsud9771.entity.FIlterentity.FilterSetList;
 import com.wnsud9771.entity.FIlterentity.Filtervalue;
 import com.wnsud9771.entity.FIlterentity.Operation;
+import com.wnsud9771.entity.Formatentity.FormatManagement;
 import com.wnsud9771.entity.item.FormatItem;
+import com.wnsud9771.entity.kafka_topic.FormatFilter;
 import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
 import com.wnsud9771.reoisitory.filter.FilterSetListRepository;
 import com.wnsud9771.reoisitory.filter.OperationRepository;
+import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.item.FormatItemRepository;
+import com.wnsud9771.reoisitory.mapping.FormatFilterRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -35,9 +40,10 @@ public class FilterManagementService {
 	private final FormatItemRepository formatItemRepository;
 	private final OperationRepository operationRepository;
 	private final FilterSetListRepository filterSetListRepository;
-
+	private final FormatFilterRepository formatFilterRepository;
+	private final  FormatManagementRepository  formatManagementRepository;
 	// 필터 관리 생성
-	public ResponseFilterManagementDTO createFilterManagement(ResponseFilterManagementDTO dto) {
+	public ResponseFilterManagementDTO createFilterManagement(ResponseFilterManagementDTO dto, String formatID) {
 		FilterManagement filterManagement = new FilterManagement();
 
 		filterManagement.setFilter_name(dto.getFiltername());
@@ -97,13 +103,33 @@ public class FilterManagementService {
 		}
 
 		FilterManagement savedFilterManagement = filterManagementRepository.save(filterManagement);
+
+		// formatmanagement랑 연결 저장 하는 부분
+		
+		
+		FormatManagement entity = formatManagementRepository.findByFormatID(formatID).orElseThrow(() -> new EntityNotFoundException("캠페인 아이디를 찾을 수 없음 :  " + formatID));
+		
+		
+		FormatFilter formatFilter = new FormatFilter();
+		formatFilter.setFilterManagement(savedFilterManagement);
+		formatFilter.setFormatManagement(entity);
+		formatFilterRepository.save(formatFilter);
+        
 		return convertToResponseDTO(savedFilterManagement);
 	}
 
 	// 필터 관리 모두 검색
-	public List<FilterManagementDTO> findManagements() {
-		return filterManagementRepository.findAll().stream().map(this::managementconvertToDTO)
+	public List<FilterManagementDTO> findManagements(String formatID) {
+
+		// id 받아서 id로 검색후 해당 리스트들만 뽑는
+		List<FormatFilter> formatFilters = formatFilterRepository.findByFormatManagement_FormatID(formatID);
+
+		List<Long> filterManagementIds = formatFilters.stream()
+				.map(formatFilter -> formatFilter.getFilterManagement().getId()).collect(Collectors.toList());
+
+		return filterManagementRepository.findAllById(filterManagementIds).stream().map(this::managementconvertToDTO)
 				.collect(Collectors.toList());
+		
 	}
 
 	// 필터 관리 엔티티 -> dto
@@ -125,12 +151,12 @@ public class FilterManagementService {
 		ResponseFilterSetListDTO responsefilterSetListDTO = new ResponseFilterSetListDTO();
 
 		responsefilterSetListDTO.setSearchFilterSetDTOs(filterSetList.getFilterSets().stream().map(filterSet -> {
-			
+
 			FilterSet filterSets = new FilterSet();
 			filterSets = filterSet;
 
-			SearchFilterSetDTO dto = new SearchFilterSetDTO ();
-			
+			SearchFilterSetDTO dto = new SearchFilterSetDTO();
+
 			dto.setAndor(filterSets.getAndor());
 			dto.setItem_alias(filterSets.getFormatItem().getItemAlias());
 

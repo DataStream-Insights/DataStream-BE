@@ -100,6 +100,7 @@ public class FormatController {
 		}
 		
 	}
+
 	
 	@Operation(summary = "포맷 관리화면 리스트 뿌리는 api", description = "해당 캠페인의 포맷 전체 검색")
 	@GetMapping("/{campaignId}/management")
@@ -109,9 +110,11 @@ public class FormatController {
 	}
 	
 	@Operation(summary = "포맷 관리화면에서 선택한 포맷 필드 검색하는 api", description = "id받아서 검색")
-	@GetMapping("/{CampaignId}/management/{id}")
+	@GetMapping("/{campaignId}/management/{id}")
 	public ResponseEntity<FormatManagementResponseDTO> getFormatManagement(@PathVariable String campaignId,@PathVariable Long id){
-		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(campaignId,id); // 캠페인id의 포맷의 id 로 검색하는걸로 변경
+		log.info("id::::::", id);
+		
+		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(id); // 캠페인id의 포맷의 id 로 검색하는걸로 변경
 		return ResponseEntity.ok(idbymanagement);
 	}
 	
