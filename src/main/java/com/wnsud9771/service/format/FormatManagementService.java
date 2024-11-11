@@ -1,6 +1,5 @@
 package com.wnsud9771.service.format;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,13 +9,18 @@ import com.wnsud9771.dto.format.management.FormatItemResponseDTO;
 import com.wnsud9771.dto.format.management.FormatManagementResponseDTO;
 import com.wnsud9771.dto.format.management.FormatSetResponseDTO;
 import com.wnsud9771.dto.format.management.ListFormatManagementDTO;
+import com.wnsud9771.entity.Campaignentity.Campaign;
 import com.wnsud9771.entity.Formatentity.FormatManagement;
 import com.wnsud9771.entity.Formatentity.FormatSet;
 import com.wnsud9771.entity.item.FormatItem;
+import com.wnsud9771.entity.kafka_topic.CampaignFormat;
+import com.wnsud9771.reoisitory.campaign.CampaignRepository;
 import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.format.FormatSetRepository;
 import com.wnsud9771.reoisitory.item.FormatItemRepository;
+import com.wnsud9771.reoisitory.mapping.CampaignFormatRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -25,9 +29,14 @@ public class FormatManagementService {
 	private final FormatManagementRepository formatManagementRepository;
 	private final FormatItemRepository formatItemRepository;
 	private final FormatSetRepository formatSetRepository;
+	private final CampaignRepository campaignRepository;
+	private final CampaignFormatRepository campaignFormatRepository;
 
 	// 컨트롤러 호출 (포맷 생성 )
-	public FormatManagementResponseDTO createFormatManagement(FormatManagementResponseDTO dto) {
+	public FormatManagementResponseDTO createFormatManagement(FormatManagementResponseDTO dto, String campaignId) {
+
+		Campaign campaign = campaignRepository.findByCampaignId(campaignId)
+				.orElseThrow(() -> new EntityNotFoundException("캠페인 아이디를 찾을 수 없음 :  " + campaignId));
 
 		FormatManagement formatManagement = new FormatManagement();
 
@@ -41,8 +50,8 @@ public class FormatManagementService {
 		if (dto.getFormatSets() != null) {
 			dto.getFormatSets().forEach(formatSetDTO -> {
 				if (formatSetDTO.getFormatItemResponse() != null) {
-					FormatItem formatItem = new FormatItem(); //entity
-					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse(); //받아온 dto
+					FormatItem formatItem = new FormatItem(); // entity
+					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse(); // 받아온 dto
 
 					formatItem.setFieldName(itemDTO.getFieldName());
 					formatItem.setItemAlias(itemDTO.getItemAlias());
@@ -62,6 +71,12 @@ public class FormatManagementService {
 
 		// FormatManagement와 FormatSet 저장
 		FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
+		
+		//캠페인과 포맷 연결 테이블에 세팅 
+		CampaignFormat campaignFormat = new CampaignFormat();
+        campaignFormat.setCampaign(campaign);
+        campaignFormat.setFormatManagement(savedFormatManagement);
+        campaignFormatRepository.save(campaignFormat);
 
 		return convertToDTO(savedFormatManagement);
 	}
@@ -141,10 +156,14 @@ public class FormatManagementService {
 		return formatManagement;
 	}
 
-	// 전부 검색
-	public List<ListFormatManagementDTO> findAllManagement() {
-		return formatManagementRepository.findAll().stream().map(this::managementconvertToDTO)
-				.collect(Collectors.toList());
+	// 해당 캠페인의 포맷 전부 검색
+	public List<ListFormatManagementDTO> findAllManagement(String campaignId) {
+		
+		List<CampaignFormat> campaignFormats = campaignFormatRepository.findByCampaign_CampaignId(campaignId);
+		
+		List<Long> formatManagementIds = campaignFormats.stream().map(campaignformat -> campaignformat.getFormatManagement().getId()).collect(Collectors.toList());
+		
+		return formatManagementRepository.findAllById(formatManagementIds).stream().map(this::managementconvertToDTO).collect(Collectors.toList());
 	}
 
 	// dto형식으로 매핑
@@ -157,8 +176,10 @@ public class FormatManagementService {
 		return dto;
 	}
 
-	// management id 검색
-	public FormatManagementResponseDTO findById(Long id) {
+	// 해당 켐페인의 format management id 검색 상세보기
+	public FormatManagementResponseDTO findById(String campaignId, Long id) {
+		
+		
 		FormatManagement formatManagement = formatManagementRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Format Management not found with id: " + id));
 

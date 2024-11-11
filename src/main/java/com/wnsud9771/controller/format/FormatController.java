@@ -83,17 +83,17 @@ public class FormatController {
 	
 	@Operation(summary = "포맷 필드 받아서 저장하는 api", description = "add formatfield")
 	@PostMapping("/{campaignId}/addformatfields") // 필드 설정 정보 저장하는 api
-	public ResponseEntity<FormatManagementResponseDTO> createFormatManagement(@PathVariable String campaignId,@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
+	public ResponseEntity<Map<String, Object>> createFormatManagement(@PathVariable String campaignId,@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
 		try {
 			log.info(" *******포맷 저장 받아온 데이터::: {}", formatManagementResponseDTO);
-			FormatManagementResponseDTO created = formatManagementService.createFormatManagement(formatManagementResponseDTO);
+			FormatManagementResponseDTO created = formatManagementService.createFormatManagement(formatManagementResponseDTO, campaignId);
 			Map<String, Object> response = new HashMap<>();
 			response.put("status", "success");
 			response.put("data", created);
 			response.put("message", "Format created successfully");
 //			formatManagementResponseDTO.get
 //			formatingSendService.sendLogData();
-			return ResponseEntity.ok(created);
+			return ResponseEntity.ok(response);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
 			throw e;
@@ -105,13 +105,13 @@ public class FormatController {
 	@GetMapping("/{campaignId}/management")
 	public List<ListFormatManagementDTO> getFormatManagement(@PathVariable String campaignId){
 	
-		return formatManagementService.findAllManagement(); // 이부분 해당 캠페인id의 포맷들 찾는걸로 변경
+		return formatManagementService.findAllManagement(campaignId); // 이부분 해당 캠페인id의 포맷들 찾는걸로 변경
 	}
 	
 	@Operation(summary = "포맷 관리화면에서 선택한 포맷 필드 검색하는 api", description = "id받아서 검색")
 	@GetMapping("/{CampaignId}/management/{id}")
-	public ResponseEntity<FormatManagementResponseDTO> getFormatManagement(@PathVariable String CampaignId,@PathVariable Long id){
-		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(id); // 캠페인id의 포맷의 id 로 검색하는걸로 변경
+	public ResponseEntity<FormatManagementResponseDTO> getFormatManagement(@PathVariable String campaignId,@PathVariable Long id){
+		FormatManagementResponseDTO idbymanagement = formatManagementService.findById(campaignId,id); // 캠페인id의 포맷의 id 로 검색하는걸로 변경
 		return ResponseEntity.ok(idbymanagement);
 	}
 	
