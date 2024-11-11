@@ -1,4 +1,4 @@
-package com.wnsud9771.controller.kafka.log;
+package com.wnsud9771.controller.kafka;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

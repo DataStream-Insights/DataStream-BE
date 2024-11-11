@@ -1,7 +1,5 @@
 package com.wnsud9771.dto.campaign;
 
-
-
 import lombok.Data;
 
 @Data
