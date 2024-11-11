@@ -7,6 +7,5 @@ public class FilterManagementDTO {
     private Long id;
     private String filterManageId;
 	private String filterName;
-	private String createdDate;
 	
 }
