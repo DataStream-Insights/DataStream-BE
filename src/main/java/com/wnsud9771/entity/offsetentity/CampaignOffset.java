@@ -15,5 +15,5 @@ public class CampaignOffset {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long campaignId;
+	private String campaignId;
 }

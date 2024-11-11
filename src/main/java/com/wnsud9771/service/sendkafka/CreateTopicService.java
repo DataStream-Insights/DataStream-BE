@@ -16,9 +16,15 @@ public class CreateTopicService {
 	private final RestTemplate restTemplate;
 	//private static final String RECEIVE_LOG_URL = "http://localhost:8084/topics/campaign";
 	
-	public CampaignIdDTO sendCampaignTopic(CampaignIdDTO CampaignIdDTO) {
+	public boolean sendCampaignTopic(CampaignIdDTO CampaignIdDTO) {
 	 	log.info("send dto data {} : ", CampaignIdDTO.getCampaingId());
-        return restTemplate.postForObject("http://localhost:8084/topics/campaign", CampaignIdDTO, CampaignIdDTO.class);
+	 	try {
+	 		restTemplate.postForObject("http://localhost:8083/topics/campaign", CampaignIdDTO, CampaignIdDTO.class);	 		
+	 		return true; 
+	 	}catch (Exception e){
+	 		log.info("sendCampaignTopic 토픽 전송실패");
+	 		return false;
+	 	}
     }
 	
 }

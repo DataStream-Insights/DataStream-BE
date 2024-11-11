@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.wnsud9771.dto.campaign.CampaignIdDTO;
 import com.wnsud9771.event.CampaignCreatedEvent;
+import com.wnsud9771.service.sendkafka.CampaignOffSetService;
 import com.wnsud9771.service.sendkafka.CreateTopicService;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class CampaignEventListener {
 	private final CreateTopicService createTopicService;
+	private final CampaignOffSetService campaignOffSetService;
 	
 	 @EventListener
 	    public void handleCampaignCreated(CampaignCreatedEvent event) {
@@ -24,12 +26,11 @@ public class CampaignEventListener {
 	            CampaignIdDTO dto = new CampaignIdDTO();
 	            dto.setCampaingId(event.getCampaignId());
 	            
-	            createTopicService.sendCampaignTopic(dto);
+	            //db에 저장된 캠페인 id들 전부 보내거나, 못보낸건 db에 저장
+	            campaignOffSetService.findNotSendCampaignTopic(dto);
 	            
-	            log.info("성공 캠페인아이디 : {}", 
-	                event.getCampaignId());
 	        } catch (Exception e) {
-	            log.error("실패 캠페인 아이디 : {}", event.getCampaignId(), e);
+	            log.error("캠페인 오프셋 db 오류", event.getCampaignId(), e);
 	            // 에러 처리 로직 추가 가능
 	        }
 	    }
