@@ -79,6 +79,8 @@ public class FormatManagementService {
         campaignFormat.setCampaign(campaign);
         campaignFormat.setFormatManagement(savedFormatManagement);
         campaignFormatRepository.save(campaignFormat);
+        
+        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
 
 		return convertToDTO(savedFormatManagement);
 	}
@@ -165,6 +167,7 @@ public class FormatManagementService {
 		
 		List<Long> formatManagementIds = campaignFormats.stream().map(campaignformat -> campaignformat.getFormatManagement().getId()).collect(Collectors.toList());
 		
+		
 		return formatManagementRepository.findAllById(formatManagementIds).stream().map(this::managementconvertToDTO).collect(Collectors.toList());
 	}
 
@@ -179,8 +182,9 @@ public class FormatManagementService {
 	}
 
 	// 해당 켐페인의 format management id 검색 상세보기
-	public FormatManagementResponseDTO findById(String campaignId, Long id) {
+	public FormatManagementResponseDTO findById(Long id) {
 		
+		log.info("검색한 id : {}", id);
 		
 		FormatManagement formatManagement = formatManagementRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Format Management not found with id: " + id));
