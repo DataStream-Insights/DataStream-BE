@@ -1,4 +1,4 @@
-package com.wnsud9771.entity.offsetentity;
+package com.wnsud9771.entity.recordentity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class CampaignOffset {
+public class CampaignRecord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

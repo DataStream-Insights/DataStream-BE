@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.campaign.CampaignIdDTO;
-import com.wnsud9771.entity.offsetentity.CampaignOffset;
-import com.wnsud9771.reoisitory.kafka.CampaignOffsetRepository;
+import com.wnsud9771.entity.recordentity.CampaignRecord;
+import com.wnsud9771.reoisitory.kafka.CampaignRecordRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,44 +14,44 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CampaignOffSetService {
-	private final CampaignOffsetRepository campaignOffsetRepository;
+public class CampaignRecordtService {
+	private final CampaignRecordRepository campaignRecordRepository;
 	private final CreateTopicService createTopicService;
 	
 	public void findNotSendCampaignTopic(CampaignIdDTO campaignIddto) {
 		
-		CampaignOffset entity = new CampaignOffset();
+		CampaignRecord entity = new CampaignRecord();
 		entity = ConverToEntity(campaignIddto);
 		
-		campaignOffsetRepository.save(entity);
+		campaignRecordRepository.save(entity);
 		
-		List<CampaignOffset> campaignOffsets =campaignOffsetRepository.findAll();
+		List<CampaignRecord> campaignRecords =campaignRecordRepository.findAll();
 		
-		for (CampaignOffset campaignOffset : campaignOffsets) {
+		for (CampaignRecord campaignRecord : campaignRecords) {
 			try {
 				CampaignIdDTO dto = new CampaignIdDTO();
-				dto.setCampaingId(campaignOffset.getCampaignId());
+				dto.setCampaingId(campaignRecord.getCampaignId());
 				if(!createTopicService.sendCampaignTopic(dto)) {
 					break;
 				}
-				campaignOffsetRepository.delete(campaignOffset); // 전송되면 삭제
+				campaignRecordRepository.delete(campaignRecord); // 전송되면 삭제
 			}catch(Exception e) {
 				log.error("캠페인 토픽 전송 실패, CampaignOffset db에 campaignId 적재중");
 			}
 			
         }
 		
-		List<CampaignOffset> NowcampaignOffsets =campaignOffsetRepository.findAll();
-		for (CampaignOffset nowcampaignOffset : NowcampaignOffsets) {
+		List<CampaignRecord> NowcampaignRecords =campaignRecordRepository.findAll();
+		for (CampaignRecord nowcampaignRecord : NowcampaignRecords) {
 			CampaignIdDTO dto = new CampaignIdDTO();
-			dto.setCampaingId(nowcampaignOffset.getCampaignId());
+			dto.setCampaingId(nowcampaignRecord.getCampaignId());
 			log.info("전송 안된 캠페인 id(토픽) 리스트:{}",dto);
 		}
 		
 	}
 	
-	private CampaignOffset ConverToEntity(CampaignIdDTO dto) {
-		CampaignOffset entity = new CampaignOffset();
+	private CampaignRecord ConverToEntity(CampaignIdDTO dto) {
+		CampaignRecord entity = new CampaignRecord();
 		
 		entity.setCampaignId(dto.getCampaingId());
 		
