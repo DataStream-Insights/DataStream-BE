@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class FormatingSendService {
-	// 비동기 처리떄문에 임시적으로 놔두고 비동기처리로 바꿈
+
 //	 private final RestTemplate restTemplate;
 //	 private static final String RECEIVE_LOG_URL = "http://localhost:8084/logs/formating"; //kafka2로 전송
 //	 

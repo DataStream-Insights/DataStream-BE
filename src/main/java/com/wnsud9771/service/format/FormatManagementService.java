@@ -22,9 +22,11 @@ import com.wnsud9771.reoisitory.mapping.CampaignFormatRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class FormatManagementService {
 	private final FormatManagementRepository formatManagementRepository;
 	private final FormatItemRepository formatItemRepository;
@@ -182,7 +184,9 @@ public class FormatManagementService {
 		
 		FormatManagement formatManagement = formatManagementRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Format Management not found with id: " + id));
-
+		
+		log.info("검색한 상세보기[ 'id' : {}, '포맷아이디' : {} ",formatManagement.getFormatID(),formatManagement.getId());
+		
 		return convertToDTO(formatManagement);
 	}
 }
