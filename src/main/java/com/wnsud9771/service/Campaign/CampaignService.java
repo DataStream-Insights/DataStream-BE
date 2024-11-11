@@ -37,7 +37,7 @@ public class CampaignService {
 	private CampaignDTO convertToDTO(Campaign campaign) {
 		CampaignDTO dto = new CampaignDTO();
 		dto.setNo(campaign.getId());
-		dto.setCampaignId(campaign.getCampaign_id());
+		dto.setCampaignId(campaign.getCampaignId());
 		Category1 category1 = campaign.getCategory2().getCategory1();
 		dto.setCampaignClassification1(category1.getCategory1());
 		Category2 category2 = campaign.getCategory2();
@@ -73,11 +73,10 @@ public class CampaignService {
 		Campaign campaign = new Campaign();
 		campaign.setId(null);
 		// 기본 필드 설정
-		campaign.setCampaign_id(dto.getCampaignId());
+		campaign.setCampaignId(dto.getCampaignId());
 		campaign.setCampaign_name(dto.getCampaignName());
 		campaign.setStatus(dto.getStatus());
 		campaign.setIs_public(dto.getVisibility());
-		campaign.setTag(dto.getTags());
 		campaign.setCampaign_description(dto.getCampaignDescription());
 		campaign.setEnd_date_after(dto.getEndAfter());
 		campaign.setCustomerType(dto.getCustomerType());

@@ -1,11 +1,12 @@
 package com.wnsud9771.entity.Campaignentity;
 
 import java.time.LocalDate;
-import java.util.Random;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import com.wnsud9771.entity.Authorentity.Author;
+import com.wnsud9771.entity.kafka_topic.CampaignFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,9 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -30,11 +30,7 @@ public class Campaign {
 	private Long id;
 
 	@Column(name = "campaign_id", unique = true, nullable = false, updatable = false)
-	private String campaign_id; // 캠페인 id
-
-//	@ManyToOne(optional=false)
-//	@JoinColumn(name = "category1_id")
-//	private Category1 category1;
+	private String campaignId; // 캠페인 id
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category2_id")
@@ -73,7 +69,11 @@ public class Campaign {
 	@Column(name = "campaign_description")
 	private String campaign_description; // 캠페인 설명
 
-	@Column(name = "tag")
-	private String tag;
+//	@Column(name = "tag")
+//	private String tag;
+	
+	@OneToMany(mappedBy = "campaign")
+	private List<CampaignFormat> campaignFormats;
+	
 
 }
