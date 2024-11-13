@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.receivelog.SendLogDTO;
-import com.wnsud9771.service.sendkafka.FormatingSendService;
+import com.wnsud9771.service.kafka.FormatingSendService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

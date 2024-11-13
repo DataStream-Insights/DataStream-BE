@@ -5,8 +5,8 @@ import org.springframework.stereotype.Component;
 
 import com.wnsud9771.dto.campaign.CampaignIdDTO;
 import com.wnsud9771.event.CampaignCreatedEvent;
-import com.wnsud9771.service.sendkafka.CampaignRecordtService;
-import com.wnsud9771.service.sendkafka.CreateTopicService;
+import com.wnsud9771.service.kafka.record.CampaignRecordService;
+import com.wnsud9771.service.kafka.topic.CreateCampaignTopicService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,8 +16,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class CampaignEventListener {
-	private final CreateTopicService createTopicService;
-	private final CampaignRecordtService campaignOffSetService;
+	private final CreateCampaignTopicService createTopicService;
+	private final CampaignRecordService campaignOffSetService;
 	
 	 @EventListener
 	    public void handleCampaignCreated(CampaignCreatedEvent event) {
