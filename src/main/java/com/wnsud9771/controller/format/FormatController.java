@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
 import com.wnsud9771.dto.format.parsing.SearchNodeDTO;
 import com.wnsud9771.dto.format.parsing.SubStringDTO;
+import com.wnsud9771.event.FormatCreatedEvent;
 import com.wnsud9771.service.format.CallTitleService;
 import com.wnsud9771.service.format.FormatManagementService;
 import com.wnsud9771.service.format.LogParsingService;
@@ -41,6 +43,7 @@ public class FormatController {
 	private final FindLogService findLogService;
 	private final ChangeToLogPlusSubStringService changeToLogPlusSubStringService;
 	private final FormatManagementService formatManagementService;
+	private final ApplicationEventPublisher eventPublisher;
 	//private final FormatingSendService formatingSendService;
 
 	@Operation(summary = "로그파일 제목 가져오기", description = "전체 아이템 목록을 조회합니다.")
@@ -91,6 +94,7 @@ public class FormatController {
 			response.put("status", "success");
 			response.put("data", created);
 			response.put("message", "Format created successfully");
+			eventPublisher.publishEvent(new FormatCreatedEvent(this, created.getFormatID(), campaignId)); // 포맷 토픽 보내는거 이벤트발생시키기 
 //			formatManagementResponseDTO.get
 //			formatingSendService.sendLogData();
 			return ResponseEntity.ok(response);

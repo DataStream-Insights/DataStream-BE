@@ -1,4 +1,4 @@
-package com.wnsud9771.service.sendkafka;
+package com.wnsud9771.service.kafka.record;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.wnsud9771.dto.campaign.CampaignIdDTO;
 import com.wnsud9771.entity.recordentity.CampaignRecord;
 import com.wnsud9771.reoisitory.kafka.CampaignRecordRepository;
+import com.wnsud9771.service.kafka.topic.CreateCampaignTopicService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,9 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CampaignRecordtService {
+public class CampaignRecordService {
 	private final CampaignRecordRepository campaignRecordRepository;
-	private final CreateTopicService createTopicService;
+	private final CreateCampaignTopicService createCampaignTopicService;
 	
 	public void findNotSendCampaignTopic(CampaignIdDTO campaignIddto) {
 		
@@ -31,7 +32,7 @@ public class CampaignRecordtService {
 			try {
 				CampaignIdDTO dto = new CampaignIdDTO();
 				dto.setCampaingId(campaignRecord.getCampaignId());
-				if(!createTopicService.sendCampaignTopic(dto)) {
+				if(!createCampaignTopicService.sendCampaignTopic(dto)) {
 					break;
 				}
 				campaignRecordRepository.delete(campaignRecord); // 전송되면 삭제

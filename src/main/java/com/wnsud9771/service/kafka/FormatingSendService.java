@@ -1,4 +1,4 @@
-package com.wnsud9771.service.sendkafka;
+package com.wnsud9771.service.kafka;
 
 import java.util.ArrayList;
 import java.util.List;

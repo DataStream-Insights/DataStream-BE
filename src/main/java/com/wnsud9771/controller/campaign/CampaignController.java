@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wnsud9771.dto.campaign.CampaignDTO;
 import com.wnsud9771.event.CampaignCreatedEvent;
 import com.wnsud9771.service.Campaign.CampaignService;
-import com.wnsud9771.service.sendkafka.CreateTopicService;
+import com.wnsud9771.service.kafka.topic.CreateCampaignTopicService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class CampaignController {
 
 	@Autowired
 	private CampaignService campaignService;
-	private CreateTopicService createTopicService;
+	private CreateCampaignTopicService createTopicService;
 	private final ApplicationEventPublisher eventPublisher;
 
 	@Operation(summary = "캠페인 관리화면 전체 조회", description = "전체 아이템 목록을 조회합니다.")

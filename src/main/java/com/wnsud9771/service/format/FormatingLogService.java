@@ -21,7 +21,7 @@ import com.wnsud9771.entity.Formatentity.FormatManagement;
 import com.wnsud9771.entity.Formatentity.TitleAndLog;
 import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.format.TitleAndLogRepository;
-import com.wnsud9771.service.sendkafka.FormatingSendService;
+import com.wnsud9771.service.kafka.FormatingSendService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class FormatingLogService {
 		dto.setContents(formatingDTO.getFormatingLog());
 		
 		//api로 보내기 일단 막아둠
-		formatingSendService.sendLogData(dto);
+		//formatingSendService.sendLogData(dto);
 
 	}
 
@@ -62,7 +62,7 @@ public class FormatingLogService {
 		dto.setTopicname(format.getFormatname());
 		dto.setFormatingLog(parsingLog(paths).getParsedLog());
 
-		sendFormating(dto);
+		//sendFormating(dto);
 
 	}
 	
@@ -108,12 +108,12 @@ public class FormatingLogService {
 //		formatingLogById(formatid);
 //	}
 //	
-	@EventListener(ApplicationReadyEvent.class)
-    @Transactional
-    public void init() {
-        formatingLogById("FMT241107015");
-    }
-	
+//	@EventListener(ApplicationReadyEvent.class)
+//    @Transactional
+//    public void init() {
+//        formatingLogById("FMT241107015");
+//    }
+//	
 	
 	//
 
