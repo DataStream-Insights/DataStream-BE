@@ -2,6 +2,7 @@ package com.wnsud9771.controller.filter;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import com.wnsud9771.dto.filter.FilterItemDTO;
 import com.wnsud9771.dto.filter.management.FilterManagementDTO;
 import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
 import com.wnsud9771.dto.filter.management.search.FindManagementByIdDTO;
+import com.wnsud9771.event.FilterCreatedEvent;
 import com.wnsud9771.service.filter.FilterManagementService;
 import com.wnsud9771.service.filter.ItemService;
 
@@ -28,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FilterController {
 	private final ItemService itemService;
 	private final FilterManagementService filterManagementService;
+	private final ApplicationEventPublisher eventPublisher;
 
     @GetMapping("/log-items")
     @Operation(summary = "아이템 목록 조회", description = "전체 아이템 목록을 조회합니다.")
@@ -41,7 +44,10 @@ public class FilterController {
     public ResponseEntity<ResponseFilterManagementDTO> savefilters(@PathVariable String campaignId,@PathVariable String formatID,
     		@RequestBody ResponseFilterManagementDTO responseFilterManagementDTO){
    
-    	return ResponseEntity.ok(filterManagementService.createFilterManagement(responseFilterManagementDTO,formatID));
+    	ResponseFilterManagementDTO created = filterManagementService.createFilterManagement(responseFilterManagementDTO,formatID);
+    	eventPublisher.publishEvent(new FilterCreatedEvent(this, created.getFiltermanage_id(),formatID, campaignId));
+    	
+    	return ResponseEntity.ok(created);
     }
     
     @GetMapping("/{campaignId}/{formatID}/filtermanagement")
