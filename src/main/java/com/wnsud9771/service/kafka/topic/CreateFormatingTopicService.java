@@ -21,7 +21,7 @@ public class CreateFormatingTopicService {
 	 		restTemplate.postForObject("http://localhost:8084/topics/formating", campaignIdformatIdDTO, CampainIdFormatIdDTO.class);	 		
 	 		return true; 
 	 	}catch (Exception e){
-	 		log.info("sendCampaignTopic 토픽 전송실패");
+	 		log.info("sendFormatTopic 토픽 전송실패");
 	 		return false;
 	 	}
     }

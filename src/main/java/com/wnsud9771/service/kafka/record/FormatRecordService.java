@@ -23,7 +23,7 @@ public class FormatRecordService {
 	public void findNotSendFormatTopic(FormatIdDTO formatIddto, CampaignIdDTO campaignIddto) {
 		
 		FormatRecord entity = new FormatRecord();
-		entity = ConverToEntity(formatIddto);
+		entity = ConverToEntity(formatIddto,campaignIddto);
 		
 		formatRecordRepository.save(entity);
 		
@@ -53,10 +53,11 @@ public class FormatRecordService {
 		
 	}
 	
-	private FormatRecord ConverToEntity(FormatIdDTO dto) {
+	private FormatRecord ConverToEntity(FormatIdDTO dto, CampaignIdDTO campaignIddto) {
 		FormatRecord entity = new FormatRecord();
 		
 		entity.setFormatId(dto.getFormatId());
+		entity.setCampaignId(campaignIddto.getCampaingId());
 		
 		return entity;
 		
