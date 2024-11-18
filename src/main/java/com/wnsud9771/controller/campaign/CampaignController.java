@@ -51,7 +51,8 @@ public class CampaignController {
 			//dto.setCampaingId(campaignDTO.getCampaignId());
 			//createTopicService.sendCampaignTopic(dto);
 			
-			 eventPublisher.publishEvent(new CampaignCreatedEvent(this, created.getCampaignId()));
+			//kafka 프로젝트로 캠페인 보내기 임시막기 db만생성하게
+			//eventPublisher.publishEvent(new CampaignCreatedEvent(this, created.getCampaignId()));
 			
 			return ResponseEntity.ok(created);
 		} catch (Exception e) {

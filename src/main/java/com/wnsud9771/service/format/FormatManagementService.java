@@ -74,13 +74,14 @@ public class FormatManagementService {
 		// FormatManagement와 FormatSet 저장
 		FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
 		
-		//캠페인과 포맷 연결 테이블에 세팅 
-		CampaignFormat campaignFormat = new CampaignFormat();
-        campaignFormat.setCampaign(campaign);
-        campaignFormat.setFormatManagement(savedFormatManagement);
-        campaignFormatRepository.save(campaignFormat);
-        
-        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
+//		포맷만 저장하게 막아둠
+//		//캠페인과 포맷 연결 테이블에 세팅 
+//		CampaignFormat campaignFormat = new CampaignFormat();
+//        campaignFormat.setCampaign(campaign);
+//        campaignFormat.setFormatManagement(savedFormatManagement);
+//        campaignFormatRepository.save(campaignFormat);
+//        
+//        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
 
 		return convertToDTO(savedFormatManagement);
 	}
@@ -193,4 +194,21 @@ public class FormatManagementService {
 		
 		return convertToDTO(formatManagement);
 	}
+	
+	// 전체 포맷 목록 조회
+    public List<ListFormatManagementDTO> findAllFormats() {
+        List<FormatManagement> formats = formatManagementRepository.findAll();
+        return formats.stream()
+                .map(this::convertToListDTO)
+                .collect(Collectors.toList());
+    }
+    
+    private ListFormatManagementDTO convertToListDTO(FormatManagement entity) {
+        ListFormatManagementDTO dto = new ListFormatManagementDTO();
+        dto.setId(entity.getId());
+        dto.setFormatName(entity.getFormatname());
+        dto.setFormatId(entity.getFormatID());
+        dto.setFormatexplain(entity.getFormatexplain());
+        return dto;
+    }
 }
