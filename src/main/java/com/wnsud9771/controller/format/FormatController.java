@@ -84,7 +84,7 @@ public class FormatController {
 		return ResponseEntity.ok(result); // key, value, path, haschild 반환은 똑같음
 	}
 	
-	@Operation(summary = "포맷 필드 받아서 저장하는 api", description = "add formatfield")
+	@Operation(summary = "잠시미사용-포맷 필드 받아서 저장하는 api", description = "add formatfield")
 	@PostMapping("/{campaignId}/addformatfields") // 필드 설정 정보 저장하는 api
 	public ResponseEntity<Map<String, Object>> createFormatManagement(@PathVariable String campaignId,@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
 		try {
