@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wnsud9771.dto.format.parsing.ExistLogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
 import com.wnsud9771.dto.format.parsing.LogValueDTO;
+import com.wnsud9771.entity.item.FormatItem;
 import com.wnsud9771.reoisitory.format.TitleAndLogRepository;
+import com.wnsud9771.reoisitory.item.FormatItemRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +26,16 @@ import lombok.extern.slf4j.Slf4j;
 public class LogParsingService { // jackson 라이브러리 사용
 
 	private final TitleAndLogRepository titleAndLogRepository;
-	 private final ObjectMapper mapper = new ObjectMapper();
+	private final FormatItemRepository formatItemRepository;
+	private final ObjectMapper mapper = new ObjectMapper();
 
 	// 초기 substring 파싱 title, startdepth, enddepth 받아서 로그 파싱
-	public List<LogItemDTO> processLogData(LogParseDTO logParseDTO) {
+	public List<ExistLogItemDTO> processLogData(LogParseDTO logParseDTO) {
 		log.info("DTO.title {}", logParseDTO.getLog());
 		log.info("DTO.title {}", logParseDTO.getStartdepth());
 		log.info("DTO.title {}", logParseDTO.getEnddepth());
 
-
-		List<LogItemDTO> result = new ArrayList<>();
+		List<ExistLogItemDTO> result = new ArrayList<>();
 
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -46,10 +49,10 @@ public class LogParsingService { // jackson 라이브러리 사용
 
 	}
 
-	// path 기반으로 파싱 
+	// path 기반으로 파싱
 	// 컨트롤러의 path 기반 검색 요청 처리
-	public List<LogItemDTO> parseLog(String logEntry, String path) {
-		List<LogItemDTO> result = new ArrayList<>();
+	public List<ExistLogItemDTO> parseLog(String logEntry, String path) {
+		List<ExistLogItemDTO> result = new ArrayList<>();
 		try {
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(logEntry);
@@ -64,25 +67,41 @@ public class LogParsingService { // jackson 라이브러리 사용
 	}
 
 	// 실제 노드 파싱 로직을 담당하는 private 메소드 key, value, path, hasChild 정보 추출
-	private List<LogItemDTO> processNodeFromPath(JsonNode node, String currentPath, List<LogItemDTO> result) {
+	private List<ExistLogItemDTO> processNodeFromPath(JsonNode node, String currentPath, List<ExistLogItemDTO> result) {
 		if (node.isObject()) {
 			Iterator<Map.Entry<String, JsonNode>> fields = node.fields();
 			while (fields.hasNext()) {
 				Map.Entry<String, JsonNode> field = fields.next();
 				String newPath = currentPath.isEmpty() ? field.getKey() : currentPath + "." + field.getKey();
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
+				
+				ExistLogItemDTO dto = new ExistLogItemDTO();
+		           dto.setName(field.getKey());
+		           dto.setValue(field.getValue().toString());
+		           dto.setPath(newPath);
+		           dto.setHasChild(hasChild);
+		        
+		        //레포지토리에서 해당 path의 아이템들 포맷 아이템이 있는지 확인하고 있으며 걔로 dto에 넣어서 반환.
+		        FormatItem entity = formatItemRepository.findByPath(newPath).orElse(null);
+		        
+		        if(entity != null) {
+		        	dto.setItem_alias(entity.getItemAlias());
+		        	dto.setItem_explain(entity.getItemExplain());
+		        	dto.setItem_type(entity.getItemType());
+		        }
+		        
+		        
+		        result.add(dto);
 
-				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
-						.hasChild(hasChild).build());
 			}
 		}
 		return result;
 	}
-	
-	//depth 기반 재귀 파싱을 위한 private 메소드
-	//지정된 depth 범위의 노드만 처리
+
+	// depth 기반 재귀 파싱을 위한 private 메소드
+	// 지정된 depth 범위의 노드만 처리
 	private void processNodeWithDepth(JsonNode node, String currentPath, int currentDepth, int startDepth, int endDepth,
-			List<LogItemDTO> result) {
+			List<ExistLogItemDTO> result) {
 		if (currentDepth > endDepth || !node.isObject())
 			return;
 
@@ -93,9 +112,26 @@ public class LogParsingService { // jackson 라이브러리 사용
 
 			if (currentDepth >= startDepth && currentDepth <= endDepth) {
 				boolean hasChild = field.getValue().isObject() || field.getValue().isArray();
-
-				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
-						.hasChild(hasChild).build());
+				
+				ExistLogItemDTO dto = new ExistLogItemDTO();
+		           dto.setName(field.getKey());
+		           dto.setValue(field.getValue().toString());
+		           dto.setPath(newPath);
+		           dto.setHasChild(hasChild);
+		        
+		        //레포지토리에서 해당 path의 아이템들 포맷 아이템이 있는지 확인하고 있으며 걔로 dto에 넣어서 반환.
+		        FormatItem entity = formatItemRepository.findByPath(newPath).orElse(null);
+		        
+		        if(entity != null) {
+		        	dto.setItem_alias(entity.getItemAlias());
+		        	dto.setItem_explain(entity.getItemExplain());
+		        	dto.setItem_type(entity.getItemType());
+		        }
+		        
+		        result.add(dto);
+//				
+//				result.add(LogItemDTO.builder().name(field.getKey()).value(field.getValue().toString()).path(newPath)
+//						.hasChild(hasChild).build());
 			}
 
 			processNodeWithDepth(field.getValue(), newPath, currentDepth + 1, startDepth, endDepth, result);
@@ -105,7 +141,7 @@ public class LogParsingService { // jackson 라이브러리 사용
 	// 주어진 path에 해당하는 노드를 찾는 private 메소드
 	// path 기반 검색에 사용
 	private JsonNode findNodeByPath(JsonNode node, String path) {
-		String[] parts = path.split("\\.");
+		String[] parts = path.split("[.]");
 		JsonNode current = node;
 
 		for (String part : parts) {
@@ -116,37 +152,31 @@ public class LogParsingService { // jackson 라이브러리 사용
 		}
 		return current;
 	}
-	
-	
-	//로그와 path들을 넣어서 해당로그의 value와 path들만 뽑는 함수
+
+	// 로그와 path들을 넣어서 해당로그의 value와 path들만 뽑는 함수
 	public List<LogValueDTO> extractValuesByPaths(String logEntry, List<String> paths) {
-	    List<LogValueDTO> results = new ArrayList<>();
-	    
-	    try {
-	        JsonNode rootNode = mapper.readTree(logEntry);
-	        
-	        for (String path : paths) {
-	            JsonNode targetNode = findNodeByPath(rootNode, path);
-	            if (targetNode != null) {
-	                String value = targetNode.isObject() || targetNode.isArray() 
-	                    ? targetNode.toString() 
-	                    : targetNode.asText();
-	                    
-	                results.add(LogValueDTO.builder()
-	                        .path(path)
-	                        .value(value)
-	                        .build());
-	            }
-	        }
-	        
-	    } catch (Exception e) {
-	        throw new RuntimeException("다중 경로에 대한 값 추출 중 오류가 발생했습니다.", e);
-	    }
-	    
-	    return results;
+		List<LogValueDTO> results = new ArrayList<>();
+
+		try {
+			JsonNode rootNode = mapper.readTree(logEntry);
+
+			for (String path : paths) {
+				JsonNode targetNode = findNodeByPath(rootNode, path);
+				if (targetNode != null) {
+					String value = targetNode.isObject() || targetNode.isArray() ? targetNode.toString()
+							: targetNode.asText();
+
+					results.add(LogValueDTO.builder().path(path).value(value).build());
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException("다중 경로에 대한 값 추출 중 오류가 발생했습니다.", e);
+		}
+
+		return results;
 	}
-	
-	
+
 //	public String parseLogByMultiplePaths(String logEntry, List<String> paths) {
 //        try {
 //            JsonNode rootNode = mapper.readTree(logEntry);
