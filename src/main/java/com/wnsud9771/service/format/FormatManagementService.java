@@ -115,12 +115,17 @@ public class FormatManagementService {
 						formatItem.setItemType(itemDTO.getItemType());
 						formatItem.setItemContent(itemDTO.getItemContent());
 						formatItem.setPath(itemDTO.getPath());
+						formatItem = formatItemRepository.save(formatItem);
 					}
 					
-					formatItem = formatItemRepository.save(formatItem);
 
 					FormatSet formatSet = new FormatSet();
-					formatSet.setFormatItem(formatItem);
+					if(pathbyformat == null) {
+						formatSet.setFormatItem(formatItem);					
+					}else {
+						formatSet.setFormatItem(pathbyformat);
+					}
+					
 					formatManagement.addFormatSet(formatSet); // 하나씩 추가
 				}
 			});
