@@ -105,14 +105,18 @@ public class FormatManagementService {
 				if (formatSetDTO.getFormatItemResponse() != null) {
 					FormatItem formatItem = new FormatItem(); // entity
 					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse(); // 받아온 dto
-
-					formatItem.setFieldName(itemDTO.getFieldName());
-					formatItem.setItemAlias(itemDTO.getItemAlias());
-					formatItem.setItemExplain(itemDTO.getItemExplain());
-					formatItem.setItemType(itemDTO.getItemType());
-					formatItem.setItemContent(itemDTO.getItemContent());
-					formatItem.setPath(itemDTO.getPath());
-
+					
+					FormatItem pathbyformat = formatItemRepository.findByPath(itemDTO.getPath()).orElse(null);
+					
+					if(pathbyformat == null) {						
+						formatItem.setFieldName(itemDTO.getFieldName());
+						formatItem.setItemAlias(itemDTO.getItemAlias());
+						formatItem.setItemExplain(itemDTO.getItemExplain());
+						formatItem.setItemType(itemDTO.getItemType());
+						formatItem.setItemContent(itemDTO.getItemContent());
+						formatItem.setPath(itemDTO.getPath());
+					}
+					
 					formatItem = formatItemRepository.save(formatItem);
 
 					FormatSet formatSet = new FormatSet();
