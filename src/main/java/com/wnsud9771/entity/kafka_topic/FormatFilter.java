@@ -28,4 +28,6 @@ public class FormatFilter {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "filter_id")
     private FilterManagement filterManagement;
+	
+	
 }
