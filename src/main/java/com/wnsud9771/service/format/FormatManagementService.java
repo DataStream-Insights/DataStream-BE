@@ -85,6 +85,57 @@ public class FormatManagementService {
 
 		return convertToDTO(savedFormatManagement);
 	}
+	
+	public FormatManagementResponseDTO createonlyFormatManagement(FormatManagementResponseDTO dto) {
+
+//		Campaign campaign = campaignRepository.findByCampaignId(campaignId)
+//				.orElseThrow(() -> new EntityNotFoundException("캠페인 아이디를 찾을 수 없음 :  " + campaignId));
+
+		FormatManagement formatManagement = new FormatManagement();
+
+		formatManagement.setStart(dto.getStart());
+		formatManagement.setEnd(dto.getEnd());
+		formatManagement.setFormatname(dto.getFormatname());
+		formatManagement.setFormatID(dto.getFormatID());
+		formatManagement.setFormatexplain(dto.getFormatexplain());
+
+		// FormatItem들을 먼저 레포에 저장
+		if (dto.getFormatSets() != null) {
+			dto.getFormatSets().forEach(formatSetDTO -> {
+				if (formatSetDTO.getFormatItemResponse() != null) {
+					FormatItem formatItem = new FormatItem(); // entity
+					FormatItemResponseDTO itemDTO = formatSetDTO.getFormatItemResponse(); // 받아온 dto
+
+					formatItem.setFieldName(itemDTO.getFieldName());
+					formatItem.setItemAlias(itemDTO.getItemAlias());
+					formatItem.setItemExplain(itemDTO.getItemExplain());
+					formatItem.setItemType(itemDTO.getItemType());
+					formatItem.setItemContent(itemDTO.getItemContent());
+					formatItem.setPath(itemDTO.getPath());
+
+					formatItem = formatItemRepository.save(formatItem);
+
+					FormatSet formatSet = new FormatSet();
+					formatSet.setFormatItem(formatItem);
+					formatManagement.addFormatSet(formatSet); // 하나씩 추가
+				}
+			});
+		}
+
+		// FormatManagement와 FormatSet 저장
+		FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
+		
+//		포맷만 저장하게 막아둠
+//		//캠페인과 포맷 연결 테이블에 세팅 
+//		CampaignFormat campaignFormat = new CampaignFormat();
+//        campaignFormat.setCampaign(campaign);
+//        campaignFormat.setFormatManagement(savedFormatManagement);
+//        campaignFormatRepository.save(campaignFormat);
+//        
+//        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
+
+		return convertToDTO(savedFormatManagement);
+	}
 
 	private FormatManagementResponseDTO convertToDTO(FormatManagement entity) {
 		FormatManagementResponseDTO dto = new FormatManagementResponseDTO();
