@@ -95,7 +95,7 @@ public class FormatController {
 			response.put("data", created);
 			response.put("message", "Format created successfully");
 			
-			//포맷만 저장하게 막아둠.
+
 			//eventPublisher.publishEvent(new FormatCreatedEvent(this, created.getFormatID(), campaignId)); // 포맷 토픽 보내는거 이벤트발생시키기 
 //			formatManagementResponseDTO.get
 //			formatingSendService.sendLogData();
@@ -139,14 +139,14 @@ public class FormatController {
 	}
 
 	
-	@Operation(summary = "포맷 관리화면 리스트 뿌리는 api", description = "해당 캠페인의 포맷 전체 검색")
+	@Operation(summary = "잠시미사용-포맷 관리화면 리스트 뿌리는 api", description = "해당 캠페인의 포맷 전체 검색")
 	@GetMapping("/{campaignId}/management")
 	public List<ListFormatManagementDTO> getFormatManagement(@PathVariable String campaignId){
 	
 		return formatManagementService.findAllManagement(campaignId); // 이부분 해당 캠페인id의 포맷들 찾는걸로 변경
 	}
 	
-	@Operation(summary = "포맷 관리화면에서 선택한 포맷 필드 검색하는 api", description = "id받아서 검색")
+	@Operation(summary = "잠시미사용-포맷 관리화면에서 선택한 포맷 필드 검색하는 api", description = "id받아서 검색")
 	@GetMapping("/{campaignId}/management/{id}")
 	public ResponseEntity<FormatManagementResponseDTO> getFormatManagement(@PathVariable String campaignId,@PathVariable Long id){
 		log.info("id::::::", id);

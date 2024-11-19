@@ -74,14 +74,14 @@ public class FormatManagementService {
 		// FormatManagement와 FormatSet 저장
 		FormatManagement savedFormatManagement = formatManagementRepository.save(formatManagement);
 		
-//		포맷만 저장하게 막아둠
-//		//캠페인과 포맷 연결 테이블에 세팅 
-//		CampaignFormat campaignFormat = new CampaignFormat();
-//        campaignFormat.setCampaign(campaign);
-//        campaignFormat.setFormatManagement(savedFormatManagement);
-//        campaignFormatRepository.save(campaignFormat);
-//        
-//        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
+
+		//캠페인과 포맷 연결 테이블에 세팅 
+		CampaignFormat campaignFormat = new CampaignFormat();
+        campaignFormat.setCampaign(campaign);
+        campaignFormat.setFormatManagement(savedFormatManagement);
+        campaignFormatRepository.save(campaignFormat);
+        
+        log.info("저장된 campaign,format 중간 테이블의 id  : {}", campaignFormat.getId());
 
 		return convertToDTO(savedFormatManagement);
 	}
