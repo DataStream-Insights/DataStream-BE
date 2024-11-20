@@ -84,28 +84,7 @@ public class FormatController {
 		return ResponseEntity.ok(result); // key, value, path, haschild 반환은 똑같음
 	}
 	
-//	@Operation(summary = "미사용- 포맷 필드 받아서 저장하는 api", description = "add formatfield")
-//	@PostMapping("/{campaignId}/addformatfields") // 필드 설정 정보 저장하는 api
-//	public ResponseEntity<Map<String, Object>> createFormatManagement(@PathVariable String campaignId,@RequestBody FormatManagementResponseDTO formatManagementResponseDTO){
-//		try {
-//			log.info(" *******포맷 저장 받아온 데이터::: {}", formatManagementResponseDTO);
-//			FormatManagementResponseDTO created = formatManagementService.createFormatManagement(formatManagementResponseDTO, campaignId);
-//			Map<String, Object> response = new HashMap<>();
-//			response.put("status", "success");
-//			response.put("data", created);
-//			response.put("message", "Format created successfully");
-//			
-//
-//			//eventPublisher.publishEvent(new FormatCreatedEvent(this, created.getFormatID(), campaignId)); // 포맷 토픽 보내는거 이벤트발생시키기 
-////			formatManagementResponseDTO.get
-////			formatingSendService.sendLogData();
-//			return ResponseEntity.ok(response);
-//		} catch (Exception e) {
-//			log.info("error message", e.getMessage());
-//			throw e;
-//		}
-//		
-//	}
+
 	
 	@Operation(summary = "포맷 필드 받아서 저장하는 api", description = "add formatfield")
 	@PostMapping("/addformatfields") // 필드 설정 정보 저장하는 api

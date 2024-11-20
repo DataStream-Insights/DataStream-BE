@@ -68,19 +68,7 @@ public class FilterController {
     	return ResponseEntity.ok(findManagementById);
     }
     
-//    @PostMapping("/{campaignId}/{formatID}/savefilter")
-//    @Operation(summary = "미사용-  (모든필드 비어있으면 안됨) 필터링의 행동 정의 설정부분 데이터 저장하는 api", description = "필터링의 행동 정의 설정부분 데이터 저장하는 api")
-//    public ResponseEntity<ResponseFilterManagementDTO> savefilters(@PathVariable String campaignId,@PathVariable String formatID,
-//    		@RequestBody ResponseFilterManagementDTO responseFilterManagementDTO){
-//    	log.info("save filter dto {}", responseFilterManagementDTO);
-//    	
-//    	ResponseFilterManagementDTO created = filterManagementService.createFilterManagement(responseFilterManagementDTO,formatID);
-//    	
-//    	//토픽생성 지금 안함.
-//    	//eventPublisher.publishEvent(new FilterCreatedEvent(this, created.getFiltermanage_id(),formatID, campaignId));
-//    	
-//    	return ResponseEntity.ok(created);
-//    }
+
     
     @GetMapping("/{campaignId}/{formatID}/filtermanagement")
     @Operation(summary = "필터 관리화면 목록 조회", description = "전체 아이템 목록을 조회합니다.")
