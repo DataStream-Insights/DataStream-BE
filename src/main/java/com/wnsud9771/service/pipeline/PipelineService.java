@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.pipeline.ProcessStartDTO;
@@ -17,6 +18,8 @@ import com.wnsud9771.entity.pipelineentity.CampaignTopic;
 import com.wnsud9771.entity.pipelineentity.FilterTopic;
 import com.wnsud9771.entity.pipelineentity.FormatTopic;
 import com.wnsud9771.entity.pipelineentity.Pipelines;
+import com.wnsud9771.event.pipeline.PipelineStartEvent;
+import com.wnsud9771.event.pipeline.PipelineStopEvent;
 import com.wnsud9771.reoisitory.pipeline.CampaignTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FilterTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FormatTopicRepository;
@@ -32,19 +35,22 @@ public class PipelineService {
 	private final CampaignTopicRepository campaignTopicRepository;
 	private final FormatTopicRepository formatTopicRepository;
 	private final FilterTopicRepository filterTopicRepository;
-
+	private final ApplicationEventPublisher eventPublisher;
+	
 	//파이프라인 저장
 	public AddPipelineDTO submitpipeline(AddPipelineDTO dto) {
 
 		Pipelines pipeline = new Pipelines();
 		pipeline.setPipelineId(dto.getPipelineId());
 		pipeline.setName(dto.getPipelineName());
+		pipeline = pipelinesRepository.save(pipeline);
 
 		// CampaignTopic 저장+ pipeline 연결
 		if (dto.getAddcampaignTopic() != null) {
 			CampaignTopic campaignTopic = new CampaignTopic();
 			campaignTopic.setCampaignId(dto.getAddcampaignTopic().getCampaignId());
 			campaignTopic.setPipelines(pipeline);
+			 campaignTopic = campaignTopicRepository.save(campaignTopic);
 
 			// FormatTopic 저장 + pipeline 연결
 			if (dto.getAddcampaignTopic().getAddFormatTopics() != null) {
@@ -53,6 +59,7 @@ public class PipelineService {
 					formatTopic.setCampaignId(dto.getAddcampaignTopic().getCampaignId());
 					formatTopic.setFormatId(addformatTopicdto.getFormatId());
 					formatTopic.setCampaignTopic(campaignTopic);
+					formatTopic = formatTopicRepository.save(formatTopic);
 
 					// 4. FilterTopic 저장
 					if (addformatTopicdto.getAddFilterTopics() != null) {
@@ -61,14 +68,11 @@ public class PipelineService {
 							filterTopic.setFilterId(filterTopicdto.getFilterId());
 							filterTopic.setFormatId(addformatTopicdto.getFormatId());
 							filterTopic.setFormatTopic(formatTopic);
-
 							filterTopicRepository.save(filterTopic);
+
 						}
-						formatTopicRepository.save(formatTopic);
 					}
-					campaignTopicRepository.save(campaignTopic);
 				}
-				pipelinesRepository.save(pipeline);
 			}
 		}
 
@@ -136,16 +140,23 @@ public class PipelineService {
 		return dto;
 	}
 	
+	//파이프라인 시작과 정지
 	public ProcessStartDTO processStartControl(ProcessStartDTO dto) {
-		Pipelines entity = pipelinesRepository.findByPipelineId(dto.getPipelineId());
-		entity.setExecutable(dto.isExecutable());
+		
+		Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
+		entity.get().setExecutable(dto.isExecutable());
+		
+		
+		AddPipelineDTO topics = findpipelinebykeyid(dto.getId());
 		
 		if(dto.isExecutable() == true) { //true면 실행하게  해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
-			
+			eventPublisher.publishEvent(new PipelineStartEvent(this, topics)); 
 		}else {// false 면 중단 이벤트 발생시켜서 컨슈머 중지 시키기
-			
+			eventPublisher.publishEvent(new PipelineStopEvent(this, topics)); 
 		}
 		
 		return dto;
 	}
+	
+	//파이프라인id 로 찾아서 해당 캠페인,포맷,필터 id들만뽑아서 카프카로 보내게 간단하게 매핑시키기
 }

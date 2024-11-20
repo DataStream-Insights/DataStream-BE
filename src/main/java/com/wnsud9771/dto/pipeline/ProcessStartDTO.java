@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ProcessStartDTO {
-	private String pipelineId;
+	private Long id;
 	private boolean executable;
 }
