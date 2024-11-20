@@ -48,8 +48,8 @@ public class PipelineController {
 		return ResponseEntity.ok(dto);
 	}
 	
-	@Operation(summary = "파이프라인 실행 ", description = ".")
-	@PostMapping("/processStart")
+	@Operation(summary = "파이프라인 실행시키거나 중지시키거나 ", description = "boolean타입으로 실행할거면 true, 중지시킬거면 false 실행과 중지는 버튼눌러서 하는식으로?")
+	@PostMapping("/processExecutable")
 	public ResponseEntity<ProcessStartDTO> processcontrol(@RequestBody ProcessStartDTO dto){
 	
 		return ResponseEntity.ok(pipelineService.processStartControl(dto));
