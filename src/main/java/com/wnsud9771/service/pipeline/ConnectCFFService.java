@@ -48,7 +48,7 @@ public class ConnectCFFService {
 		        .orElseThrow(() -> new EntityNotFoundException("Format not found"));
 		
 			    
-			    FilterManagement filter = filterManagementRepository.findByFilterID(filterId)
+			    FilterManagement filter = filterManagementRepository.findByFilterManageId(filterId)
 			        .orElseThrow(() -> new EntityNotFoundException("Format not found"));
 			    
 			    FormatFilter formatFilter = new FormatFilter();

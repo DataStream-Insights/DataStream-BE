@@ -18,8 +18,8 @@ public class FilterManagement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; 
 	
-	private String filter_manage_id; //필터링 ID
-	private String filter_name;
+	private String filterManageId; //필터링 ID
+	private String filterName;
 	
 //	@Column(name = "created_date")
 //	private LocalDate writedate; 
