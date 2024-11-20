@@ -46,8 +46,8 @@ public class FilterManagementService {
 	public ResponseFilterManagementDTO createFilterManagement(ResponseFilterManagementDTO dto, String formatID) {
 		FilterManagement filterManagement = new FilterManagement();
 
-		filterManagement.setFilter_name(dto.getFiltername());
-		filterManagement.setFilter_manage_id(dto.getFiltermanage_id());
+		filterManagement.setFilterName(dto.getFiltername());
+		filterManagement.setFilterManageId(dto.getFiltermanage_id());
 
 		if (dto.getFilterSetList() != null) {
 			FilterSetList filterSetList = new FilterSetList();
@@ -121,8 +121,8 @@ public class FilterManagementService {
 	public ResponseFilterManagementDTO createonlyFilterManagement(ResponseFilterManagementDTO dto) {
 		FilterManagement filterManagement = new FilterManagement();
 
-		filterManagement.setFilter_name(dto.getFiltername());
-		filterManagement.setFilter_manage_id(dto.getFiltermanage_id());
+		filterManagement.setFilterName(dto.getFiltername());
+		filterManagement.setFilterManageId(dto.getFiltermanage_id());
 
 		if (dto.getFilterSetList() != null) {
 			FilterSetList filterSetList = new FilterSetList();
@@ -227,8 +227,8 @@ public class FilterManagementService {
 	private FilterManagementDTO managementconvertToDTO(FilterManagement entity) {
 		FilterManagementDTO dto = new FilterManagementDTO();
 		dto.setId(entity.getId());
-		dto.setFilterName(entity.getFilter_name());
-		dto.setFilterManageId(entity.getFilter_manage_id());
+		dto.setFilterName(entity.getFilterName());
+		dto.setFilterManageId(entity.getFilterManageId());
 		return dto;
 	}
 
@@ -271,8 +271,8 @@ public class FilterManagementService {
 	private ResponseFilterManagementDTO convertToResponseDTO(FilterManagement filterManagement) {
 		ResponseFilterManagementDTO responseDTO = new ResponseFilterManagementDTO();
 
-		responseDTO.setFiltername(filterManagement.getFilter_name());
-		responseDTO.setFiltermanage_id(filterManagement.getFilter_manage_id());
+		responseDTO.setFiltername(filterManagement.getFilterName());
+		responseDTO.setFiltermanage_id(filterManagement.getFilterManageId());
 
 		if (filterManagement.getFilterSetList() != null) {
 			FilterSetListDTO filterSetListDTO = new FilterSetListDTO();
