@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wnsud9771.dto.pipeline.ProcessStartDTO;
 import com.wnsud9771.dto.pipeline.add.AddPipelineDTO;
 import com.wnsud9771.dto.pipeline.search.PipelinesDTO;
+import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
 import com.wnsud9771.service.pipeline.PipelineService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -42,9 +43,9 @@ public class PipelineController {
 
 	@Operation(summary = "파이프라인 상세 조회", description = ".")
 	@GetMapping("/getpipeline/{id}")
-	public ResponseEntity<AddPipelineDTO> getpipelinebyid(@PathVariable Long id) {
-		AddPipelineDTO dto = new AddPipelineDTO();
-		dto = pipelineService.findpipelinebykeyid(id);
+	public ResponseEntity<SearchPipelineDTO> getpipelinebyid(@PathVariable Long id) {
+		SearchPipelineDTO dto = new SearchPipelineDTO();
+		dto = pipelineService.findpipelinebykeyidwithname(id);
 		return ResponseEntity.ok(dto);
 	}
 	
