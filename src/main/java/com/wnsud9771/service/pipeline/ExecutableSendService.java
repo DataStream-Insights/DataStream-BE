@@ -17,7 +17,8 @@ public class ExecutableSendService {
 	
 	public boolean sendkafkaproject(AddPipelineDTO dto) {
 		try {
-	 		restTemplate.postForObject("http://localhost:8082/", dto, AddPipelineDTO.class);	 		
+			//일단 카프카 보내서 토픽만드는건 잠시 막음
+	 		//restTemplate.postForObject("http://localhost:8083/ids", dto, AddPipelineDTO.class);	 		
 	 		return true; 
 	 	}catch (Exception e){
 	 		log.info("sendFormatTopic 토픽 전송실패");
