@@ -9,17 +9,26 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.pipeline.ProcessStartDTO;
-import com.wnsud9771.dto.pipeline.add.AddCampaignTopicDTO;
 import com.wnsud9771.dto.pipeline.add.AddFilterTopicDTO;
 import com.wnsud9771.dto.pipeline.add.AddFormatTopicDTO;
 import com.wnsud9771.dto.pipeline.add.AddPipelineDTO;
 import com.wnsud9771.dto.pipeline.search.PipelinesDTO;
+import com.wnsud9771.dto.pipeline.search.SearchCampaignTopicDTO;
+import com.wnsud9771.dto.pipeline.search.SearchFilterTopicDTO;
+import com.wnsud9771.dto.pipeline.search.SearchFormatTopicDTO;
+import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
+import com.wnsud9771.entity.Campaignentity.Campaign;
+import com.wnsud9771.entity.FIlterentity.FilterManagement;
+import com.wnsud9771.entity.Formatentity.FormatManagement;
 import com.wnsud9771.entity.pipelineentity.CampaignTopic;
 import com.wnsud9771.entity.pipelineentity.FilterTopic;
 import com.wnsud9771.entity.pipelineentity.FormatTopic;
 import com.wnsud9771.entity.pipelineentity.Pipelines;
 import com.wnsud9771.event.pipeline.PipelineStartEvent;
 import com.wnsud9771.event.pipeline.PipelineStopEvent;
+import com.wnsud9771.reoisitory.campaign.CampaignRepository;
+import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
+import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.pipeline.CampaignTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FilterTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FormatTopicRepository;
@@ -35,6 +44,11 @@ public class PipelineService {
 	private final CampaignTopicRepository campaignTopicRepository;
 	private final FormatTopicRepository formatTopicRepository;
 	private final FilterTopicRepository filterTopicRepository;
+	private final CampaignRepository campaignRepository;
+	private final FormatManagementRepository formatManagementRepository;
+	private final FilterManagementRepository filterManagementRepository;
+	private final ConvertSendTopicsService convertSendTopicsService;
+	
 	private final ApplicationEventPublisher eventPublisher;
 	private final ConnectCFFService connectCFFService;
 	
@@ -100,8 +114,9 @@ public class PipelineService {
 		return dto;
 	}
 	
-	public AddPipelineDTO findpipelinebykeyid(Long id) {
-		AddPipelineDTO dto = new AddPipelineDTO();
+	//파이프라인 상세조회
+	public SearchPipelineDTO findpipelinebykeyidwithname(Long id) {
+		SearchPipelineDTO dto = new SearchPipelineDTO();
 		
 	    Pipelines pipeline = pipelinesRepository.findById(id)
 	            .orElseThrow(() -> new EntityNotFoundException("Pipeline not found with id: " + id));
@@ -111,35 +126,38 @@ public class PipelineService {
 		
 	    CampaignTopic campaignTopic = campaignTopicRepository.findByPipelines(pipeline);
 	    if (campaignTopic != null) {
-	        AddCampaignTopicDTO campaignTopicDTO = new AddCampaignTopicDTO();
+	        SearchCampaignTopicDTO campaignTopicDTO = new SearchCampaignTopicDTO();
 	        campaignTopicDTO.setCampaignId(campaignTopic.getCampaignId());
+	        campaignTopicDTO.setCampaignName(findcampaignName(campaignTopic.getCampaignId()));
 
 	        // FormatTopic 조회 및 변환
 	        List<FormatTopic> formatTopics = formatTopicRepository.findByCampaignTopic(campaignTopic);
 	        if (!formatTopics.isEmpty()) {
-	            List<AddFormatTopicDTO> formatTopicDTOs = new ArrayList<>();
+	            List<SearchFormatTopicDTO> formatTopicDTOs = new ArrayList<>();
 	            
 	            for (FormatTopic formatTopic : formatTopics) {
-	                AddFormatTopicDTO formatTopicDTO = new AddFormatTopicDTO();
+	                SearchFormatTopicDTO formatTopicDTO = new SearchFormatTopicDTO();
 	                formatTopicDTO.setFormatId(formatTopic.getFormatId());
+	                formatTopicDTO.setFormatName(findformatName(formatTopic.getFormatId()));
 	                
 	                // FilterTopic 조회 및 변환
 	                List<FilterTopic> filterTopics = filterTopicRepository.findByFormatTopic(formatTopic);
 	                if (!filterTopics.isEmpty()) {
-	                    List<AddFilterTopicDTO> filterTopicDTOs = new ArrayList<>();
+	                    List<SearchFilterTopicDTO> filterTopicDTOs = new ArrayList<>();
 	                    
 	                    for (FilterTopic filterTopic : filterTopics) {
-	                        AddFilterTopicDTO filterTopicDTO = new AddFilterTopicDTO();
+	                        SearchFilterTopicDTO filterTopicDTO = new SearchFilterTopicDTO();
 	                        filterTopicDTO.setFilterId(filterTopic.getFilterId());
+	                        filterTopicDTO.setFilterName(findfilterName(filterTopic.getFilterId()));
 	                        filterTopicDTOs.add(filterTopicDTO);
 	                    }
-	                    formatTopicDTO.setAddFilterTopics(filterTopicDTOs);
+	                    formatTopicDTO.setSearchFilterTopics(filterTopicDTOs);
 	                }
 	                formatTopicDTOs.add(formatTopicDTO);
 	            }
-	            campaignTopicDTO.setAddFormatTopics(formatTopicDTOs);
+	            campaignTopicDTO.setSearchFormatTopics(formatTopicDTOs);
 	        }
-	        dto.setAddcampaignTopic(campaignTopicDTO);
+	        dto.setSearchCampaignTopic(campaignTopicDTO);
 	    }
 		
 		return dto;
@@ -152,7 +170,7 @@ public class PipelineService {
 		entity.get().setExecutable(dto.isExecutable());
 		
 		
-		AddPipelineDTO topics = findpipelinebykeyid(dto.getId());
+		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId()); 
 		
 		if(dto.isExecutable() == true) { //true면 실행하게  해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
 			eventPublisher.publishEvent(new PipelineStartEvent(this, topics)); 
@@ -164,4 +182,24 @@ public class PipelineService {
 	}
 	
 	//파이프라인id 로 찾아서 해당 캠페인,포맷,필터 id들만뽑아서 카프카로 보내게 간단하게 매핑시키기
+	
+	
+	//id로 이름들찾기
+	private String findcampaignName(String campaignId) {
+		 Campaign entity = campaignRepository.findByCampaignId(campaignId).get();
+		 
+		 return entity.getCampaign_name();
+	}
+	
+	private String findformatName(String formatId) {
+		FormatManagement entity = formatManagementRepository.findByFormatID(formatId).get();
+		
+		return entity.getFormatname();
+	}
+	
+	private String findfilterName(String filterId) {
+		FilterManagement entity = filterManagementRepository.findByFilterManageId(filterId).get();
+		
+		return entity.getFilterName();
+	}
 }
