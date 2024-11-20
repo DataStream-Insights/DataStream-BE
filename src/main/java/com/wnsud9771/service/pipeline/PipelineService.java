@@ -36,6 +36,7 @@ public class PipelineService {
 	private final FormatTopicRepository formatTopicRepository;
 	private final FilterTopicRepository filterTopicRepository;
 	private final ApplicationEventPublisher eventPublisher;
+	private final ConnectCFFService connectCFFService;
 	
 	//파이프라인 저장
 	public AddPipelineDTO submitpipeline(AddPipelineDTO dto) {
@@ -60,6 +61,8 @@ public class PipelineService {
 					formatTopic.setFormatId(addformatTopicdto.getFormatId());
 					formatTopic.setCampaignTopic(campaignTopic);
 					formatTopic = formatTopicRepository.save(formatTopic);
+					
+					connectCFFService.connectCampaignAndFormat(dto.getAddcampaignTopic().getCampaignId(), addformatTopicdto.getFormatId());
 
 					// 4. FilterTopic 저장
 					if (addformatTopicdto.getAddFilterTopics() != null) {
@@ -69,6 +72,8 @@ public class PipelineService {
 							filterTopic.setFormatId(addformatTopicdto.getFormatId());
 							filterTopic.setFormatTopic(formatTopic);
 							filterTopicRepository.save(filterTopic);
+							
+							connectCFFService.connectFormatAndFilter(addformatTopicdto.getFormatId(), filterTopicdto.getFilterId());
 
 						}
 					}
