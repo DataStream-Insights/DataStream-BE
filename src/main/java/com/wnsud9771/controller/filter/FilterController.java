@@ -60,12 +60,6 @@ public class FilterController {
     }
     
     
-//    @GetMapping("/{campaignId}/{formatID}/filtermanagement")
-//    @Operation(summary = "필터 관리화면 목록 조회", description = "전체 아이템 목록을 조회합니다.")
-//    public ResponseEntity<List<FilterManagementDTO>> findAllFilterManagements(@PathVariable String campaignId,@PathVariable String formatID){
-//    	
-//    	return ResponseEntity.ok(filterManagementService.findManagements(formatID)); //캠페인id,포맷id받아서 해당 캠페인의 포맷으로 
-//    }
     
     @GetMapping("/filtermanagement/{id}")
     @Operation(summary = "모든 필터 관리화면 목록 상세 조회", description = "id만 받아서.")
@@ -74,22 +68,30 @@ public class FilterController {
     	return ResponseEntity.ok(findManagementById);
     }
     
-    @PostMapping("/{campaignId}/{formatID}/savefilter")
-    @Operation(summary = "잠시미사용-(모든필드 비어있으면 안됨) 필터링의 행동 정의 설정부분 데이터 저장하는 api", description = "필터링의 행동 정의 설정부분 데이터 저장하는 api")
-    public ResponseEntity<ResponseFilterManagementDTO> savefilters(@PathVariable String campaignId,@PathVariable String formatID,
-    		@RequestBody ResponseFilterManagementDTO responseFilterManagementDTO){
-    	log.info("save filter dto {}", responseFilterManagementDTO);
+//    @PostMapping("/{campaignId}/{formatID}/savefilter")
+//    @Operation(summary = "미사용-  (모든필드 비어있으면 안됨) 필터링의 행동 정의 설정부분 데이터 저장하는 api", description = "필터링의 행동 정의 설정부분 데이터 저장하는 api")
+//    public ResponseEntity<ResponseFilterManagementDTO> savefilters(@PathVariable String campaignId,@PathVariable String formatID,
+//    		@RequestBody ResponseFilterManagementDTO responseFilterManagementDTO){
+//    	log.info("save filter dto {}", responseFilterManagementDTO);
+//    	
+//    	ResponseFilterManagementDTO created = filterManagementService.createFilterManagement(responseFilterManagementDTO,formatID);
+//    	
+//    	//토픽생성 지금 안함.
+//    	//eventPublisher.publishEvent(new FilterCreatedEvent(this, created.getFiltermanage_id(),formatID, campaignId));
+//    	
+//    	return ResponseEntity.ok(created);
+//    }
+    
+    @GetMapping("/{campaignId}/{formatID}/filtermanagement")
+    @Operation(summary = "필터 관리화면 목록 조회", description = "전체 아이템 목록을 조회합니다.")
+    public ResponseEntity<List<FilterManagementDTO>> findAllFilterManagements(@PathVariable String campaignId,@PathVariable String formatID){
     	
-    	ResponseFilterManagementDTO created = filterManagementService.createFilterManagement(responseFilterManagementDTO,formatID);
-    	
-    	//토픽생성 지금 안함.
-    	//eventPublisher.publishEvent(new FilterCreatedEvent(this, created.getFiltermanage_id(),formatID, campaignId));
-    	
-    	return ResponseEntity.ok(created);
+    	return ResponseEntity.ok(filterManagementService.findManagements(formatID)); //캠페인id,포맷id받아서 해당 캠페인의 포맷으로 
     }
     
+    
     @GetMapping("/{campaignId}/{formatID}/filtermanagement/{id}")
-    @Operation(summary = "잠시미사용-필터 관리화면 목록 상세 조회", description = "선택한 아이템 목록을 조회합니다.")
+    @Operation(summary = "필터 관리화면 목록 상세 조회", description = "선택한 아이템 목록을 조회합니다.")
     public ResponseEntity<FindManagementByIdDTO> findmanagementbyid(@PathVariable String campaignId,@PathVariable String formatID, @PathVariable Long id){
     	FindManagementByIdDTO findManagementById = filterManagementService.findById(id);
     	return ResponseEntity.ok(findManagementById);
