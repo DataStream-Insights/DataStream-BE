@@ -7,7 +7,8 @@ public class SearchPipelineDTO {
 	
 	private String pipelineName;
 	private String pipelineId;
-	
+	private boolean status;
+	 
 	private SearchCampaignTopicDTO searchCampaignTopic;
 	
 }
