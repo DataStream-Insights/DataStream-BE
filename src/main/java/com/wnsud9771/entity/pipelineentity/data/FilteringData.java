@@ -1,6 +1,7 @@
-package com.wnsud9771.entity.pipelineentity;
+package com.wnsud9771.entity.pipelineentity.data;
 
-import jakarta.persistence.Column;
+import com.wnsud9771.entity.pipelineentity.FilterTopic;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,25 +12,18 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class FilterTopic {
+public class FilteringData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String topicName; //생성된 캠페인 토픽이름
-	
-	private String formatId; //만들 캠페인 id
-	private String filterId;
-	
-	@Column(columnDefinition = "boolean default false")
-	private boolean consumer; //컨슈머 존재 기록
+	private String path; 
+	private String data;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "formatTopic_id")
-	private FormatTopic formatTopic;
-	
-
+	@JoinColumn(name = "filterTopic_id")
+	private FilterTopic filterTopic;
 }

@@ -126,6 +126,7 @@ public class PipelineService {
 
 		dto.setPipelineId(pipeline.getPipelineId());
 		dto.setPipelineName(pipeline.getName());
+		dto.setStatus(pipeline.isStatus());
 
 		CampaignTopic campaignTopic = campaignTopicRepository.findByPipelines(pipeline);
 		if (campaignTopic != null) {
