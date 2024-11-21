@@ -1,12 +1,8 @@
 package com.wnsud9771.entity.Campaignentity;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.stereotype.Component;
 
 import com.wnsud9771.entity.Authorentity.Author;
-import com.wnsud9771.entity.kafka_topic.CampaignFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,14 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-@Component
 public class Campaign {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,8 +66,8 @@ public class Campaign {
 //	@Column(name = "tag")
 //	private String tag;
 	
-	@OneToMany(mappedBy = "campaign")
-	private List<CampaignFormat> campaignFormats;
+//	@OneToMany(mappedBy = "campaign")
+//	private List<CampaignFormat> campaignFormats;
 	
 
 }

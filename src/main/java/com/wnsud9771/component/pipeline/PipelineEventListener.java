@@ -28,11 +28,17 @@ public class PipelineEventListener {
             
         } catch (Exception e) {
             log.error("", event.getDto(), e);
-            // 에러 처리 로직 추가 가능
         }
     }
 	
 	public void stopprocess(PipelineStopEvent event) {
-		
+		try {
+			if(!executableSendService.stopprocesskafka(event.getDto())) {
+				log.info("stop 프로세스 dto 못보냄");
+			}
+			
+		}catch (Exception e){
+            log.error("", event.getDto(), e);
+		}
 	}
 }

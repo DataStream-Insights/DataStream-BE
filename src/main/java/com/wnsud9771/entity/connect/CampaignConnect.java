@@ -1,4 +1,4 @@
-package com.wnsud9771.entity.Campaignentity;
+package com.wnsud9771.entity.connect;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Category1 {
+public class CampaignConnect {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
-	private String category1;
-	
-	@OneToMany(mappedBy = "category1", cascade = CascadeType.ALL)
-    private List<Category2> category2List;
 		
+	
+	private Long campaignKey;
+	
+	@OneToMany(mappedBy = "campaignConnect", cascade = CascadeType.ALL)
+    private List<FormatConnect> formatConnectlist;
 }

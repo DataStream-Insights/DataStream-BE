@@ -15,7 +15,6 @@ import com.wnsud9771.dto.filter.FilterItemDTO;
 import com.wnsud9771.dto.filter.management.FilterManagementDTO;
 import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
 import com.wnsud9771.dto.filter.management.search.FindManagementByIdDTO;
-import com.wnsud9771.event.FilterCreatedEvent;
 import com.wnsud9771.service.filter.FilterManagementService;
 import com.wnsud9771.service.filter.ItemService;
 
@@ -74,7 +73,7 @@ public class FilterController {
     @Operation(summary = "필터 관리화면 목록 조회", description = "전체 아이템 목록을 조회합니다.")
     public ResponseEntity<List<FilterManagementDTO>> findAllFilterManagements(@PathVariable String campaignId,@PathVariable String formatID){
     	
-    	return ResponseEntity.ok(filterManagementService.findManagements(formatID)); //캠페인id,포맷id받아서 해당 캠페인의 포맷으로 
+    	return ResponseEntity.ok(filterManagementService.findManagements(campaignId,formatID)); //캠페인id,포맷id받아서 해당 캠페인의 포맷으로 
     }
     
     
