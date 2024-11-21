@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.format.TitleDTO;
+import com.wnsud9771.dto.format.management.FormatManagementListDTO;
 import com.wnsud9771.dto.format.management.FormatManagementResponseDTO;
-import com.wnsud9771.dto.format.management.ListFormatManagementDTO;
 import com.wnsud9771.dto.format.parsing.ExistLogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogFindByTitleDTO;
-import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
 import com.wnsud9771.dto.format.parsing.SearchNodeDTO;
 import com.wnsud9771.dto.format.parsing.SubStringDTO;
@@ -111,7 +110,7 @@ public class FormatController {
 	
 	@Operation(summary = "전체 포맷 관리화면 리스트 뿌리는 api", description = "해당 캠페인의 포맷 전체 검색")
 	@GetMapping("/management")
-	public List<ListFormatManagementDTO> getAllFormatManagement(){
+	public List<FormatManagementListDTO> getAllFormatManagement(){
 		
 		return formatManagementService.findAllFormats();
 		
@@ -130,7 +129,7 @@ public class FormatController {
 	
 	@Operation(summary = "포맷 관리화면 리스트 뿌리는 api", description = "해당 캠페인의 포맷 전체 검색")
 	@GetMapping("/{campaignId}/management")
-	public List<ListFormatManagementDTO> getFormatManagement(@PathVariable String campaignId){
+	public List<FormatManagementListDTO> getFormatManagement(@PathVariable String campaignId){
 	
 		return formatManagementService.findAllManagement(campaignId); // 이부분 해당 캠페인id의 포맷들 찾는걸로 변경
 	}

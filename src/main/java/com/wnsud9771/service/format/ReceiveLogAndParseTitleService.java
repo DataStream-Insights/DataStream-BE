@@ -8,7 +8,6 @@ import com.wnsud9771.dto.receivelog.LogDTO;
 import com.wnsud9771.dto.receivelog.TitleAndLogDTO;
 import com.wnsud9771.entity.Formatentity.TitleAndLog;
 import com.wnsud9771.reoisitory.format.TitleAndLogRepository;
-import com.wnsud9771.reoisitory.item.FormatItemRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

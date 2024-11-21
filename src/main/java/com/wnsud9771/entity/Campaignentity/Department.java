@@ -2,8 +2,6 @@ package com.wnsud9771.entity.Campaignentity;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +13,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Component
 public class Department {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,7 +3,7 @@ package com.wnsud9771.dto.format.management;
 import lombok.Data;
 
 @Data
-public class ListFormatManagementDTO {
+public class FormatManagementListDTO {
 	private Long id;
 	private String formatName;
 	private String formatId;

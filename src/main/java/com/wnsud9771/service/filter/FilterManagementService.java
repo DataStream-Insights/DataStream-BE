@@ -15,20 +15,25 @@ import com.wnsud9771.dto.filter.management.ResponseFilterManagementDTO;
 import com.wnsud9771.dto.filter.management.search.FindManagementByIdDTO;
 import com.wnsud9771.dto.filter.management.search.ResponseFilterSetListDTO;
 import com.wnsud9771.dto.filter.management.search.SearchFilterSetDTO;
+import com.wnsud9771.entity.Campaignentity.Campaign;
 import com.wnsud9771.entity.FIlterentity.FilterManagement;
 import com.wnsud9771.entity.FIlterentity.FilterSet;
 import com.wnsud9771.entity.FIlterentity.FilterSetList;
 import com.wnsud9771.entity.FIlterentity.Filtervalue;
 import com.wnsud9771.entity.FIlterentity.Operation;
-import com.wnsud9771.entity.Formatentity.FormatManagement;
+import com.wnsud9771.entity.connect.CampaignConnect;
+import com.wnsud9771.entity.connect.FilterConnect;
+import com.wnsud9771.entity.connect.FormatConnect;
 import com.wnsud9771.entity.item.FormatItem;
-import com.wnsud9771.entity.kafka_topic.FormatFilter;
+import com.wnsud9771.reoisitory.campaign.CampaignRepository;
+import com.wnsud9771.reoisitory.connect.CampaignConnectRepository;
+import com.wnsud9771.reoisitory.connect.FilterConnectRepository;
+import com.wnsud9771.reoisitory.connect.FormatConnectRepository;
 import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
 import com.wnsud9771.reoisitory.filter.FilterSetListRepository;
 import com.wnsud9771.reoisitory.filter.OperationRepository;
 import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.item.FormatItemRepository;
-import com.wnsud9771.reoisitory.mapping.FormatFilterRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -40,8 +45,12 @@ public class FilterManagementService {
 	private final FormatItemRepository formatItemRepository;
 	private final OperationRepository operationRepository;
 	private final FilterSetListRepository filterSetListRepository;
-	private final FormatFilterRepository formatFilterRepository;
-	private final  FormatManagementRepository  formatManagementRepository;
+	private final FormatManagementRepository formatManagementRepository;
+	private final CampaignRepository campaignRepository;
+	private final CampaignConnectRepository campaignConnectRepository;
+	private final FormatConnectRepository formatConnectRepository;
+	private final FilterConnectRepository filterConnectRepository;
+
 	// 필터 관리 생성
 	public ResponseFilterManagementDTO createonlyFilterManagement(ResponseFilterManagementDTO dto) {
 		FilterManagement filterManagement = new FilterManagement();
@@ -114,38 +123,48 @@ public class FilterManagementService {
 //		formatFilter.setFilterManagement(savedFilterManagement);
 //		formatFilter.setFormatManagement(entity);
 //		formatFilterRepository.save(formatFilter);
-        
+
 		return convertToResponseDTO(savedFilterManagement);
 	}
-	
-	// only 필터 관리 모두 검색
-		public List<FilterManagementDTO> findonlyManagements() {
 
-			// id 받아서 id로 검색후 해당 리스트들만 뽑는
-			//List<FormatFilter> formatFilters = formatFilterRepository.findByFormatManagement_FormatID(formatID);
+	// only 필터 관리 모두 검색
+	public List<FilterManagementDTO> findonlyManagements() {
+
+		// id 받아서 id로 검색후 해당 리스트들만 뽑는
+		// List<FormatFilter> formatFilters =
+		// formatFilterRepository.findByFormatManagement_FormatID(formatID);
 
 //			List<Long> filterManagementIds = formatFilters.stream()
 //					.map(formatFilter -> formatFilter.getFilterManagement().getId()).collect(Collectors.toList());
-			
-			List<FilterManagement> filtermanages =filterManagementRepository.findAll();
 
-			return filtermanages.stream().map(this::managementconvertToDTO).collect(Collectors.toList());
+		List<FilterManagement> filtermanages = filterManagementRepository.findAll();
 
-		}
-	
+		return filtermanages.stream().map(this::managementconvertToDTO).collect(Collectors.toList());
 
-	//포맷연관 필터 관리 모두 검색
-	public List<FilterManagementDTO> findManagements(String formatID) {
+	}
+
+	// 포맷연관 필터 관리 모두 검색
+	public List<FilterManagementDTO> findManagements(String campaignId, String formatID) {
+
+		Campaign campaign = campaignRepository.findByCampaignId(campaignId)
+				.orElseThrow(() -> new EntityNotFoundException("Campaign not found"));
+
+		CampaignConnect campaignConnect = campaignConnectRepository.findBycampaignKey(campaign.getId());
+
+		Long formatKey = formatManagementRepository.findByFormatID(formatID).get().getId();
+
+		FormatConnect formatConnects = formatConnectRepository
+				.findByCampaignConnect_IdAndFotmatKey(campaignConnect.getId(), formatKey);
 
 		// id 받아서 id로 검색후 해당 리스트들만 뽑는
-		List<FormatFilter> formatFilters = formatFilterRepository.findByFormatManagement_FormatID(formatID);
-
-		List<Long> filterManagementIds = formatFilters.stream()
-				.map(formatFilter -> formatFilter.getFilterManagement().getId()).collect(Collectors.toList());
+		List<FilterConnect> filterConnects = filterConnectRepository.findAllByFormatConnect_Id(formatConnects.getId());
+		
+		List<Long> filterManagementIds = filterConnects.stream()
+				.map(filterConnect -> filterConnect.getFilterKey()).collect(Collectors.toList());
 
 		return filterManagementRepository.findAllById(filterManagementIds).stream().map(this::managementconvertToDTO)
 				.collect(Collectors.toList());
-		
+
 	}
 
 	// 필터 관리 엔티티 -> dto

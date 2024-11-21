@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnsud9771.dto.format.parsing.ExistLogItemDTO;
-import com.wnsud9771.dto.format.parsing.LogItemDTO;
 import com.wnsud9771.dto.format.parsing.LogParseDTO;
 import com.wnsud9771.dto.format.parsing.LogValueDTO;
 import com.wnsud9771.entity.item.FormatItem;
