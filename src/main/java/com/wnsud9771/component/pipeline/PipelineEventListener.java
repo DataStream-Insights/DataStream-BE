@@ -1,5 +1,6 @@
 package com.wnsud9771.component.pipeline;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import com.wnsud9771.event.pipeline.PipelineStartEvent;
@@ -15,9 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 public class PipelineEventListener {
 	private final ExecutableSendService executableSendService;
 	
+	@EventListener
 	public void sendidtocreatetopic(PipelineStartEvent event) {
         try {
-            
+            log.info("레스트 보내려는 이벤트 {}" ,event.getDto().getPipelineId());
         	if(!executableSendService.sendkafkaproject(event.getDto())) {
         		// 카프카 프로젝트에 dto 보내기 실패시
         		
@@ -31,6 +33,7 @@ public class PipelineEventListener {
         }
     }
 	
+	@EventListener
 	public void stopprocess(PipelineStopEvent event) {
 		try {
 			if(!executableSendService.stopprocesskafka(event.getDto())) {

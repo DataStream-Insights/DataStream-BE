@@ -38,9 +38,11 @@ import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PipelineService {
 	private final PipelinesRepository pipelinesRepository;
 	private final CampaignTopicRepository campaignTopicRepository;
@@ -169,13 +171,17 @@ public class PipelineService {
 
 	// 파이프라인 시작과 정지
 	public ProcessStartDTO processStartControl(ProcessStartDTO dto) {
-
+		log.info("dto.get id {}",dto.getId());
 		Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
 		entity.get().setExecutable(dto.isExecutable());
+		
+		log.info("찾은 엔티티 {}", entity.get().getPipelineId());
 
 		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId());
+		
 
 		if (dto.isExecutable() == true) { // true면 실행하게 해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
+			log.info("이벤트 발생하려는 파이프라인 {}",topics.getPipelineId());
 			eventPublisher.publishEvent(new PipelineStartEvent(this, topics));
 		} else {// false 면 중단 이벤트 발생시켜서 컨슈머 중지 시키기
 			eventPublisher.publishEvent(new PipelineStopEvent(this, topics));
