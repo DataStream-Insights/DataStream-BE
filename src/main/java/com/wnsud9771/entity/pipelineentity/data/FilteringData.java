@@ -22,7 +22,7 @@ public class FilteringData {
 	
 	private String path; 
 	private String data;
-	
+		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "filterTopic_id")
 	private FilterTopic filterTopic;
