@@ -60,4 +60,8 @@ public class PiplineStatusTestService {
 		// 토픽 다생성되면 해당 필터링 토픽에서 데이터 꺼내와서 db에 저장
 
 	}
+	
+	public void testStatus2(AddPipelineDTO receivedto) {
+		updatePipelineStatusService.testtt(receivedto.getPipelineId());
+	}
 }
