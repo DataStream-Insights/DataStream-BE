@@ -84,6 +84,8 @@ public class PipelineController {
 		if (dto.isExecutable() == true) { // true면 실행하게 해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
 			log.info("이벤트 발생하려는 파이프라인 {}",topics.getPipelineId());
 			piplineStatusTestService.testStatus(topics);
+		}else {
+			piplineStatusTestService.testStatus2(topics);
 		}
 		log.info("프론트에서 요청한 파이프라인 {} ,{}",dto.getId(), dto.isExecutable());
 		return ResponseEntity.ok(dto);
