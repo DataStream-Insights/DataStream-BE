@@ -62,6 +62,6 @@ public class PiplineStatusTestService {
 	}
 	
 	public void testStatus2(AddPipelineDTO receivedto) {
-		updatePipelineStatusService.changePipelineStatus(receivedto.getPipelineId());
+		updatePipelineStatusService.testtt(receivedto.getPipelineId());
 	}
 }
