@@ -1,6 +1,6 @@
 package com.wnsud9771.entity.pipelineentity.data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.wnsud9771.entity.pipelineentity.Pipelines;
 
@@ -23,8 +23,9 @@ public class FailFilteringData {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private LocalDate timestamp;
+	private LocalDateTime timestamp;
 	private String data;
+	private String failReason;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
