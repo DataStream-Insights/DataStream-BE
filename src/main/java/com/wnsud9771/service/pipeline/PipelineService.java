@@ -62,6 +62,7 @@ public class PipelineService {
 		Pipelines pipeline = new Pipelines();
 		pipeline.setPipelineId(dto.getPipelineId());
 		pipeline.setName(dto.getPipelineName());
+		pipeline.setDistinctCode(dto.getDistinctCode());
 		pipeline = pipelinesRepository.save(pipeline);
 
 		// CampaignTopic 저장+ pipeline 연결
@@ -172,10 +173,10 @@ public class PipelineService {
 	// 파이프라인 시작과 정지
 	public ProcessStartDTO processStartControl(ProcessStartDTO dto) {
 		log.info("dto.get id {}",dto.getId());
-		Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
-		entity.get().setExecutable(dto.isExecutable());
+		//Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
+		//entity.get().setExecutable(dto.isExecutable());
 		
-		log.info("찾은 엔티티 {}", entity.get().getPipelineId());
+		//log.info("찾은 엔티티 {}", entity.get().getPipelineId());
 
 		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId());
 		

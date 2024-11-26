@@ -61,33 +61,33 @@ public class PipelineController {
 		return ResponseEntity.ok(dto);
 	}
 
-//	@Operation(summary = "파이프라인 실행시키거나 중지시키거나 ", description = "boolean타입으로 실행할거면 true, 중지시킬거면 false 실행과 중지는 버튼눌러서 하는식으로?")
-//	@PostMapping("/processExecutable")
-//	public ResponseEntity<ProcessStartDTO> processcontrol(@RequestBody ProcessStartDTO dto) {
-//
-//		log.info("프론트에서 요청한 파이프라인 {} ,{}", dto.getId(), dto.isExecutable());
-//		return ResponseEntity.ok(pipelineService.processStartControl(dto));
-//	}
-
 	@Operation(summary = "파이프라인 실행시키거나 중지시키거나 ", description = "boolean타입으로 실행할거면 true, 중지시킬거면 false 실행과 중지는 버튼눌러서 하는식으로?")
 	@PostMapping("/processExecutable")
-	public ResponseEntity<ProcessStartDTO> processcontrol(@RequestBody ProcessStartDTO dto){
-		//log.info("dto.get id {}",dto.getId());
-		//Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
-		//entity.get().setExecutable(dto.isExecutable());
-		
-		//log.info("찾은 엔티티 {}", entity.get().getPipelineId());
+	public ResponseEntity<ProcessStartDTO> processcontrol(@RequestBody ProcessStartDTO dto) {
 
-		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId());
-		
-
-		if (dto.isExecutable() == true) { // true면 실행하게 해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
-			log.info("이벤트 발생하려는 파이프라인 {}",topics.getPipelineId());
-			piplineStatusTestService.testStatus(topics);
-		}else {
-			piplineStatusTestService.testStatus2(topics);
-		}
-		log.info("프론트에서 요청한 파이프라인 {} ,{}",dto.getId(), dto.isExecutable());
-		return ResponseEntity.ok(dto);
+		log.info("프론트에서 요청한 파이프라인 {} ,{}", dto.getId(), dto.isExecutable());
+		return ResponseEntity.ok(pipelineService.processStartControl(dto));
 	}
+
+//	@Operation(summary = "파이프라인 실행시키거나 중지시키거나 ", description = "boolean타입으로 실행할거면 true, 중지시킬거면 false 실행과 중지는 버튼눌러서 하는식으로?")
+//	@PostMapping("/processExecutable")
+//	public ResponseEntity<ProcessStartDTO> processcontrol(@RequestBody ProcessStartDTO dto){
+//		//log.info("dto.get id {}",dto.getId());
+//		//Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
+//		//entity.get().setExecutable(dto.isExecutable());
+//		
+//		//log.info("찾은 엔티티 {}", entity.get().getPipelineId());
+//
+//		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId());
+//		
+//
+//		if (dto.isExecutable() == true) { // true면 실행하게 해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
+//			log.info("이벤트 발생하려는 파이프라인 {}",topics.getPipelineId());
+//			piplineStatusTestService.testStatus(topics);
+//		}else {
+//			piplineStatusTestService.testStatus2(topics);
+//		}
+//		log.info("프론트에서 요청한 파이프라인 {} ,{}",dto.getId(), dto.isExecutable());
+//		return ResponseEntity.ok(dto);
+//	}
 }

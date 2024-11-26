@@ -14,10 +14,11 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Getter
 @Setter
-public class FilteringData {
+public class FailFilteringData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,4 +30,4 @@ public class FilteringData {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pipelines_id")	
 	private Pipelines pipelines;
-}
+}	

@@ -38,6 +38,7 @@ public class ConvertSendTopicsService {
 	    
 	    dto.setPipelineId(pipeline.getPipelineId());
 	    dto.setPipelineName(pipeline.getName());
+	    dto.setDistinctCode(pipeline.getDistinctCode());
 		
 	    CampaignTopic campaignTopic = campaignTopicRepository.findByPipelines(pipeline);
 	    if (campaignTopic != null) {

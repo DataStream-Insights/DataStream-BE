@@ -31,6 +31,8 @@ public class Pipelines {
 
 	private String name; // 파이프라인 이름
 	private String pipelineId; // 파이프라인 id
+	
+	private Long distinctCode;
 
 	@CreatedDate
 	private LocalDateTime writeDate; // 만든날짜
