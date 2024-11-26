@@ -1,6 +1,7 @@
-package com.wnsud9771.entity.pipelineentity;
+package com.wnsud9771.entity.pipelineentity.data;
 
-import jakarta.persistence.Column;
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,11 +12,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class FailPipeline {
+public class DistinctData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(columnDefinition = "json")
-    private String notSendPipelineData;
+	private String olppCode;
+	
+	private String pipelinesId; //Pipelines 엔티티 기본key
+	
+	private String data;
 }
