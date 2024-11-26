@@ -1,6 +1,6 @@
 package com.wnsud9771.entity.pipelineentity.data;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,8 +18,9 @@ public class DistinctData {
 	private Long id;
 	
 	private String olppCode;
+	private LocalDateTime timestamp;
 	
-	private String pipelinesId; //Pipelines 엔티티 기본key
+	private String pipelinesId; 
 	
 	private String data;
 }

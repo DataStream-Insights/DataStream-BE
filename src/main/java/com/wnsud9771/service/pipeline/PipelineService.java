@@ -62,7 +62,11 @@ public class PipelineService {
 		Pipelines pipeline = new Pipelines();
 		pipeline.setPipelineId(dto.getPipelineId());
 		pipeline.setName(dto.getPipelineName());
-		pipeline.setDistinctCode(dto.getDistinctCode());
+		if(dto.getDistinctCode() == 0)
+			pipeline.setDistinctCode(null);
+			else {				
+				pipeline.setDistinctCode(dto.getDistinctCode());
+			}
 		pipeline = pipelinesRepository.save(pipeline);
 
 		// CampaignTopic 저장+ pipeline 연결
