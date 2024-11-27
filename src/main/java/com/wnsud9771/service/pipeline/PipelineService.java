@@ -2,7 +2,6 @@ package com.wnsud9771.service.pipeline;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.context.ApplicationEventPublisher;
@@ -26,6 +25,7 @@ import com.wnsud9771.entity.pipelineentity.CampaignTopic;
 import com.wnsud9771.entity.pipelineentity.FilterTopic;
 import com.wnsud9771.entity.pipelineentity.FormatTopic;
 import com.wnsud9771.entity.pipelineentity.Pipelines;
+import com.wnsud9771.entity.pipelineentity.data.FilteringData;
 import com.wnsud9771.event.pipeline.PipelineStartEvent;
 import com.wnsud9771.event.pipeline.PipelineStopEvent;
 import com.wnsud9771.reoisitory.campaign.CampaignRepository;
@@ -35,8 +35,11 @@ import com.wnsud9771.reoisitory.pipeline.CampaignTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FilterTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FormatTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
+import com.wnsud9771.reoisitory.pipeline.data.FilteringDataRepository;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -52,6 +55,7 @@ public class PipelineService {
 	private final FormatManagementRepository formatManagementRepository;
 	private final FilterManagementRepository filterManagementRepository;
 	private final ConvertSendTopicsService convertSendTopicsService;
+	private final FilteringDataRepository filteringDataRepository;
 
 	private final ApplicationEventPublisher eventPublisher;
 	private final ConnectCFFService connectCFFService;
@@ -107,6 +111,45 @@ public class PipelineService {
 
 		return dto;
 	}
+	
+	//파이프라인 삭제 + 컨슈머 중지도 같이 보냄.
+	public boolean delpipelineAndall(Long pkid) {
+		   try {
+			   ProcessStartDTO dto = new ProcessStartDTO();
+			   dto.setId(pkid);
+			   dto.setExecutable(false);
+			   //컨슈머 중지로 호출
+			   processStartControl(dto);
+			   
+		       Pipelines pipeline = pipelinesRepository.findById(pkid)
+		           .orElseThrow(() -> new RuntimeException("Pipeline not found"));
+		       
+		       List<FilteringData> filteringDataList = filteringDataRepository.findByPipelines(pipeline);
+		       filteringDataRepository.deleteAll(filteringDataList);
+		           
+		       CampaignTopic campaignTopic = campaignTopicRepository.findByPipelinesId(pipeline.getId());
+		       if(campaignTopic != null) {
+		           List<FormatTopic> formatTopics = formatTopicRepository.findByCampaignTopic(campaignTopic);
+		           for(FormatTopic formatTopic : formatTopics) {
+		               List<FilterTopic> filterTopics = filterTopicRepository.findByFormatTopic(formatTopic);
+		               filterTopicRepository.deleteAll(filterTopics);
+		           }
+		           formatTopicRepository.deleteAll(formatTopics);
+		           
+		           campaignTopicRepository.delete(campaignTopic);
+		       }
+		       
+		       
+		       pipelinesRepository.delete(pipeline);
+		       
+		       
+		       System.out.println("Pipeline과 관련 데이터 모두 삭제 완료");
+		       return true;
+		   } catch (Exception e) {
+		       System.out.println("삭제 중 에러 발생: " + e.getMessage());
+		       return false;
+		   }
+		}
 
 	// 파이프라인 목록 조회
 	public List<PipelinesDTO> findpipelinelist() {
