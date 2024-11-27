@@ -1,7 +1,6 @@
 package com.wnsud9771.controller.pipeline;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wnsud9771.dto.err.ErrorMessageDTO;
 import com.wnsud9771.dto.pipeline.ProcessStartDTO;
 import com.wnsud9771.dto.pipeline.add.AddPipelineDTO;
 import com.wnsud9771.dto.pipeline.search.PipelinesDTO;
 import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
-import com.wnsud9771.entity.pipelineentity.Pipelines;
-import com.wnsud9771.event.pipeline.PipelineStartEvent;
-import com.wnsud9771.event.pipeline.PipelineStopEvent;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
 import com.wnsud9771.service.pipeline.ConvertSendTopicsService;
 import com.wnsud9771.service.pipeline.PipelineService;
@@ -44,6 +41,24 @@ public class PipelineController {
 	public ResponseEntity<AddPipelineDTO> addPipeline(@RequestBody AddPipelineDTO dto) {
 		pipelineService.submitpipeline(dto);
 		return ResponseEntity.ok(dto);
+
+		
+	}
+	@Operation(summary = "파이프 라인 삭제 ", description = ".")
+	@PostMapping("/delpipeline")
+	public ResponseEntity<ErrorMessageDTO> delPipeline(@RequestBody Long id) {
+		pipelineService.delpipelineAndall(id);
+		log.info("{} 파이프라인 삭제요청받음", id);
+		
+		if(pipelineService.delpipelineAndall(id)==true) {
+			ErrorMessageDTO dto = new ErrorMessageDTO();
+			dto.setMessage("파이프라인 삭제 완료");
+			return ResponseEntity.ok(dto);
+		}else {
+			ErrorMessageDTO dto = new ErrorMessageDTO();
+			dto.setMessage("파이프라인 삭제 안됨.");
+			return ResponseEntity.ok(dto);
+		}
 
 	}
 
