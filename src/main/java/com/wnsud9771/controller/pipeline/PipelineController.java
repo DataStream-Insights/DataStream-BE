@@ -18,7 +18,6 @@ import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
 import com.wnsud9771.service.pipeline.ConvertSendTopicsService;
 import com.wnsud9771.service.pipeline.PipelineService;
-import com.wnsud9771.service.test.PiplineStatusTestService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +31,7 @@ public class PipelineController {
 	private final PipelineService pipelineService;
 	
 	
-	private final PiplineStatusTestService piplineStatusTestService;
+	//private final PiplineStatusTestService piplineStatusTestService;
 	private final PipelinesRepository pipelinesRepository;
 	private final ConvertSendTopicsService convertSendTopicsService;
 
@@ -47,10 +46,10 @@ public class PipelineController {
 	@Operation(summary = "파이프 라인 삭제 ", description = ".")
 	@PostMapping("/delpipeline")
 	public ResponseEntity<ErrorMessageDTO> delPipeline(@RequestBody Long id) {
-		pipelineService.delpipelineAndall(id);
+		boolean del = pipelineService.delpipelineAndall(id);
 		log.info("{} 파이프라인 삭제요청받음", id);
 		
-		if(pipelineService.delpipelineAndall(id)==true) {
+		if(del==true) {
 			ErrorMessageDTO dto = new ErrorMessageDTO();
 			dto.setMessage("파이프라인 삭제 완료");
 			return ResponseEntity.ok(dto);
