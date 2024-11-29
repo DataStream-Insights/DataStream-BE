@@ -11,12 +11,13 @@ import com.wnsud9771.dto.dashboard.visits.TimeRangeAndCountDTO;
 import com.wnsud9771.dto.dashboard.visits.VisitDayAndCountDTO;
 import com.wnsud9771.mapper.FilteringDataMaepper;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GraphService {
-	private FilteringDataMaepper filteringDataMapper;
+	private final FilteringDataMaepper filteringDataMapper;
 
 	// top5 조회 아이템과 카운트만 뽑기
 	public List<DataAndCountDTO> top5graphconvert(Long id) {
@@ -39,7 +40,10 @@ public class GraphService {
 		return filteringDataMapper.countByTimeRangeForDate(id, date);
 	}
 	
-	
+//	@PostConstruct
+//	public void init() {
+//		System.out.println (datetimerangeandcount(26L, "2024-11-28") );
+//	}
 	
 	
 	// 날짜 상관없이 모든 날짜 시간대별 getTimeRangeCount

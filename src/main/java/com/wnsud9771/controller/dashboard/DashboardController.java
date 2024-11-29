@@ -26,8 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class DashboardController {
-	private DashboardService dashboardService;
-	private GraphService graphService;
+	private final DashboardService dashboardService;
+	private final GraphService graphService;
 	
 	@Operation(summary = "프로세스 목록보기 ", description = ".")
 	@GetMapping("/processes")
@@ -57,8 +57,8 @@ public class DashboardController {
 	// 특정 날짜 시간대별로 countByTimeRangeForDate
 	@Operation(summary = "특정 요일 시간대별 방문자수 데이터 ", description = "|요일 형식 YYYY-MM-DD| *그냥 28 이렇게넣으면 몇월 몇년이든 28일 데이터가 다뽑아짐, 특정 날을 원하면 저렇게")
 	@GetMapping("/processes/{id}/datetimerrangeandcount/{date}")
-	public ResponseEntity<List<TimeRangeAndCountDTO>> datetimerrangeandcountcon(@PathVariable Long id,String date) {
-		
+	public ResponseEntity<List<TimeRangeAndCountDTO>> datetimerrangeandcountcon(@PathVariable Long id, @PathVariable String date) {
+		log.info("date = ::: {} {}",date);
 		return ResponseEntity.ok(graphService.datetimerangeandcount(id,date));
 		
 	}
