@@ -2,6 +2,7 @@ package com.wnsud9771.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.wnsud9771.dto.dashboard.top5.DataAndCountDTO;
@@ -10,6 +11,7 @@ import com.wnsud9771.dto.dashboard.visits.OnlyTimeDTO;
 import com.wnsud9771.dto.dashboard.visits.TimeRangeAndCountDTO;
 import com.wnsud9771.dto.dashboard.visits.VisitDayAndCountDTO;
 
+@Mapper
 public interface FilteringDataMaepper {
 	@Select("SELECT data, COUNT(*) as count " + "FROM filtering_data " + "WHERE pipelines_id = #{pipelineId} "
 			+ "GROUP BY data " + "ORDER BY count DESC")
