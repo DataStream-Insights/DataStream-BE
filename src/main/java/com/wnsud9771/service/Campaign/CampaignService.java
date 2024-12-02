@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.wnsud9771.dto.campaign.CampaignDTO;
+import com.wnsud9771.dto.campaign.ResearchCampaignDTO;
 import com.wnsud9771.entity.Campaignentity.Campaign;
 import com.wnsud9771.entity.Campaignentity.Category1;
 import com.wnsud9771.entity.Campaignentity.Category2;
@@ -28,12 +29,12 @@ public class CampaignService {
 	private final AuthorRepository authorRepository;
 
 	// 기존 메서드들
-	public List<CampaignDTO> getAllCampaigns() {
+	public List<ResearchCampaignDTO> getAllCampaigns() {
 		return campaignRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
 	}
 	
-	public CampaignDTO selectfindcampaign(Long id) {
-		CampaignDTO dto = new CampaignDTO();
+	public ResearchCampaignDTO selectfindcampaign(Long id) {
+		ResearchCampaignDTO dto = new ResearchCampaignDTO();
 		
 		Campaign campaign = campaignRepository.findById(id).get();
 		dto.setCampaignDescription(campaign.getCampaign_description());
@@ -48,9 +49,9 @@ public class CampaignService {
 		return dto; 
 	}
 
-	private CampaignDTO convertToDTO(Campaign campaign) {
-		CampaignDTO dto = new CampaignDTO();
-		//dto.setNo(campaign.getId());
+	private ResearchCampaignDTO convertToDTO(Campaign campaign) {
+		ResearchCampaignDTO dto = new ResearchCampaignDTO();
+		dto.setId(campaign.getId());
 		dto.setCampaignId(campaign.getCampaignId());
 		Category1 category1 = campaign.getCategory2().getCategory1();
 		dto.setCampaignClassification1(category1.getCategory1());
@@ -72,15 +73,14 @@ public class CampaignService {
 	}
 
 	// 새로 추가하는 메서드들
-	public CampaignDTO createCampaign(CampaignDTO dto) {
+	public void createCampaign(CampaignDTO dto) {
 		// DTO를 엔티티로 변환
 		Campaign campaign = convertToEntity(dto);
 
 		// 엔티티 저장
 		Campaign savedCampaign = campaignRepository.save(campaign);
 
-		// 저장된 엔티티를 다시 DTO로 변환하여 반환
-		return convertToDTO(savedCampaign);
+
 	}
 
 	private Campaign convertToEntity(CampaignDTO dto) {
