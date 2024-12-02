@@ -7,13 +7,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.campaign.CampaignDTO;
-import com.wnsud9771.event.CampaignCreatedEvent;
 import com.wnsud9771.service.Campaign.CampaignService;
 import com.wnsud9771.service.kafka.topic.CreateCampaignTopicService;
 
@@ -37,6 +37,13 @@ public class CampaignController {
 	@GetMapping
 	public List<CampaignDTO> getAllCampaigns() {
 		return campaignService.getAllCampaigns();
+	}
+	
+	@Operation(summary = "캠페인 상세보기", description = ".")
+	@GetMapping("/{id}")
+	public ResponseEntity<CampaignDTO> selectCampaigns(@PathVariable Long id) {
+		CampaignDTO dto = campaignService.selectfindcampaign(id);
+		return ResponseEntity.ok(dto);
 	}
 
 	@Operation(summary = "캠페인 관리화면 추가 + 카프카 프로젝트로 캠페인 토픽 이름 보냄", description = ".")
