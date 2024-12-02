@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.campaign.CampaignDTO;
+import com.wnsud9771.dto.campaign.ResearchCampaignDTO;
 import com.wnsud9771.service.Campaign.CampaignService;
 import com.wnsud9771.service.kafka.topic.CreateCampaignTopicService;
 
@@ -35,14 +36,14 @@ public class CampaignController {
 
 	@Operation(summary = "캠페인 관리화면 전체 조회", description = "전체 아이템 목록을 조회합니다.")
 	@GetMapping
-	public List<CampaignDTO> getAllCampaigns() {
+	public List<ResearchCampaignDTO> getAllCampaigns() {
 		return campaignService.getAllCampaigns();
 	}
 	
 	@Operation(summary = "캠페인 상세보기", description = ".")
 	@GetMapping("/{id}")
-	public ResponseEntity<CampaignDTO> selectCampaigns(@PathVariable Long id) {
-		CampaignDTO dto = campaignService.selectfindcampaign(id);
+	public ResponseEntity<ResearchCampaignDTO> selectCampaigns(@PathVariable Long id) {
+		ResearchCampaignDTO dto = campaignService.selectfindcampaign(id);
 		return ResponseEntity.ok(dto);
 	}
 
@@ -51,7 +52,7 @@ public class CampaignController {
 	public ResponseEntity<CampaignDTO> createCampaign(@RequestBody CampaignDTO campaignDTO) {
 		try {
 			log.info("Received DTO: {}", campaignDTO);
-			CampaignDTO created = campaignService.createCampaign(campaignDTO);
+			campaignService.createCampaign(campaignDTO);
 			
 			//topic 이름 추가 이벤트 발행 방식으로 바꿈
 			//CampaignIdDTO dto = new CampaignIdDTO();
@@ -61,7 +62,7 @@ public class CampaignController {
 			//kafka 프로젝트로 캠페인 보내기 임시막기 db만생성하게
 			//eventPublisher.publishEvent(new CampaignCreatedEvent(this, created.getCampaignId()));
 			
-			return ResponseEntity.ok(created);
+			return ResponseEntity.ok(campaignDTO);
 		} catch (Exception e) {
 			log.info("error message", e.getMessage());
 			throw e;
