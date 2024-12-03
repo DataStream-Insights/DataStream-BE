@@ -17,14 +17,21 @@ public interface FilteringDataMaepper {
 //			+ "GROUP BY data " + "ORDER BY count DESC")
 //	List<DataAndCountDTO> findDataCountByPipelineId(Long pipelineId);
 	
+	//top 5뽑기
 	@Select("SELECT data, COUNT(*) as count " + "FROM filtering_data " + "WHERE pipelines_id = #{pipelineId} "
 			+ "GROUP BY data " + "ORDER BY count DESC " + "LIMIT 5")
 	List<DataAndCountDTO> findDataCountByPipelineId(Long pipelineId);
 
-	// 날짜별 방문 수 countByDate
+	
+//----------------------------------------------page view-----------------------------------------------------------------------------
+	
+	// 날짜별 방문 수 countByDate 재방문 전부포함.
 	@Select("SELECT " + "DATE_FORMAT(timestamp, '%Y-%m-%d') as date, " + "COUNT(*) as count " + "FROM filtering_data "
 			+ "WHERE pipelines_id = #{pipelineId} " + "GROUP BY DATE_FORMAT(timestamp, '%Y-%m-%d') " + "ORDER BY date")
 	List<DateAndCountDTO> countByDate(Long pipelineId);
+	
+	//
+	
 
 	// 특정 날짜 시간대별로 countByTimeRangeForDate
 	@Select("SELECT " + "DATE_FORMAT(timestamp, '%H:00-%H:59') as timeRange, " + "COUNT(*) as count "
@@ -43,4 +50,6 @@ public interface FilteringDataMaepper {
 			+ "WHERE pipelines_id = #{pipelineId} " + "GROUP BY DATE_FORMAT(timestamp, '%W') "
 			+ "ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')")
 	List<VisitDayAndCountDTO> countByDay(Long pipelineid);
+	
+//-----------------------------------------------------------------------------------------------------------------------------
 }
