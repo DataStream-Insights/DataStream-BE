@@ -25,6 +25,12 @@ public class GraphService {
 		return filteringDataMapper.findDataCountByPipelineId(id);
 
 	}
+	
+	//20달러 시나리오 성공수, 실패수 반환하는거
+	
+	//20달러 시나리오 평균금액수, 최고 금액, 최소 금액 반환
+	
+	//--------------------------------------------------------------page view--------------------------------------------------
 
 	// 날짜별 방문 수 countByDate
 	public List<DateAndCountDTO> selectcountByDate(Long id){
@@ -59,4 +65,6 @@ public class GraphService {
 	public List<VisitDayAndCountDTO> dayvisitcount(Long id){
 		return filteringDataMapper.countByDay(id);
 	}
+	
+//------------------------------------------------------------------------------------------------------------------------
 }

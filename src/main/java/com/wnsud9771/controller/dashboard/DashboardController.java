@@ -46,9 +46,9 @@ public class DashboardController {
 	
 	// 날짜 상관없이 모든 날짜 시간대별 getTimeRangeCount
 	@Operation(summary = "날짜 상관없이 모든 날짜 시간대별 getTimeRangeCount ", description = "날짜, 그날짜의 방문수 이렇게 보내짐.  2024-11-26일날 3번방문 2024-11-28에 25번방문 이러면 데이터형식에 맞춰서")
-	@GetMapping("/processes/{id}/datetimerrangeandcount")
-	public ResponseEntity<List<OnlyTimeDTO>> alltimerangecount(@PathVariable Long id) {
-		
+	@GetMapping("/processes/dategraph/datetimerrangeandcount")
+	public ResponseEntity<List<OnlyTimeDTO>> alltimerangecount() {
+		Long id = 30L; //프로세스 만들면 그 프로세스 id 넣기~!
 		return ResponseEntity.ok(graphService. alltimerangeandcount(id));
 		
 	}
@@ -56,27 +56,28 @@ public class DashboardController {
 	
 	// 특정 날짜 시간대별로 countByTimeRangeForDate
 	@Operation(summary = "특정 요일 시간대별 방문자수 데이터 ", description = "|요일 형식 YYYY-MM-DD| *그냥 28 이렇게넣으면 몇월 몇년이든 28일 데이터가 다뽑아짐, 특정 날을 원하면 저렇게")
-	@GetMapping("/processes/{id}/datetimerrangeandcount/{date}")
-	public ResponseEntity<List<TimeRangeAndCountDTO>> datetimerrangeandcountcon(@PathVariable Long id, @PathVariable String date) {
+	@GetMapping("/processes/dategraph/datetimerrangeandcount/{date}")
+	public ResponseEntity<List<TimeRangeAndCountDTO>> datetimerrangeandcountcon(@PathVariable String date) {
 		log.info("date = ::: {} {}",date);
+		Long id = 30L; //프로세스 만들면 그 프로세스 id 넣기~!
 		return ResponseEntity.ok(graphService.datetimerangeandcount(id,date));
 		
 	}
 	
 	// 날짜별 방문 수 countByDate
 	@Operation(summary = "날짜별 방문 수 countByDate", description = "그냥 id만 넣으면 날짜별 방문 수 보여주기 몇년몇월며칠에 몇번 방문 이런식으로")
-	@GetMapping("/processes/{id}/countByDate")
-	public ResponseEntity<List<DateAndCountDTO>> selectcountByDatecon(@PathVariable Long id) {
-		
+	@GetMapping("/processes/dategraph/countByDate")
+	public ResponseEntity<List<DateAndCountDTO>> selectcountByDatecon() {
+		Long id = 30L; //프로세스 만들면 그 프로세스 id 넣기~!
 		return ResponseEntity.ok(graphService.selectcountByDate(id));
 		
 	}
 	
 	//요일별( 수요일,목요일, 금요일) countByDay
 	@Operation(summary = "요일별( 수요일,목요일, 금요일) countByDay", description = "그냥 수요일,목요일처럼 요일별 방문 수 보여주기")
-	@GetMapping("/processes/{id}/dayvisit")
-	public ResponseEntity<List<VisitDayAndCountDTO>> datetimerangeandcountcon(@PathVariable Long id) {
-		
+	@GetMapping("/processes/dategraph/dayvisit")
+	public ResponseEntity<List<VisitDayAndCountDTO>> datetimerangeandcountcon() {
+		Long id = 30L; //프로세스 만들면 그 프로세스 id 넣기~!
 		return ResponseEntity.ok(graphService.dayvisitcount(id));
 		
 	}
