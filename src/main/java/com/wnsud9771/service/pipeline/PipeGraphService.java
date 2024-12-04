@@ -64,10 +64,13 @@ public class PipeGraphService {
 	}
 
 	public List<GraphListDTO> viewdetailpipesgraph(Long id) {
-		List<GraphList> entities = graphPipelinesConnectRepository.findGraphListByPipelinesId(id);
+		List<GraphPipelinesConnect> entities = graphPipelinesConnectRepository.findGraphListByPipelinesId(id);
+		
 		List<GraphListDTO> dtos = new ArrayList<>();
-		for (GraphList entity : entities) {
-			GraphListDTO dto = convertoDTO(entity);
+		for (GraphPipelinesConnect entity : entities) {
+			GraphList graphList = graphListRepository.findById(entity.getGraphList().getId()).get();
+			
+			GraphListDTO dto = convertoDTO(graphList);
 			dtos.add(dto);
 		}
 

@@ -30,12 +30,12 @@ public class DashboardController {
 	private final DashboardService dashboardService;
 	private final GraphService graphService;
 	
-//	@Operation(summary = "프로세스 목록보기 ", description = ".")
-//	@GetMapping("/processes")
-//	public ResponseEntity<List<ProcessDTO>> findProcesses() {
-//		return ResponseEntity.ok(dashboardService.getprocessList());
-//		
-//	}
+	@Operation(summary = "프로세스 목록보기 ", description = ".")
+	@GetMapping("/processes")
+	public ResponseEntity<List<ProcessDTO>> findProcesses() {
+		return ResponseEntity.ok(dashboardService.getprocessList());
+		
+	}
 //	
 //	@Operation(summary = "그래프 유형 목록 ", description = ".")
 //	@GetMapping("/processes")

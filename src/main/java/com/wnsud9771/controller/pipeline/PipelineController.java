@@ -98,6 +98,7 @@ public class PipelineController {
 	@GetMapping("/getpipelinesgraph/{id}")
 	public ResponseEntity<List<GraphListDTO>> getgraphbyid(@PathVariable Long id) {
 		List<GraphListDTO> suc = pipeGraphService.viewdetailpipesgraph(id);
+		log.info("보내는 suc {}",suc);
 		return ResponseEntity.ok(suc);
 	}
 
