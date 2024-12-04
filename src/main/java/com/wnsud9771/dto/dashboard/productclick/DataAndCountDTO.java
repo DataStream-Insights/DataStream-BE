@@ -1,4 +1,4 @@
-package com.wnsud9771.dto.dashboard.top5;
+package com.wnsud9771.dto.dashboard.productclick;
 
 import lombok.Data;
 
