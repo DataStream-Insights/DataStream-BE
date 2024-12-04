@@ -51,3 +51,56 @@ java.lang.NoSuchMethodException: java.lang.foreign.MemorySegment.getString(long)
 2024-12-04 17:05:43.921 [RMI TCP Connection(10)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-12-04 17:05:43.922 [RMI TCP Connection(10)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-12-04 17:05:43.925 [RMI TCP Connection(10)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-04 17:05:45.793 [main] INFO  com.wnsud9771.CampaignApplication - Starting CampaignApplication using Java 21.0.3 with PID 18824 (C:\wnsud\springbootworkspace\DataStream-BE\target\classes started by admin in C:\wnsud\springbootworkspace\DataStream-BE)
+2024-12-04 17:05:45.794 [main] INFO  com.wnsud9771.CampaignApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-04 17:05:46.412 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-04 17:05:46.510 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 88 ms. Found 25 JPA repository interfaces.
+2024-12-04 17:05:46.806 [main] DEBUG o.a.tomcat.util.compat.Jre22Compat - Failed to create references to Java 22 classes and methods
+java.lang.NoSuchMethodException: java.lang.foreign.MemorySegment.getString(long)
+	at java.base/java.lang.Class.getMethod(Class.java:2395)
+	at org.apache.tomcat.util.compat.Jre22Compat.<clinit>(Jre22Compat.java:42)
+	at org.apache.tomcat.util.compat.JreCompat.<clinit>(JreCompat.java:55)
+	at org.apache.catalina.startup.Tomcat.<clinit>(Tomcat.java:1193)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:201)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.wnsud9771.CampaignApplication.main(CampaignApplication.java:10)
+2024-12-04 17:05:46.876 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2024-12-04 17:05:46.884 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2024-12-04 17:05:46.886 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-04 17:05:46.886 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-12-04 17:05:46.938 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-04 17:05:46.938 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1114 ms
+2024-12-04 17:05:47.061 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-04 17:05:47.104 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-12-04 17:05:47.130 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-12-04 17:05:47.302 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-04 17:05:47.320 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-04 17:05:47.719 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1b98355f
+2024-12-04 17:05:47.720 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-04 17:05:47.770 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-04 17:05:48.528 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-04 17:05:48.979 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-04 17:05:49.638 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-04 17:05:49.890 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2024-12-04 17:05:49.903 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
+2024-12-04 17:05:49.909 [main] INFO  com.wnsud9771.CampaignApplication - Started CampaignApplication in 4.43 seconds (process running for 4.9)
+2024-12-04 17:05:50.052 [http-nio-8081-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-04 17:05:50.052 [http-nio-8081-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-04 17:05:50.053 [http-nio-8081-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-12-04 17:06:04.578 [http-nio-8081-exec-7] INFO  c.w.c.pipeline.PipelineController -  보기PipeandgraDTO(dto=AddPipelineDTO(pipelineName=ㄹㄽㅅㅅ, pipelineId=PPL241204830, distinctCode=0, addcampaignTopic=AddCampaignTopicDTO(campaignId=CPG241126572, addFormatTopics=[AddFormatTopicDTO(formatId=FMT241203295, addFilterTopics=[AddFilterTopicDTO(filterId=241120001143864647)])])), iddto=[GraphIdDTO(id=1), GraphIdDTO(id=3), GraphIdDTO(id=4)])
+2024-12-04 17:06:04.842 [http-nio-8081-exec-7] INFO  c.w.s.pipeline.PipeGraphService - 연결시킨 그래프 아이디 GraphIdDTO(id=1)
+2024-12-04 17:06:04.897 [http-nio-8081-exec-7] INFO  c.w.s.pipeline.PipeGraphService - 연결시킨 그래프 아이디 GraphIdDTO(id=3)
+2024-12-04 17:06:04.945 [http-nio-8081-exec-7] INFO  c.w.s.pipeline.PipeGraphService - 연결시킨 그래프 아이디 GraphIdDTO(id=4)
+2024-12-04 17:10:55.777 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2024-12-04 17:10:55.780 [RMI TCP Connection(13)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8081"]
+2024-12-04 17:10:55.784 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-04 17:10:55.785 [RMI TCP Connection(13)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-04 17:10:55.789 [RMI TCP Connection(13)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
