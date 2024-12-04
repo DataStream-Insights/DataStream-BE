@@ -12,14 +12,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Barchart {
+public class Priceboard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String data;
-	private Long count;
+	private Long averageValue;
+	private Long minValue;
+	private Long maxValue;
 	private LocalDateTime timestamp;
-	
+
 	private Long pipelinesId;
 }

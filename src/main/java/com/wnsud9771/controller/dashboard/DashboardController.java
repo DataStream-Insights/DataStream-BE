@@ -9,13 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.dashboard.ProcessDTO;
+import com.wnsud9771.dto.dashboard.barchart.BarchartTimeDTO;
 import com.wnsud9771.dto.dashboard.pageview.DateAndCountDTO;
 import com.wnsud9771.dto.dashboard.pageview.OnlyTimeDTO;
 import com.wnsud9771.dto.dashboard.pageview.TimeRangeAndCountDTO;
 import com.wnsud9771.dto.dashboard.pageview.VisitDayAndCountDTO;
-import com.wnsud9771.dto.dashboard.productclick.BrandAndCountDTO;
-import com.wnsud9771.dto.dashboard.productclick.DataAndCountDTO;
+import com.wnsud9771.dto.dashboard.piechart.PiechartDTO;
+import com.wnsud9771.dto.dashboard.priceboard.PriceboardDTO;
+import com.wnsud9771.dto.dashboard.treemap.TreemapTimeDTO;
 import com.wnsud9771.service.dashboard.DashboardService;
+import com.wnsud9771.service.dashboard.GraphDBService;
 import com.wnsud9771.service.dashboard.GraphService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,6 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DashboardController {
 	private final DashboardService dashboardService;
 	private final GraphService graphService;
+	private final GraphDBService graphDBService;
 	
 	@Operation(summary = "프로세스 목록보기 ", description = ".")
 	@GetMapping("/processes")
@@ -36,31 +40,42 @@ public class DashboardController {
 		return ResponseEntity.ok(dashboardService.getprocessList());
 		
 	}
-//	
-//	@Operation(summary = "그래프 유형 목록 ", description = ".")
-//	@GetMapping("/processes")
-//	public ResponseEntity<List<ProcessDTO>> findProcesses() {
-//		return ResponseEntity.ok(dashboardService.getprocessList());
-//		
-//	}
-//	
-	// 상품 클릭 시나리오 - top5
-	@Operation(summary = "인기상품 top5 그래프 데이터 ", description = "프로세스 기본 id 경로로 get")
+
+	
+	@Operation(summary = "Barchart 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Barchart/{id}")
-	public ResponseEntity<List<DataAndCountDTO>> top5Graph(@PathVariable Long id) {
+	public ResponseEntity<BarchartTimeDTO> barchartcont(@PathVariable Long id) {
 		
-		return ResponseEntity.ok(graphService.top5graphconvert(id));
+		return ResponseEntity.ok(graphDBService.finddbbarchart(id));
+		
+	}
+	
+	@Operation(summary = "Piechart 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
+	@GetMapping("/Piechart/{id}")
+	public ResponseEntity<PiechartDTO> piechartcont(@PathVariable Long id) {
+		PiechartDTO dto = new PiechartDTO();
+		return ResponseEntity.ok(dto);
+		
+	}
+	
+	@Operation(summary = "Priceboard 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
+	@GetMapping("/Priceboard/{id}")
+	public ResponseEntity<PriceboardDTO> priceboardcont(@PathVariable Long id) {
+		PriceboardDTO dto = new PriceboardDTO();
+		return ResponseEntity.ok( dto);
 		
 	}
 	
 	//상품 클릭 시나리오 - 브랜드 추출
-	@Operation(summary = "브랜드 추출 api ", description = "프로세스 기본 id 경로로 get")
+	@Operation(summary = "Treemap 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Treemap/{id}")
-	public ResponseEntity<List<BrandAndCountDTO>> brandcount(@PathVariable Long id) {
-		
-		return ResponseEntity.ok(graphService.brandandcount(id));
+	public ResponseEntity<TreemapTimeDTO> treemapcont(@PathVariable Long id) {
+		TreemapTimeDTO dto = new TreemapTimeDTO();
+		return ResponseEntity.ok(dto);
 		
 	}
+	
+	
 	
 	// 날짜 상관없이 모든 날짜 시간대별 getTimeRangeCount
 	@Operation(summary = "날짜 상관없이 모든 날짜 시간대별 getTimeRangeCount ", description = "날짜, 그날짜의 방문수 이렇게 보내짐.  2024-11-26일날 3번방문 2024-11-28에 25번방문 이러면 데이터형식에 맞춰서")

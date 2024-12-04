@@ -12,14 +12,14 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Barchart {
+public class Piechart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String data;
-	private Long count;
+	private Long success;
+	private Long failure;
 	private LocalDateTime timestamp;
-	
+
 	private Long pipelinesId;
 }
