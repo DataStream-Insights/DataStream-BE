@@ -34,12 +34,11 @@ import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.pipeline.CampaignTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FilterTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FormatTopicRepository;
+import com.wnsud9771.reoisitory.pipeline.GraphPipelinesConnectRepository;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
 import com.wnsud9771.reoisitory.pipeline.data.FilteringDataRepository;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +55,7 @@ public class PipelineService {
 	private final FilterManagementRepository filterManagementRepository;
 	private final ConvertSendTopicsService convertSendTopicsService;
 	private final FilteringDataRepository filteringDataRepository;
+	private final GraphPipelinesConnectRepository graphPipelinesConnectRepository;
 
 	private final ApplicationEventPublisher eventPublisher;
 	private final ConnectCFFService connectCFFService;
@@ -138,6 +138,7 @@ public class PipelineService {
 		           
 		           campaignTopicRepository.delete(campaignTopic);
 		       }
+		       graphPipelinesConnectRepository.deleteByPipelines(pipeline);
 		       
 		       
 		       pipelinesRepository.delete(pipeline);
