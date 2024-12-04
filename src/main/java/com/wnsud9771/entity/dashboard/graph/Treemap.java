@@ -1,5 +1,7 @@
 package com.wnsud9771.entity.dashboard.graph;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class Treemap {
 
 	private String brandname;
 	private Long count;
+	private LocalDateTime timestamp;
 
 	private Long pipelinesId;
 }
