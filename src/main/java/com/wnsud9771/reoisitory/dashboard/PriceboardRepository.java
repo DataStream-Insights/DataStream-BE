@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.wnsud9771.entity.dashboard.graph.Priceboard;
 
 public interface PriceboardRepository extends JpaRepository<Priceboard, Long>{
-	List<Priceboard> findAllByPipelinesId (Long pipelinesId);
+	Priceboard findAllByPipelinesId (Long pipelinesId);
+	void deleteByPipelinesId(Long pipelinesId);
 }

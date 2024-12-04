@@ -8,4 +8,5 @@ import com.wnsud9771.entity.dashboard.graph.Barchart;
 
 public interface BarchartRepository extends JpaRepository<Barchart, Long>{
 	List<Barchart> findAllByPipelinesId (Long pipelinesId);
+	void deleteByPipelinesId(Long pipelinesId);
 }

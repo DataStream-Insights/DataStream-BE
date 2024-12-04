@@ -8,4 +8,5 @@ import com.wnsud9771.entity.dashboard.graph.Treemap;
 
 public interface TreemapRepository extends JpaRepository<Treemap, Long>{
 	List<Treemap> findAllByPipelinesId (Long pipelinesId);
+	void deleteByPipelinesId(Long pipelinesId);
 }
