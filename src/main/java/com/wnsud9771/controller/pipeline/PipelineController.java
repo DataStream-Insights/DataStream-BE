@@ -89,6 +89,13 @@ public class PipelineController {
 		dto = pipelineService.findpipelinebykeyidwithname(id);
 		return ResponseEntity.ok(dto);
 	}
+	
+	@Operation(summary = "파이프라인 상세 조회에서 그래프 부분만 따로보여주기", description = "상세보기할 파이프라인 id임!")
+	@GetMapping("/getpipelinesgraph/{id}")
+	public ResponseEntity<List<GraphListDTO>> getgraphbyid(@PathVariable Long id) {
+		List<GraphListDTO> suc = pipeGraphService.viewdetailpipesgraph(id);
+		return ResponseEntity.ok(suc);
+	}
 
 	@Operation(summary = "파이프라인 실행시키거나 중지시키거나 ", description = "boolean타입으로 실행할거면 true, 중지시킬거면 false 실행과 중지는 버튼눌러서 하는식으로?")
 	@PostMapping("/processExecutable")

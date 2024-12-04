@@ -1,5 +1,6 @@
 package com.wnsud9771.service.pipeline;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,5 +61,16 @@ public class PipeGraphService {
 		
 		return graphids;
 		
+	}
+	
+	public List<GraphListDTO> viewdetailpipesgraph(Long id) {
+		 List<GraphList> entities = graphPipelinesConnectRepository.findGraphListByPipelinesId(id);
+		 List<GraphListDTO> dtos = new ArrayList<>();
+		 for(GraphList entity : entities) {
+			 GraphListDTO dto = convertoDTO(entity);
+			 dtos.add(dto);
+		 }
+		 
+		 return dtos;
 	}
 }
