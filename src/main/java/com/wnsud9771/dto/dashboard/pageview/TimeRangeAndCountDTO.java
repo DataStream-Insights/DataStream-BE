@@ -1,4 +1,4 @@
-package com.wnsud9771.dto.dashboard.visits;
+package com.wnsud9771.dto.dashboard.pageview;
 
 import lombok.Data;
 

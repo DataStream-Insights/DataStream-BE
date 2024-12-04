@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wnsud9771.dto.dashboard.ProcessDTO;
-import com.wnsud9771.dto.dashboard.top5.DataAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.DateAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.OnlyTimeDTO;
-import com.wnsud9771.dto.dashboard.visits.TimeRangeAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.VisitDayAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.DateAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.OnlyTimeDTO;
+import com.wnsud9771.dto.dashboard.pageview.TimeRangeAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.VisitDayAndCountDTO;
+import com.wnsud9771.dto.dashboard.productclick.BrandAndCountDTO;
+import com.wnsud9771.dto.dashboard.productclick.DataAndCountDTO;
 import com.wnsud9771.service.dashboard.DashboardService;
 import com.wnsud9771.service.dashboard.GraphService;
 
@@ -29,18 +30,35 @@ public class DashboardController {
 	private final DashboardService dashboardService;
 	private final GraphService graphService;
 	
-	@Operation(summary = "프로세스 목록보기 ", description = ".")
-	@GetMapping("/processes")
-	public ResponseEntity<List<ProcessDTO>> findProcesses() {
-		return ResponseEntity.ok(dashboardService.getprocessList());
-		
-	}
-	
+//	@Operation(summary = "프로세스 목록보기 ", description = ".")
+//	@GetMapping("/processes")
+//	public ResponseEntity<List<ProcessDTO>> findProcesses() {
+//		return ResponseEntity.ok(dashboardService.getprocessList());
+//		
+//	}
+//	
+//	@Operation(summary = "그래프 유형 목록 ", description = ".")
+//	@GetMapping("/processes")
+//	public ResponseEntity<List<ProcessDTO>> findProcesses() {
+//		return ResponseEntity.ok(dashboardService.getprocessList());
+//		
+//	}
+//	
+	// 상품 클릭 시나리오 - top5
 	@Operation(summary = "인기상품 top5 그래프 데이터 ", description = "프로세스 기본 id 경로로 get")
-	@GetMapping("/processes/top5/{id}")
+	@GetMapping("/Barchart/{id}")
 	public ResponseEntity<List<DataAndCountDTO>> top5Graph(@PathVariable Long id) {
 		
 		return ResponseEntity.ok(graphService.top5graphconvert(id));
+		
+	}
+	
+	//상품 클릭 시나리오 - 브랜드 추출
+	@Operation(summary = "브랜드 추출 api ", description = "프로세스 기본 id 경로로 get")
+	@GetMapping("/Treemap/{id}")
+	public ResponseEntity<List<BrandAndCountDTO>> brandcount(@PathVariable Long id) {
+		
+		return ResponseEntity.ok(graphService.brandandcount(id));
 		
 	}
 	

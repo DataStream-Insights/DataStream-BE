@@ -5,22 +5,27 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.wnsud9771.dto.dashboard.top5.DataAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.DateAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.OnlyTimeDTO;
-import com.wnsud9771.dto.dashboard.visits.TimeRangeAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.VisitDayAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.DateAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.OnlyTimeDTO;
+import com.wnsud9771.dto.dashboard.pageview.TimeRangeAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.VisitDayAndCountDTO;
+import com.wnsud9771.dto.dashboard.productclick.DataAndCountDTO;
 
 @Mapper
-public interface FilteringDataMaepper {
+public interface FilteringDataMapper {
 //	@Select("SELECT data, COUNT(*) as count " + "FROM filtering_data " + "WHERE pipelines_id = #{pipelineId} "
 //			+ "GROUP BY data " + "ORDER BY count DESC")
 //	List<DataAndCountDTO> findDataCountByPipelineId(Long pipelineId);
 	
-	//top 5뽑기
+	//상품클릭 시나리오 - top 5뽑기
 	@Select("SELECT data, COUNT(*) as count " + "FROM filtering_data " + "WHERE pipelines_id = #{pipelineId} "
 			+ "GROUP BY data " + "ORDER BY count DESC " + "LIMIT 5")
-	List<DataAndCountDTO> findDataCountByPipelineId(Long pipelineId);
+	List<DataAndCountDTO> findTop5DataCountByPipelineId(Long pipelineId);
+	
+	//상품 클릭 시나리오 - 브랜드 추출
+	@Select("SELECT data, COUNT(*) as count " + "FROM filtering_data " + "WHERE pipelines_id = #{pipelineId} "
+			+ "GROUP BY data " + "ORDER BY count DESC ")
+	List<DataAndCountDTO> findAllDataCountByPipelineId(Long pipelineId);
 
 	
 //----------------------------------------------page view-----------------------------------------------------------------------------

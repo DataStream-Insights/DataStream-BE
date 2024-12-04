@@ -1,34 +1,68 @@
 package com.wnsud9771.service.dashboard;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.wnsud9771.dto.dashboard.top5.DataAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.DateAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.OnlyTimeDTO;
-import com.wnsud9771.dto.dashboard.visits.TimeRangeAndCountDTO;
-import com.wnsud9771.dto.dashboard.visits.VisitDayAndCountDTO;
-import com.wnsud9771.mapper.FilteringDataMaepper;
+import com.wnsud9771.dto.dashboard.pageview.DateAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.OnlyTimeDTO;
+import com.wnsud9771.dto.dashboard.pageview.TimeRangeAndCountDTO;
+import com.wnsud9771.dto.dashboard.pageview.VisitDayAndCountDTO;
+import com.wnsud9771.dto.dashboard.productclick.BrandAndCountDTO;
+import com.wnsud9771.dto.dashboard.productclick.DataAndCountDTO;
+import com.wnsud9771.mapper.FilteringDataMapper;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class GraphService {
-	private final FilteringDataMaepper filteringDataMapper;
+	private final FilteringDataMapper filteringDataMapper;
 
-	// top5 조회 아이템과 카운트만 뽑기
+	// 상품클릭 시나리오 - top5 조회 아이템과 카운트만 뽑기
 	public List<DataAndCountDTO> top5graphconvert(Long id) {
 
-		return filteringDataMapper.findDataCountByPipelineId(id);
+		return filteringDataMapper.findTop5DataCountByPipelineId(id);
 
 	}
 	
-	//20달러 시나리오 성공수, 실패수 반환하는거
+	//상품클릭 시나리오 - 브랜드 추출
+	public List<BrandAndCountDTO> brandandcount(Long id){
+		List<BrandAndCountDTO> setdtos = new ArrayList<>();
+		BrandAndCountDTO setdto = new BrandAndCountDTO();
+		List<DataAndCountDTO> dtos = filteringDataMapper.findAllDataCountByPipelineId(id);
+		
+		for(DataAndCountDTO dto : dtos) {
+			if(dto.getData().startsWith("http://14.63.178.40:8080/CerealMarket-1.1.5/")) {
+				String temp = new String();
+				temp = dto.getData().substring("http://14.63.178.40:8080/CerealMarket-1.1.5/".length());
+				if(temp.equals("cheeriosproduct.jsp"))
+					setdto.setBrandname("cheerios");
+				else if(temp.equals("cinnamonproduct.jsp"))
+					setdto.setBrandname("cinnamon");
+				else if(temp.equals("kelloggproduct.jsp"))
+					setdto.setBrandname("kellogg");
+				else if(temp.equals("luckycharmsproduct.jsp"))
+					setdto.setBrandname("luckycharms");
+				else
+					continue;
+					
+				setdto.setCount(dto.getCount());
+			}
+			
+		}
+		
+		
+		return setdtos;
+	}
 	
-	//20달러 시나리오 평균금액수, 최고 금액, 최소 금액 반환
+	
+	//20달러 시나리오 - 성공수, 실패수 반환하는거
+	
+	
+	//20달러 시나리오 - 평균금액수, 최고 금액, 최소 금액 반환
+	
 	
 	//--------------------------------------------------------------page view--------------------------------------------------
 
