@@ -53,16 +53,15 @@ public class DashboardController {
 	@Operation(summary = "Piechart 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Piechart/{id}")
 	public ResponseEntity<PiechartDTO> piechartcont(@PathVariable Long id) {
-		PiechartDTO dto = new PiechartDTO();
-		return ResponseEntity.ok(dto);
+		return ResponseEntity.ok(graphDBService.finddbpiechart(id));
 		
 	}
 	
 	@Operation(summary = "Priceboard 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Priceboard/{id}")
 	public ResponseEntity<PriceboardDTO> priceboardcont(@PathVariable Long id) {
-		PriceboardDTO dto = new PriceboardDTO();
-		return ResponseEntity.ok( dto);
+		
+		return ResponseEntity.ok(graphDBService.finddbpriceboard(id));
 		
 	}
 	
@@ -70,8 +69,7 @@ public class DashboardController {
 	@Operation(summary = "Treemap 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Treemap/{id}")
 	public ResponseEntity<TreemapTimeDTO> treemapcont(@PathVariable Long id) {
-		TreemapTimeDTO dto = new TreemapTimeDTO();
-		return ResponseEntity.ok(dto);
+		return ResponseEntity.ok(graphDBService.finddbtreemap(id));
 		
 	}
 	
