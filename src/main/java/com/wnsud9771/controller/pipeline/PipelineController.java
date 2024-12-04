@@ -14,6 +14,7 @@ import com.wnsud9771.dto.err.ErrorMessageDTO;
 import com.wnsud9771.dto.pipeline.ProcessStartDTO;
 import com.wnsud9771.dto.pipeline.add.AddPipelineDTO;
 import com.wnsud9771.dto.pipeline.add.GraphIdDTO;
+import com.wnsud9771.dto.pipeline.add.PipeandgraDTO;
 import com.wnsud9771.dto.pipeline.search.GraphListDTO;
 import com.wnsud9771.dto.pipeline.search.PipelinesDTO;
 import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
@@ -41,9 +42,12 @@ public class PipelineController {
 
 	@Operation(summary = "파이프 라인 저장 ", description = ".")
 	@PostMapping("/addpipeline")
-	public ResponseEntity<List<GraphIdDTO>> addPipeline(@RequestBody AddPipelineDTO dto,@RequestBody List<GraphIdDTO> iddto) {
-		AddPipelineDTO submitdto = pipelineService.submitpipeline(dto);
+	public ResponseEntity<List<GraphIdDTO>> addPipeline(@RequestBody PipeandgraDTO rece) {
+		log.info(" 보기{}",rece);
 		
+		AddPipelineDTO dto = rece.getDto();
+		AddPipelineDTO submitdto = pipelineService.submitpipeline(dto);
+		List<GraphIdDTO> iddto = rece.getIddto();
 		List<GraphIdDTO> suc = pipeGraphService.connectpipeandgra(submitdto.getPipelineId(),iddto);
 		return ResponseEntity.ok(suc);
 
