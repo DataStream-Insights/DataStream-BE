@@ -19,7 +19,7 @@ import com.wnsud9771.dto.pipeline.search.PipelinesDTO;
 import com.wnsud9771.dto.pipeline.search.SearchPipelineDTO;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
 import com.wnsud9771.service.pipeline.ConvertSendTopicsService;
-import com.wnsud9771.service.pipeline.GraphService;
+import com.wnsud9771.service.pipeline.PipeGraphService;
 import com.wnsud9771.service.pipeline.PipelineService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,14 +37,15 @@ public class PipelineController {
 	//private final PiplineStatusTestService piplineStatusTestService;
 	private final PipelinesRepository pipelinesRepository;
 	private final ConvertSendTopicsService convertSendTopicsService;
-	private final GraphService graphService;
+	private final PipeGraphService pipeGraphService;
 
 	@Operation(summary = "파이프 라인 저장 ", description = ".")
 	@PostMapping("/addpipeline")
-	public ResponseEntity<AddPipelineDTO> addPipeline(@RequestBody AddPipelineDTO dto,@RequestBody List<GraphIdDTO> iddto) {
-		pipelineService.submitpipeline(dto);
+	public ResponseEntity<List<GraphIdDTO>> addPipeline(@RequestBody AddPipelineDTO dto,@RequestBody List<GraphIdDTO> iddto) {
+		AddPipelineDTO submitdto = pipelineService.submitpipeline(dto);
 		
-		return ResponseEntity.ok(dto);
+		List<GraphIdDTO> suc = pipeGraphService.connectpipeandgra(submitdto.getPipelineId(),iddto);
+		return ResponseEntity.ok(suc);
 
 		
 	}
@@ -52,7 +53,7 @@ public class PipelineController {
 	@GetMapping("/graphList")
 	public ResponseEntity<List<GraphListDTO>> addPipeline() {
 		
-		return ResponseEntity.ok(graphService.findall());
+		return ResponseEntity.ok(pipeGraphService.findall());
 
 		
 	}

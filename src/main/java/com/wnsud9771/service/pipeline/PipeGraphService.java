@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class GraphService {
+public class PipeGraphService {
 	private final GraphListRepository graphListRepository; 
 	private final GraphPipelinesConnectRepository graphPipelinesConnectRepository;
 	private final PipelinesRepository pipelinesRepository;
@@ -40,8 +40,12 @@ public class GraphService {
 	}
 	
 	
-	public GraphIdDTO connectpipeandgra(String pipelineid, Long graphid) {
+	public List<GraphIdDTO> connectpipeandgra(String pipelineid, List<GraphIdDTO> graphids) {
 		GraphPipelinesConnect entity = new GraphPipelinesConnect();
+		
+		for(GraphIdDTO graphiddto : graphids) {
+			Long graphid = graphiddto.getId();
+		
 		
 		GraphList graphlist = graphListRepository.findById(graphid).get();
 		Pipelines pipelines = pipelinesRepository.findByPipelineId(pipelineid);
@@ -52,7 +56,9 @@ public class GraphService {
 		GraphIdDTO dto = new GraphIdDTO();
 		dto.setId(graphid);
 		
-		return dto;
+		}
+		
+		return graphids;
 		
 	}
 }
