@@ -72,9 +72,9 @@ public class SubmitGraphsdataService {
 					}
 
 				} else if (graphstyle.equals("Piechart")) {
-					if (piechartRepository.findAllByPipelinesId(pid) != null) {
+					
 						piechartRepository.deleteByPipelinesId(pid);
-					}
+					
 					
 					 PiechartDTO dto =graphService.sucorfaildata(pid);
 					 Piechart entity = new Piechart();
@@ -96,6 +96,7 @@ public class SubmitGraphsdataService {
 					entity.setAverageValue(dto.getAverageValue());
 					entity.setMaxValue(dto.getMaxValue());
 					entity.setMinValue(dto.getMinValue());
+					entity.setPipelinesId(pid);
 					entity.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 					
 					priceboardRepository.save(entity);
@@ -108,9 +109,12 @@ public class SubmitGraphsdataService {
 					List<BrandAndCountDTO> dtos = graphService.brandandcount(pid);
 
 					for (BrandAndCountDTO dto : dtos) {
+						if(dto.getBrandname() == null)
+							continue;
 						Treemap entity = new Treemap();
 						entity.setBrandname(dto.getBrandname());
 						entity.setCount(dto.getCount());
+						entity.setPipelinesId(pid);
 						entity.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
 						treemapRepository.save(entity);
@@ -163,6 +167,7 @@ public class SubmitGraphsdataService {
 						Treemap entity = new Treemap();
 						entity.setBrandname(dto.getBrandname());
 						entity.setCount(dto.getCount());
+						entity.setPipelinesId(pid);
 						entity.setTimestamp(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
 
 						treemapRepository.save(entity);
