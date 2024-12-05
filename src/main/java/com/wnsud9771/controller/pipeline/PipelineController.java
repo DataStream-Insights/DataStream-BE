@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping("/pipeline")
+@RequestMapping("/api/pipeline")
 @RequiredArgsConstructor
 @Slf4j
 public class PipelineController {
