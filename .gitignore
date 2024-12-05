@@ -36,3 +36,6 @@ build/
 ## secret ##
 SECRET-KEY.properties
 application-secret.properties
+
+/logs/
+*.log
