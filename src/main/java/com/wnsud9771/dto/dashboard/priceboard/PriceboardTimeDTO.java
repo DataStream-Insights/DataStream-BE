@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class PriceboardDTO {
-	private Long averageValue;
-	private Long minValue;
-	private Long maxValue;
-	
+public class PriceboardTimeDTO {
+	private PriceboardDTO priceboardDTO;
+	private LocalDateTime timestamp;
 }

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class PiechartDTO {
-	private Long success;
-	private Long failure;
+public class PiechartTimeDTO {
+	private PiechartDTO piechartDTO;
+	private LocalDateTime timestamp;
 }

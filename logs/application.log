@@ -56,3 +56,312 @@ java.lang.NoSuchMethodException: java.lang.foreign.MemorySegment.getString(long)
 2024-12-05 00:12:14.271 [RMI TCP Connection(8)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-12-05 00:12:14.272 [RMI TCP Connection(8)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2024-12-05 00:12:14.284 [RMI TCP Connection(8)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-05 11:15:12.039 [main] INFO  com.wnsud9771.CampaignApplication - Starting CampaignApplication using Java 21.0.3 with PID 2064 (C:\wnsud\springbootworkspace\DataStream-BE\target\classes started by admin in C:\wnsud\springbootworkspace\DataStream-BE)
+2024-12-05 11:15:12.040 [main] INFO  com.wnsud9771.CampaignApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-05 11:15:12.641 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-05 11:15:12.748 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 100 ms. Found 29 JPA repository interfaces.
+2024-12-05 11:15:13.088 [main] DEBUG o.a.tomcat.util.compat.Jre22Compat - Failed to create references to Java 22 classes and methods
+java.lang.NoSuchMethodException: java.lang.foreign.MemorySegment.getString(long)
+	at java.base/java.lang.Class.getMethod(Class.java:2395)
+	at org.apache.tomcat.util.compat.Jre22Compat.<clinit>(Jre22Compat.java:42)
+	at org.apache.tomcat.util.compat.JreCompat.<clinit>(JreCompat.java:55)
+	at org.apache.catalina.startup.Tomcat.<clinit>(Tomcat.java:1193)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:201)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.wnsud9771.CampaignApplication.main(CampaignApplication.java:10)
+2024-12-05 11:15:13.159 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2024-12-05 11:15:13.167 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:15:13.169 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-05 11:15:13.169 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-12-05 11:15:13.219 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-05 11:15:13.219 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1153 ms
+2024-12-05 11:15:13.370 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-05 11:15:13.425 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-12-05 11:15:13.456 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-12-05 11:15:13.663 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-05 11:15:13.685 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-05 11:15:13.880 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@39e7e040
+2024-12-05 11:15:13.882 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-05 11:15:13.927 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-05 11:15:14.766 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-05 11:15:15.271 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05 11:15:16.038 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-05 11:15:16.339 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:15:16.355 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
+2024-12-05 11:15:16.359 [main] INFO  com.wnsud9771.CampaignApplication - Started CampaignApplication in 4.645 seconds (process running for 5.183)
+2024-12-05 11:22:18.412 [http-nio-8081-exec-5] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-05 11:22:18.412 [http-nio-8081-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-05 11:22:18.417 [http-nio-8081-exec-5] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2024-12-05 11:28:26.631 [http-nio-8081-exec-10] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:28:26.640 [http-nio-8081-exec-1] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:28:27.532 [http-nio-8081-exec-4] INFO  c.w.c.pipeline.PipelineController - 프론트에서 요청한 파이프라인 30 ,true
+2024-12-05 11:28:27.532 [http-nio-8081-exec-4] INFO  c.w.service.pipeline.PipelineService - dto.get id 30
+2024-12-05 11:28:27.577 [http-nio-8081-exec-4] INFO  c.w.service.pipeline.PipelineService - 이벤트 발생하려는 파이프라인 PPL241203626
+2024-12-05 11:28:27.578 [http-nio-8081-exec-4] INFO  c.w.c.pipeline.PipelineEventListener - 레스트 보내려는 이벤트 PPL241203626
+2024-12-05 11:28:27.578 [http-nio-8081-exec-4] INFO  c.w.s.pipeline.ExecutableSendService - 보내려는 dto PPL241203626
+2024-12-05 11:29:04.850 [http-nio-8081-exec-3] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:29:04.862 [http-nio-8081-exec-6] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:29:06.286 [http-nio-8081-exec-8] INFO  c.w.service.pipeline.PipelineService - dto.get id 26
+2024-12-05 11:29:06.517 [http-nio-8081-exec-8] INFO  c.w.c.pipeline.PipelineController - 26 파이프라인 삭제요청받음
+2024-12-05 11:30:12.940 [http-nio-8081-exec-10] INFO  c.w.c.format.FormatController - Titles found: [TitleDTO(title=사용자 A의 전자제품 조회 로그), TitleDTO(title=사용자 B의 의류 조회 로그), TitleDTO(title=사용자 C의 장바구니 추가 로그), TitleDTO(title=회사 조직도), TitleDTO(title=Matomo Click Log 1), TitleDTO(title=Matomo Click Log 2), TitleDTO(title=Matomo Click Log 3), TitleDTO(title=m-s-1), TitleDTO(title=상품클릭로그 샘플), TitleDTO(title= 주문 얼마나 했는지 샘플 로그), TitleDTO(title=페이지 방문 로그 샘플)]
+2024-12-05 11:30:12.967 [http-nio-8081-exec-5] INFO  c.w.c.format.FormatController - Titles found: [TitleDTO(title=사용자 A의 전자제품 조회 로그), TitleDTO(title=사용자 B의 의류 조회 로그), TitleDTO(title=사용자 C의 장바구니 추가 로그), TitleDTO(title=회사 조직도), TitleDTO(title=Matomo Click Log 1), TitleDTO(title=Matomo Click Log 2), TitleDTO(title=Matomo Click Log 3), TitleDTO(title=m-s-1), TitleDTO(title=상품클릭로그 샘플), TitleDTO(title= 주문 얼마나 했는지 샘플 로그), TitleDTO(title=페이지 방문 로그 샘플)]
+2024-12-05 11:30:12.993 [http-nio-8081-exec-8] INFO  c.w.c.format.FormatController - Titles found: [TitleDTO(title=사용자 A의 전자제품 조회 로그), TitleDTO(title=사용자 B의 의류 조회 로그), TitleDTO(title=사용자 C의 장바구니 추가 로그), TitleDTO(title=회사 조직도), TitleDTO(title=Matomo Click Log 1), TitleDTO(title=Matomo Click Log 2), TitleDTO(title=Matomo Click Log 3), TitleDTO(title=m-s-1), TitleDTO(title=상품클릭로그 샘플), TitleDTO(title= 주문 얼마나 했는지 샘플 로그), TitleDTO(title=페이지 방문 로그 샘플)]
+2024-12-05 11:30:13.018 [http-nio-8081-exec-6] INFO  c.w.c.format.FormatController - Titles found: [TitleDTO(title=사용자 A의 전자제품 조회 로그), TitleDTO(title=사용자 B의 의류 조회 로그), TitleDTO(title=사용자 C의 장바구니 추가 로그), TitleDTO(title=회사 조직도), TitleDTO(title=Matomo Click Log 1), TitleDTO(title=Matomo Click Log 2), TitleDTO(title=Matomo Click Log 3), TitleDTO(title=m-s-1), TitleDTO(title=상품클릭로그 샘플), TitleDTO(title= 주문 얼마나 했는지 샘플 로그), TitleDTO(title=페이지 방문 로그 샘플)]
+2024-12-05 11:30:15.296 [http-nio-8081-exec-10] INFO  c.w.c.format.FormatController - id::::::
+2024-12-05 11:30:15.296 [http-nio-8081-exec-10] INFO  c.w.s.format.FormatManagementService - 검색한 id : 67
+2024-12-05 11:30:15.325 [http-nio-8081-exec-10] INFO  c.w.s.format.FormatManagementService - 검색한 상세보기[ 'id' : FMT241203723, '포맷아이디' : 67 
+2024-12-05 11:30:22.944 [http-nio-8081-exec-4] INFO  c.w.c.format.FormatController - id::::::
+2024-12-05 11:30:22.944 [http-nio-8081-exec-4] INFO  c.w.s.format.FormatManagementService - 검색한 id : 62
+2024-12-05 11:30:22.986 [http-nio-8081-exec-4] INFO  c.w.s.format.FormatManagementService - 검색한 상세보기[ 'id' : FMT241128809, '포맷아이디' : 62 
+2024-12-05 11:30:26.233 [http-nio-8081-exec-5] INFO  c.w.c.format.FormatController - id::::::
+2024-12-05 11:30:26.233 [http-nio-8081-exec-5] INFO  c.w.s.format.FormatManagementService - 검색한 id : 67
+2024-12-05 11:30:26.269 [http-nio-8081-exec-5] INFO  c.w.s.format.FormatManagementService - 검색한 상세보기[ 'id' : FMT241203723, '포맷아이디' : 67 
+2024-12-05 11:31:26.775 [http-nio-8081-exec-1] INFO  c.w.c.pipeline.PipelineController -  보기PipeandgraDTO(dto=AddPipelineDTO(pipelineName=상품 클릭 인기상품, pipelineId=PPL241205948, distinctCode=0, addcampaignTopic=AddCampaignTopicDTO(campaignId=CPG241128887, addFormatTopics=[AddFormatTopicDTO(formatId=FMT241128809, addFilterTopics=[AddFilterTopicDTO(filterId=241128132500805899)])])), iddto=[GraphIdDTO(id=1)])
+2024-12-05 11:31:27.061 [http-nio-8081-exec-1] INFO  c.w.s.pipeline.PipeGraphService - 연결시킨 그래프 아이디 GraphIdDTO(id=1)
+2024-12-05 11:31:35.518 [http-nio-8081-exec-4] INFO  c.w.c.pipeline.PipelineController - 보내는 suc [GraphListDTO(id=1, graph_name=Barchart, graph_explain=예시:인기 상품 top5)]
+2024-12-05 11:31:35.550 [http-nio-8081-exec-10] INFO  c.w.c.pipeline.PipelineController - 보내는 suc [GraphListDTO(id=1, graph_name=Barchart, graph_explain=예시:인기 상품 top5)]
+2024-12-05 11:31:36.394 [http-nio-8081-exec-7] INFO  c.w.c.pipeline.PipelineController - 프론트에서 요청한 파이프라인 37 ,true
+2024-12-05 11:31:36.394 [http-nio-8081-exec-7] INFO  c.w.service.pipeline.PipelineService - dto.get id 37
+2024-12-05 11:31:36.438 [http-nio-8081-exec-7] INFO  c.w.service.pipeline.PipelineService - 이벤트 발생하려는 파이프라인 PPL241205948
+2024-12-05 11:31:36.438 [http-nio-8081-exec-7] INFO  c.w.c.pipeline.PipelineEventListener - 레스트 보내려는 이벤트 PPL241205948
+2024-12-05 11:31:36.438 [http-nio-8081-exec-7] INFO  c.w.s.pipeline.ExecutableSendService - 보내려는 dto PPL241205948
+2024-12-05 11:32:08.078 [http-nio-8081-exec-9] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.util.NoSuchElementException] with root cause
+java.util.NoSuchElementException: null
+	at java.base/java.util.ArrayList.getLast(ArrayList.java:454)
+	at com.wnsud9771.service.dashboard.GraphDBService.finddbbarchart(GraphDBService.java:40)
+	at com.wnsud9771.controller.dashboard.DashboardController.barchartcont(DashboardController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-05 11:33:24.153 [RMI TCP Connection(27)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2024-12-05 11:33:24.155 [RMI TCP Connection(27)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:33:24.160 [RMI TCP Connection(27)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05 11:33:24.161 [RMI TCP Connection(27)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-05 11:33:24.164 [RMI TCP Connection(27)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2024-12-05 11:33:26.063 [main] INFO  com.wnsud9771.CampaignApplication - Starting CampaignApplication using Java 21.0.3 with PID 7616 (C:\wnsud\springbootworkspace\DataStream-BE\target\classes started by admin in C:\wnsud\springbootworkspace\DataStream-BE)
+2024-12-05 11:33:26.064 [main] INFO  com.wnsud9771.CampaignApplication - No active profile set, falling back to 1 default profile: "default"
+2024-12-05 11:33:26.545 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-05 11:33:26.640 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 89 ms. Found 29 JPA repository interfaces.
+2024-12-05 11:33:26.932 [main] DEBUG o.a.tomcat.util.compat.Jre22Compat - Failed to create references to Java 22 classes and methods
+java.lang.NoSuchMethodException: java.lang.foreign.MemorySegment.getString(long)
+	at java.base/java.lang.Class.getMethod(Class.java:2395)
+	at org.apache.tomcat.util.compat.Jre22Compat.<clinit>(Jre22Compat.java:42)
+	at org.apache.tomcat.util.compat.JreCompat.<clinit>(JreCompat.java:55)
+	at org.apache.catalina.startup.Tomcat.<clinit>(Tomcat.java:1193)
+	at org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory.getWebServer(TomcatServletWebServerFactory.java:201)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.createWebServer(ServletWebServerApplicationContext.java:188)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.onRefresh(ServletWebServerApplicationContext.java:162)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:618)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:334)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at com.wnsud9771.CampaignApplication.main(CampaignApplication.java:10)
+2024-12-05 11:33:26.979 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2024-12-05 11:33:26.985 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:33:26.986 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2024-12-05 11:33:26.986 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.19]
+2024-12-05 11:33:27.029 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2024-12-05 11:33:27.029 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 940 ms
+2024-12-05 11:33:27.131 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-12-05 11:33:27.160 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-12-05 11:33:27.179 [main] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2024-12-05 11:33:27.315 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-05 11:33:27.331 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2024-12-05 11:33:27.478 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@141b011a
+2024-12-05 11:33:27.479 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2024-12-05 11:33:27.519 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-12-05 11:33:28.244 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-12-05 11:33:28.756 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05 11:33:29.442 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-12-05 11:33:29.694 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:33:29.708 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path ''
+2024-12-05 11:33:29.712 [main] INFO  com.wnsud9771.CampaignApplication - Started CampaignApplication in 3.949 seconds (process running for 4.4)
+2024-12-05 11:33:37.242 [http-nio-8081-exec-6] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-12-05 11:33:37.242 [http-nio-8081-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2024-12-05 11:33:37.243 [http-nio-8081-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2024-12-05 11:51:31.110 [http-nio-8081-exec-9] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:51:31.123 [http-nio-8081-exec-7] INFO  c.w.c.pipeline.PipelineController - 보내는 suc []
+2024-12-05 11:51:32.014 [http-nio-8081-exec-6] INFO  c.w.c.pipeline.PipelineController - 프론트에서 요청한 파이프라인 30 ,true
+2024-12-05 11:51:32.014 [http-nio-8081-exec-6] INFO  c.w.service.pipeline.PipelineService - dto.get id 30
+2024-12-05 11:51:32.063 [http-nio-8081-exec-6] INFO  c.w.service.pipeline.PipelineService - 이벤트 발생하려는 파이프라인 PPL241203626
+2024-12-05 11:51:32.063 [http-nio-8081-exec-6] INFO  c.w.c.pipeline.PipelineEventListener - 레스트 보내려는 이벤트 PPL241203626
+2024-12-05 11:51:32.063 [http-nio-8081-exec-6] INFO  c.w.s.pipeline.ExecutableSendService - 보내려는 dto PPL241203626
+2024-12-05 11:51:37.138 [http-nio-8081-exec-7] INFO  c.w.c.pipeline.PipelineController - 보내는 suc [GraphListDTO(id=1, graph_name=Barchart, graph_explain=예시:인기 상품 top5)]
+2024-12-05 11:51:37.177 [http-nio-8081-exec-10] INFO  c.w.c.pipeline.PipelineController - 보내는 suc [GraphListDTO(id=1, graph_name=Barchart, graph_explain=예시:인기 상품 top5)]
+2024-12-05 11:51:38.665 [http-nio-8081-exec-2] INFO  c.w.c.pipeline.PipelineController - 프론트에서 요청한 파이프라인 37 ,true
+2024-12-05 11:51:38.666 [http-nio-8081-exec-2] INFO  c.w.service.pipeline.PipelineService - dto.get id 37
+2024-12-05 11:51:38.708 [http-nio-8081-exec-2] INFO  c.w.service.pipeline.PipelineService - 이벤트 발생하려는 파이프라인 PPL241205948
+2024-12-05 11:51:38.708 [http-nio-8081-exec-2] INFO  c.w.c.pipeline.PipelineEventListener - 레스트 보내려는 이벤트 PPL241205948
+2024-12-05 11:51:38.709 [http-nio-8081-exec-2] INFO  c.w.s.pipeline.ExecutableSendService - 보내려는 dto PPL241205948
+2024-12-05 11:52:00.518 [http-nio-8081-exec-3] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.util.NoSuchElementException] with root cause
+java.util.NoSuchElementException: null
+	at java.base/java.util.ArrayList.getLast(ArrayList.java:454)
+	at com.wnsud9771.service.dashboard.GraphDBService.finddbbarchart(GraphDBService.java:40)
+	at com.wnsud9771.controller.dashboard.DashboardController.barchartcont(DashboardController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-05 11:52:11.217 [http-nio-8081-exec-9] INFO  c.w.c.k.ReceiveSucfilteringController - 필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 PPL241203626
+2024-12-05 11:52:11.284 [http-nio-8081-exec-2] INFO  c.w.c.k.ReceiveSucfilteringController - 필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 PPL241203626
+2024-12-05 11:52:13.193 [http-nio-8081-exec-8] INFO  c.w.c.k.ReceiveSucfilteringController - 필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 PPL241205948
+2024-12-05 11:53:03.183 [http-nio-8081-exec-9] INFO  c.w.c.k.ReceiveSucfilteringController - 필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 PPL241205948
+2024-12-05 11:53:03.183 [http-nio-8081-exec-2] INFO  c.w.c.k.ReceiveSucfilteringController - 필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 PPL241203626
+2024-12-05 11:53:03.219 [http-nio-8081-exec-9] ERROR o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.InvalidDataAccessApiUsageException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call] with root cause
+jakarta.persistence.TransactionRequiredException: No EntityManager with actual transaction available for current thread - cannot reliably process 'remove' call
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:303)
+	at jdk.proxy2/jdk.proxy2.$Proxy123.remove(Unknown Source)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution$DeleteExecution.doExecute(JpaQueryExecution.java:298)
+	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:92)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:149)
+	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:137)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:164)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:123)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:385)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:137)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:135)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:220)
+	at jdk.proxy2/jdk.proxy2.$Proxy143.deleteByPipelinesId(Unknown Source)
+	at com.wnsud9771.service.dashboard.SubmitGraphsdataService.findgraphstyleandsubmit(SubmitGraphsdataService.java:57)
+	at com.wnsud9771.controller.kafka.ReceiveSucfilteringController.kafkasendbestr(ReceiveSucfilteringController.java:27)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:259)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:192)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:920)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:830)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:205)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:174)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:149)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:391)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:896)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1744)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2024-12-05 11:56:04.355 [RMI TCP Connection(33)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2024-12-05 11:56:04.358 [RMI TCP Connection(33)-127.0.0.1] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8081"]
+2024-12-05 11:56:04.363 [RMI TCP Connection(33)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05 11:56:04.364 [RMI TCP Connection(33)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-12-05 11:56:04.368 [RMI TCP Connection(33)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

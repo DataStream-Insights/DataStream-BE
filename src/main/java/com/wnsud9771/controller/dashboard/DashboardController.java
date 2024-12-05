@@ -14,8 +14,8 @@ import com.wnsud9771.dto.dashboard.pageview.DateAndCountDTO;
 import com.wnsud9771.dto.dashboard.pageview.OnlyTimeDTO;
 import com.wnsud9771.dto.dashboard.pageview.TimeRangeAndCountDTO;
 import com.wnsud9771.dto.dashboard.pageview.VisitDayAndCountDTO;
-import com.wnsud9771.dto.dashboard.piechart.PiechartDTO;
-import com.wnsud9771.dto.dashboard.priceboard.PriceboardDTO;
+import com.wnsud9771.dto.dashboard.piechart.PiechartTimeDTO;
+import com.wnsud9771.dto.dashboard.priceboard.PriceboardTimeDTO;
 import com.wnsud9771.dto.dashboard.treemap.TreemapTimeDTO;
 import com.wnsud9771.service.dashboard.DashboardService;
 import com.wnsud9771.service.dashboard.GraphDBService;
@@ -52,14 +52,14 @@ public class DashboardController {
 	
 	@Operation(summary = "Piechart 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Piechart/{id}")
-	public ResponseEntity<PiechartDTO> piechartcont(@PathVariable Long id) {
+	public ResponseEntity<PiechartTimeDTO> piechartcont(@PathVariable Long id) {
 		return ResponseEntity.ok(graphDBService.finddbpiechart(id));
 		
 	}
 	
 	@Operation(summary = "Priceboard 추출 api ", description = "프로세스 기본 id 경로로 get, timestamp는 데이터 수집된 시간 기록한거")
 	@GetMapping("/Priceboard/{id}")
-	public ResponseEntity<PriceboardDTO> priceboardcont(@PathVariable Long id) {
+	public ResponseEntity<PriceboardTimeDTO> priceboardcont(@PathVariable Long id) {
 		
 		return ResponseEntity.ok(graphDBService.finddbpriceboard(id));
 		
