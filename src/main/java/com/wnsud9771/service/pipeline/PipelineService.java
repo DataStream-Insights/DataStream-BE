@@ -25,10 +25,15 @@ import com.wnsud9771.entity.pipelineentity.CampaignTopic;
 import com.wnsud9771.entity.pipelineentity.FilterTopic;
 import com.wnsud9771.entity.pipelineentity.FormatTopic;
 import com.wnsud9771.entity.pipelineentity.Pipelines;
+import com.wnsud9771.entity.pipelineentity.data.FailFilteringData;
 import com.wnsud9771.entity.pipelineentity.data.FilteringData;
 import com.wnsud9771.event.pipeline.PipelineStartEvent;
 import com.wnsud9771.event.pipeline.PipelineStopEvent;
 import com.wnsud9771.reoisitory.campaign.CampaignRepository;
+import com.wnsud9771.reoisitory.dashboard.BarchartRepository;
+import com.wnsud9771.reoisitory.dashboard.PiechartRepository;
+import com.wnsud9771.reoisitory.dashboard.PriceboardRepository;
+import com.wnsud9771.reoisitory.dashboard.TreemapRepository;
 import com.wnsud9771.reoisitory.filter.FilterManagementRepository;
 import com.wnsud9771.reoisitory.format.FormatManagementRepository;
 import com.wnsud9771.reoisitory.pipeline.CampaignTopicRepository;
@@ -36,6 +41,9 @@ import com.wnsud9771.reoisitory.pipeline.FilterTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.FormatTopicRepository;
 import com.wnsud9771.reoisitory.pipeline.GraphPipelinesConnectRepository;
 import com.wnsud9771.reoisitory.pipeline.PipelinesRepository;
+import com.wnsud9771.reoisitory.pipeline.data.DistinctDataRepository;
+import com.wnsud9771.reoisitory.pipeline.data.FailDistinctDataRepository;
+import com.wnsud9771.reoisitory.pipeline.data.FailFilteringDataRepository;
 import com.wnsud9771.reoisitory.pipeline.data.FilteringDataRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -56,6 +64,13 @@ public class PipelineService {
 	private final ConvertSendTopicsService convertSendTopicsService;
 	private final FilteringDataRepository filteringDataRepository;
 	private final GraphPipelinesConnectRepository graphPipelinesConnectRepository;
+	private final FailFilteringDataRepository failFilteringDataRepository;
+	private final DistinctDataRepository distinctDataRepository;
+	private final FailDistinctDataRepository failDistinctDataRepository;
+	private final BarchartRepository barchartRepository;
+	private final PiechartRepository piechartRepository;
+	private final PriceboardRepository priceboardRepository;
+	private final TreemapRepository treemapRepository;
 
 	private final ApplicationEventPublisher eventPublisher;
 	private final ConnectCFFService connectCFFService;
@@ -66,11 +81,11 @@ public class PipelineService {
 		Pipelines pipeline = new Pipelines();
 		pipeline.setPipelineId(dto.getPipelineId());
 		pipeline.setName(dto.getPipelineName());
-		if(dto.getDistinctCode() == 0)
+		if (dto.getDistinctCode() == 0)
 			pipeline.setDistinctCode(null);
-			else {				
-				pipeline.setDistinctCode(dto.getDistinctCode());
-			}
+		else {
+			pipeline.setDistinctCode(dto.getDistinctCode());
+		}
 		pipeline = pipelinesRepository.save(pipeline);
 
 		// CampaignTopic 저장+ pipeline 연결
@@ -79,7 +94,8 @@ public class PipelineService {
 			campaignTopic.setCampaignId(dto.getAddcampaignTopic().getCampaignId());
 			campaignTopic.setPipelines(pipeline);
 			campaignTopic = campaignTopicRepository.save(campaignTopic);
-			CampaignConnect campaignConnect = connectCFFService.setconnectCampaign(dto.getAddcampaignTopic().getCampaignId());
+			CampaignConnect campaignConnect = connectCFFService
+					.setconnectCampaign(dto.getAddcampaignTopic().getCampaignId());
 
 			// FormatTopic 저장 + pipeline 연결
 			if (dto.getAddcampaignTopic().getAddFormatTopics() != null) {
@@ -90,7 +106,8 @@ public class PipelineService {
 					formatTopic.setCampaignTopic(campaignTopic);
 					formatTopic = formatTopicRepository.save(formatTopic);
 
-					FormatConnect formatConnect = connectCFFService.setconnectFormat(campaignConnect,formatTopic.getFormatId());
+					FormatConnect formatConnect = connectCFFService.setconnectFormat(campaignConnect,
+							formatTopic.getFormatId());
 
 					// 4. FilterTopic 저장
 					if (addformatTopicdto.getAddFilterTopics() != null) {
@@ -111,46 +128,53 @@ public class PipelineService {
 
 		return dto;
 	}
-	
-	//파이프라인 삭제 + 컨슈머 중지도 같이 보냄.
+
+	// 파이프라인 삭제 + 컨슈머 중지도 같이 보냄.
 	public boolean delpipelineAndall(Long pkid) {
-		   try {
-			   ProcessStartDTO dto = new ProcessStartDTO();
-			   dto.setId(pkid);
-			   dto.setExecutable(false);
-			   //컨슈머 중지로 호출
-			   processStartControl(dto);
-			   
-		       Pipelines pipeline = pipelinesRepository.findById(pkid)
-		           .orElseThrow(() -> new RuntimeException("Pipeline not found"));
-		       
-		       List<FilteringData> filteringDataList = filteringDataRepository.findByPipelines(pipeline);
-		       filteringDataRepository.deleteAll(filteringDataList);
-		           
-		       CampaignTopic campaignTopic = campaignTopicRepository.findByPipelinesId(pipeline.getId());
-		       if(campaignTopic != null) {
-		           List<FormatTopic> formatTopics = formatTopicRepository.findByCampaignTopic(campaignTopic);
-		           for(FormatTopic formatTopic : formatTopics) {
-		               List<FilterTopic> filterTopics = filterTopicRepository.findByFormatTopic(formatTopic);
-		               filterTopicRepository.deleteAll(filterTopics);
-		           }
-		           formatTopicRepository.deleteAll(formatTopics);
-		           
-		           campaignTopicRepository.delete(campaignTopic);
-		       }
-		       graphPipelinesConnectRepository.deleteByPipelines(pipeline);
-		       
-		       
-		       pipelinesRepository.delete(pipeline);
-		       
-		       
-		       System.out.println("Pipeline과 관련 데이터 모두 삭제 완료");
-		       return true;
-		   } catch (Exception e) {
-		       System.out.println("삭제 중 에러 발생: " + e.getMessage());
-		       return false;
-		   }
+		try {
+			ProcessStartDTO dto = new ProcessStartDTO();
+			dto.setId(pkid);
+			dto.setExecutable(false);
+			// 컨슈머 중지로 호출
+			processStartControl(dto);
+
+			Pipelines pipeline = pipelinesRepository.findById(pkid)
+					.orElseThrow(() -> new RuntimeException("Pipeline not found"));
+
+			List<FilteringData> filteringDataList = filteringDataRepository.findByPipelines(pipeline);
+			filteringDataRepository.deleteAll(filteringDataList);
+			List<FailFilteringData> failfilteringDataList = failFilteringDataRepository.findByPipelines(pipeline);
+			failFilteringDataRepository.deleteAll(failfilteringDataList);
+
+			CampaignTopic campaignTopic = campaignTopicRepository.findByPipelinesId(pipeline.getId());
+			if (campaignTopic != null) {
+				List<FormatTopic> formatTopics = formatTopicRepository.findByCampaignTopic(campaignTopic);
+				for (FormatTopic formatTopic : formatTopics) {
+					List<FilterTopic> filterTopics = filterTopicRepository.findByFormatTopic(formatTopic);
+					filterTopicRepository.deleteAll(filterTopics);
+				}
+				formatTopicRepository.deleteAll(formatTopics);
+
+				campaignTopicRepository.delete(campaignTopic);
+			}
+			graphPipelinesConnectRepository.deleteByPipelines(pipeline);
+			distinctDataRepository.deleteByPipelinesId(pkid);
+			failDistinctDataRepository.deleteByPipelinesId(pkid);
+
+			barchartRepository.deleteByPipelinesId(pkid);
+			piechartRepository.deleteByPipelinesId(pkid);
+			priceboardRepository.deleteByPipelinesId(pkid);
+			treemapRepository.deleteByPipelinesId(pkid);
+
+			pipelinesRepository.delete(pipeline);
+
+			System.out.println("Pipeline과 관련 데이터 모두 삭제 완료");
+			return true;
+		} catch (Exception e) {
+			System.out.println("삭제 중 에러 발생: " + e.getMessage());
+			return false;
 		}
+	}
 
 	// 파이프라인 목록 조회
 	public List<PipelinesDTO> findpipelinelist() {
@@ -220,17 +244,16 @@ public class PipelineService {
 
 	// 파이프라인 시작과 정지
 	public ProcessStartDTO processStartControl(ProcessStartDTO dto) {
-		log.info("dto.get id {}",dto.getId());
-		//Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
-		//entity.get().setExecutable(dto.isExecutable());
-		
-		//log.info("찾은 엔티티 {}", entity.get().getPipelineId());
+		log.info("dto.get id {}", dto.getId());
+		// Optional<Pipelines> entity = pipelinesRepository.findById(dto.getId());
+		// entity.get().setExecutable(dto.isExecutable());
+
+		// log.info("찾은 엔티티 {}", entity.get().getPipelineId());
 
 		AddPipelineDTO topics = convertSendTopicsService.findpipelinebykeyid(dto.getId());
-		
 
 		if (dto.isExecutable() == true) { // true면 실행하게 해서 이벤트 발생시켜서 토픽들 생성하고, 컨슈머 생성까지하게
-			log.info("이벤트 발생하려는 파이프라인 {}",topics.getPipelineId());
+			log.info("이벤트 발생하려는 파이프라인 {}", topics.getPipelineId());
 			eventPublisher.publishEvent(new PipelineStartEvent(this, topics));
 		} else {// false 면 중단 이벤트 발생시켜서 컨슈머 중지 시키기
 			eventPublisher.publishEvent(new PipelineStopEvent(this, topics));

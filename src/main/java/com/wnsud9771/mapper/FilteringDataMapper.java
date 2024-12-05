@@ -44,13 +44,13 @@ public interface FilteringDataMapper {
 	Long failcountByPipelineId(Long pipelineId);
 	
 	//20달러 시나리오 - 최대 금액, 최소금액 , 평균금액 - 중복제거 x
-	@Select("SELECT AVG(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId}")
+	@Select("SELECT AVG(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId} AND CAST(data AS SIGNED) > 0")
 	Long getAverageDataByPipelineId(Long pipelineId);
 
-	@Select("SELECT MIN(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId}")
+	@Select("SELECT MIN(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId} AND CAST(data AS SIGNED) > 0")
 	Long getMinDataByPipelineId(Long pipelineId);
 
-	@Select("SELECT MAX(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId}")
+	@Select("SELECT MAX(CAST(data AS SIGNED)) FROM filtering_data WHERE pipelines_id = #{pipelineId} AND CAST(data AS SIGNED) > 0")
 	Long getMaxDataByPipelineId(Long pipelineId);
 	
 
