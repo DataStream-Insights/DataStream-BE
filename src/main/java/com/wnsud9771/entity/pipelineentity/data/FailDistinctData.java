@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class DistinctData {
+public class FailDistinctData {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -20,7 +20,8 @@ public class DistinctData {
 	private String olppCode;
 	private LocalDateTime timestamp;
 	
-	private Long pipelinesId; 
+	private Long pipelinesId;
+	private String failReason;
 	
 	private String data;
 }

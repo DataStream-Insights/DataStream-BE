@@ -23,6 +23,7 @@ public class ReceiveSucfilteringController {
 	@Operation(summary = "카프카 프로젝트에서 실행후 데이터들이 filteringdata에 쌓이면 그때 받는 api", description = "각자 데이터들 테이블로 하기")
 	@PostMapping("/getsuc")
 	 public ResponseEntity<PipelineIdDTO> kafkasendbestr(@RequestBody PipelineIdDTO dto) {
+		log.info("필터링 작업다되고, 각 그래프db에 넣을 파이프라인 아이디 {}",dto.getPipelineid());
 		submitGraphsdataService.findgraphstyleandsubmit(dto.getPipelineid());
         return ResponseEntity.ok(dto);
     }

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.wnsud9771.dto.dashboard.barchart.BarchartDTO;
 import com.wnsud9771.dto.dashboard.barchart.BarchartTimeDTO;
 import com.wnsud9771.dto.dashboard.piechart.PiechartDTO;
+import com.wnsud9771.dto.dashboard.piechart.PiechartTimeDTO;
 import com.wnsud9771.dto.dashboard.priceboard.PriceboardDTO;
+import com.wnsud9771.dto.dashboard.priceboard.PriceboardTimeDTO;
 import com.wnsud9771.dto.dashboard.treemap.TreemapDTO;
 import com.wnsud9771.dto.dashboard.treemap.TreemapTimeDTO;
 import com.wnsud9771.entity.dashboard.graph.Barchart;
@@ -47,29 +49,36 @@ public class GraphDBService {
 		return dto;
 	}
 	
-	public PiechartDTO finddbpiechart(Long id) {
+	public PiechartTimeDTO finddbpiechart(Long id) {
 		return converttopiechartDTO(piechartRepository.findAllByPipelinesId(id));
 	}
 	
-	private PiechartDTO converttopiechartDTO(Piechart entity) {
-		PiechartDTO dto = new PiechartDTO();
-		dto.setSuccess(entity.getSuccess());
-		dto.setFailure(entity.getFailure());
+	private PiechartTimeDTO converttopiechartDTO(Piechart entity) {
+		PiechartTimeDTO dto = new PiechartTimeDTO();
+		PiechartDTO pdto = new PiechartDTO();
+		pdto.setSuccess(entity.getSuccess());
+		pdto.setFailure(entity.getFailure());
+		
+		dto.setPiechartDTO(pdto);
 		dto.setTimestamp(entity.getTimestamp());
 		return dto;
 	}
 	
-	public PriceboardDTO finddbpriceboard(Long id) {
+	public PriceboardTimeDTO finddbpriceboard(Long id) {
 		return converttopriceboardDTO(priceboardRepository.findAllByPipelinesId(id));
 	}
 	
-	private PriceboardDTO converttopriceboardDTO(Priceboard entity) {
+	private PriceboardTimeDTO converttopriceboardDTO(Priceboard entity) {
+		PriceboardTimeDTO tdto = new PriceboardTimeDTO();
 		PriceboardDTO dto = new PriceboardDTO();
+		
 		dto.setAverageValue(entity.getAverageValue());
 		dto.setMaxValue(entity.getMaxValue());
 		dto.setMinValue(entity.getMinValue());
-		dto.setTimestamp(entity.getTimestamp());
-		return dto;
+		
+		tdto.setPriceboardDTO(dto);
+		tdto.setTimestamp(entity.getTimestamp());
+		return tdto;
 	}
 	
 	
