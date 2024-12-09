@@ -18,7 +18,6 @@ public class ExecutableSendService {
 	public boolean sendkafkaproject(AddPipelineDTO dto) {
 		try {
 			log.info("보내려는 dto {}",dto.getPipelineId());
-			//일단 카프카 보내서 토픽만드는건 잠시 막음
 	 		restTemplate.postForObject("http://localhost:8083/ids/start", dto, AddPipelineDTO.class);	 		
 	 		return true; 
 	 	}catch (Exception e){
@@ -30,7 +29,6 @@ public class ExecutableSendService {
 	
 	public boolean stopprocesskafka(AddPipelineDTO dto) {
 		try {
-			//일단 카프카 보내서 토픽만드는건 잠시 막음
 	 		restTemplate.postForObject("http://localhost:8083/ids/stop", dto, AddPipelineDTO.class);	 		
 	 		return true; 
 	 	}catch (Exception e){
