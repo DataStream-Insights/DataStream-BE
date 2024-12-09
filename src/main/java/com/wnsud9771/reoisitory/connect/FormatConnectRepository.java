@@ -8,5 +8,6 @@ import com.wnsud9771.entity.connect.FormatConnect;
 
 public interface FormatConnectRepository extends JpaRepository<FormatConnect, Long>{
 	List<FormatConnect> findAllByCampaignConnect_Id(Long campaignConnectId);
-	FormatConnect findByCampaignConnect_IdAndFotmatKey(Long campaignConnectId,Long formatKey);
+	FormatConnect findByCampaignConnect_IdAndFotmatKey(Long campaignConnectId,Long fotmatKey);
+	void deleteByfotmatKey(Long fotmatKey);
 }

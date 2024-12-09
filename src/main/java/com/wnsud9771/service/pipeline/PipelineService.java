@@ -30,6 +30,9 @@ import com.wnsud9771.entity.pipelineentity.data.FilteringData;
 import com.wnsud9771.event.pipeline.PipelineStartEvent;
 import com.wnsud9771.event.pipeline.PipelineStopEvent;
 import com.wnsud9771.reoisitory.campaign.CampaignRepository;
+import com.wnsud9771.reoisitory.connect.CampaignConnectRepository;
+import com.wnsud9771.reoisitory.connect.FilterConnectRepository;
+import com.wnsud9771.reoisitory.connect.FormatConnectRepository;
 import com.wnsud9771.reoisitory.dashboard.BarchartRepository;
 import com.wnsud9771.reoisitory.dashboard.PiechartRepository;
 import com.wnsud9771.reoisitory.dashboard.PriceboardRepository;
@@ -71,6 +74,9 @@ public class PipelineService {
 	private final PiechartRepository piechartRepository;
 	private final PriceboardRepository priceboardRepository;
 	private final TreemapRepository treemapRepository;
+	private final CampaignConnectRepository campaignConnectRepository;
+	private final FormatConnectRepository formatConnectRepository;
+	private final FilterConnectRepository filterConnectRepository;
 
 	private final ApplicationEventPublisher eventPublisher;
 	private final ConnectCFFService connectCFFService;
@@ -165,6 +171,8 @@ public class PipelineService {
 			piechartRepository.deleteByPipelinesId(pkid);
 			priceboardRepository.deleteByPipelinesId(pkid);
 			treemapRepository.deleteByPipelinesId(pkid);
+			
+			delconnectCFF(pkid);
 
 			pipelinesRepository.delete(pipeline);
 
@@ -174,6 +182,24 @@ public class PipelineService {
 			System.out.println("삭제 중 에러 발생: " + e.getMessage());
 			return false;
 		}
+	}
+
+	// 파이프라인 삭제시 campaignconnect,formatconnect,filterconnect 지우기
+	private void delconnectCFF(Long pkid) {
+		CampaignTopic cptc = pipelinesRepository.findById(pkid).get().getCampaignTopic();
+		FormatTopic fmtc = formatTopicRepository.findByCampaignTopic(cptc).getFirst();
+
+		Long campaign_key = campaignRepository.findByCampaignId(cptc.getCampaignId()).get().getId();
+		Long format_key = formatManagementRepository
+				.findByFormatID(formatTopicRepository.findByCampaignTopic(cptc).getFirst().getFormatId()).get().getId();
+		Long filter_key = filterManagementRepository
+				.findByFilterManageId(filterTopicRepository.findByFormatTopic(fmtc).getFirst().getFilterId()).get()
+				.getId();
+
+		campaignConnectRepository.deleteBycampaignKey(campaign_key);
+		formatConnectRepository.deleteByfotmatKey(format_key);
+		filterConnectRepository.deleteByfilterKey(filter_key);
+
 	}
 
 	// 파이프라인 목록 조회
