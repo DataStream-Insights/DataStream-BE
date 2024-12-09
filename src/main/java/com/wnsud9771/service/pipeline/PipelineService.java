@@ -172,7 +172,7 @@ public class PipelineService {
 			priceboardRepository.deleteByPipelinesId(pkid);
 			treemapRepository.deleteByPipelinesId(pkid);
 			
-			delconnectCFF(pkid);
+			//delconnectCFF(pkid);
 
 			pipelinesRepository.delete(pipeline);
 
@@ -184,23 +184,23 @@ public class PipelineService {
 		}
 	}
 
-	// 파이프라인 삭제시 campaignconnect,formatconnect,filterconnect 지우기
-	private void delconnectCFF(Long pkid) {
-		CampaignTopic cptc = pipelinesRepository.findById(pkid).get().getCampaignTopic();
-		FormatTopic fmtc = formatTopicRepository.findByCampaignTopic(cptc).getFirst();
-
-		Long campaign_key = campaignRepository.findByCampaignId(cptc.getCampaignId()).get().getId();
-		Long format_key = formatManagementRepository
-				.findByFormatID(formatTopicRepository.findByCampaignTopic(cptc).getFirst().getFormatId()).get().getId();
-		Long filter_key = filterManagementRepository
-				.findByFilterManageId(filterTopicRepository.findByFormatTopic(fmtc).getFirst().getFilterId()).get()
-				.getId();
-
-		campaignConnectRepository.deleteBycampaignKey(campaign_key);
-		formatConnectRepository.deleteByfotmatKey(format_key);
-		filterConnectRepository.deleteByfilterKey(filter_key);
-
-	}
+//	// 파이프라인 삭제시 campaignconnect,formatconnect,filterconnect 지우기
+//	private void delconnectCFF(Long pkid) {
+//		CampaignTopic cptc = pipelinesRepository.findById(pkid).get().getCampaignTopic();
+//		FormatTopic fmtc = formatTopicRepository.findByCampaignTopic(cptc).getFirst();
+//
+//		Long campaign_key = campaignRepository.findByCampaignId(cptc.getCampaignId()).get().getId();
+//		Long format_key = formatManagementRepository
+//				.findByFormatID(formatTopicRepository.findByCampaignTopic(cptc).getFirst().getFormatId()).get().getId();
+//		Long filter_key = filterManagementRepository
+//				.findByFilterManageId(filterTopicRepository.findByFormatTopic(fmtc).getFirst().getFilterId()).get()
+//				.getId();
+//
+//		campaignConnectRepository.deleteBycampaignKey(campaign_key);
+//		formatConnectRepository.deleteByfotmatKey(format_key);
+//		filterConnectRepository.deleteByfilterKey(filter_key);
+//
+//	}
 
 	// 파이프라인 목록 조회
 	public List<PipelinesDTO> findpipelinelist() {
