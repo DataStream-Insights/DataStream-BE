@@ -81,9 +81,13 @@ public interface FilteringDataMapper {
 	List<OnlyTimeDTO> getTimeRangeCount(Long pipelineId);
 
 	// 요일별( 수요일,목요일, 금요일) countByDay
-	@Select("SELECT DATE_FORMAT(timestamp, '%W') as day, COUNT(*) as count " + "FROM filtering_data "
-			+ "WHERE pipelines_id = #{pipelineId} " + "GROUP BY DATE_FORMAT(timestamp, '%W') "
-			+ "ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')")
+	@Select("SELECT " +
+	        "DATE_FORMAT(timestamp, '%W') as day, " +
+	        "COUNT(DISTINCT data) as count " +
+	        "FROM filtering_data " +
+	        "WHERE pipelines_id = #{pipelineId} " +
+	        "GROUP BY DATE_FORMAT(timestamp, '%W') " +
+	        "ORDER BY FIELD(day, 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')")
 	List<VisitDayAndCountDTO> countByDay(Long pipelineid);
 
 //-----------------------------------------------------------------------------------------------------------------------------
