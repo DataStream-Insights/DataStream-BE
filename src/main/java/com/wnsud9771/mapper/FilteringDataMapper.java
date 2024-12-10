@@ -57,9 +57,14 @@ public interface FilteringDataMapper {
 //----------------------------------------------page view-----------------------------------------------------------------------------
 
 	// 날짜별 방문 수 countByDate 재방문 전부포함.
-	@Select("SELECT " + "DATE_FORMAT(timestamp, '%Y-%m-%d') as date, " + "COUNT(*) as count " + "FROM filtering_data "
-			+ "WHERE pipelines_id = #{pipelineId} " + "GROUP BY DATE_FORMAT(timestamp, '%Y-%m-%d') " + "ORDER BY date")
-	List<DateAndCountDTO> countByDate(Long pipelineId);
+	@Select("SELECT " +
+	        "DATE_FORMAT(timestamp, '%Y-%m-%d') as date, " +
+	        "COUNT(DISTINCT data) as unique_visitors_count " +
+	        "FROM filtering_data " +
+	        "WHERE pipelines_id = #{pipelineId} " +
+	        "GROUP BY DATE_FORMAT(timestamp, '%Y-%m-%d') " +
+	        "ORDER BY date")
+	List<DateAndCountDTO> countByDate(Long pipelineId);	
 
 	//
 
